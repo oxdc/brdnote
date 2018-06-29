@@ -5,9 +5,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'brdnote'
+import { loadTheme } from '@/uitls/miscellaneous'
+
+export default {
+  name: 'brdnote',
+  mounted () {
+    loadTheme('default')
   }
+}
 </script>
 
 <style>

@@ -24,7 +24,10 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "iview": "^2.14.3",
+    "katex": "^0.10.0-beta",
     "quill": "^1.3.6",
+    "simplebar": "^2.6.1",
     "vue": "^2.3.3",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
