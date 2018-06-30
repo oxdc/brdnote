@@ -4,7 +4,9 @@ A desktop note taking app
 
 ## Screenshots
 
+![screen shot 1](docs/imgs/Screenshot 1.png)
 
+![screen shot 1](docs/imgs/Screenshot 2.png)
 
 ## Build Setup
 
