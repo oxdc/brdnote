@@ -10,19 +10,35 @@
 </template>
 
 <script>
+import { getSize } from '@/uitls/miscellaneous'
 import DocumentTitle from '@/components/Document/DocumentTitle'
 
 export default {
   name: 'DocumentBody',
   components: {
     'document-title': DocumentTitle
+  },
+  mounted () {
+    this.$refs['document-body'].style.top =
+      document.getElementById('toolbar-plane').clientHeight + 'px'
+    this.$refs['document-body'].style.height =
+      getSize().height - 25 - document.getElementById('toolbar-plane').clientHeight + 'px'
+    window.addEventListener('resize', () => {
+      this.$refs['document-body'].style.top =
+        document.getElementById('toolbar-plane').clientHeight + 'px'
+      this.$refs['document-body'].style.height =
+        getSize().height - 25 - document.getElementById('toolbar-plane').clientHeight + 'px'
+    }, true)
   }
 }
 </script>
 
 <style scoped>
 .document-container {
-  height: 100%;
+  position: fixed;
+  overflow: scroll;
+  /* height: 100%; */
+  width: 100%;
   padding: 100px 0px 800px 0px;
 }
 

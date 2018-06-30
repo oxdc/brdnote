@@ -1,5 +1,5 @@
 <template>
-  <div class="toolbar-plane-container">
+  <div class="toolbar-plane-container" id="toolbar-plane">
     <div class="toolbar-plane">
       <slot>
       </slot>
@@ -22,9 +22,9 @@ export default {
 }
 
 .toolbar-plane {
-  align-self: center;
   margin: 0px auto;
   max-width: 900px;
+  width: fit-content;
   height: 100%;
 }
 </style>

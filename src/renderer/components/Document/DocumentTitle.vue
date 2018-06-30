@@ -1,12 +1,17 @@
 <template>
   <div class="title-container">
-    <input class="title" placeholder="Untitled" v-model="title">
+    <input class="title" placeholder="Untitled" v-model="title" @change="onChange">
   </div>
 </template>
 
 <script>
 export default {
   name: 'DocumentTitle',
+  methods: {
+    onChange (event) {
+      this.$store.commit('updateSavingStatus', false)
+    }
+  },
   computed: {
     title: {
       get () {
@@ -14,9 +19,9 @@ export default {
       },
       set (value) {
         if (value) {
-          this.$store.commit('changeTitle', { title: value })
+          this.$store.commit('updateTitle', { title: value })
         } else {
-          this.$store.commit('changeTitle', { title: 'untitled' })
+          this.$store.commit('updateTitle', { title: 'untitled' })
         }
       }
     }

@@ -1,6 +1,11 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  globalShortcut,
+  ipcMain
+} from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -15,14 +20,22 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+global.vuexState = null
+
+ipcMain.on('vuex-state', (e, state) => {
+  global.vuexState = state
+})
+
 function createWindow () {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000
+    height: 618,
+    width: 1000,
+    minHeight: 500,
+    minWidth: 300,
+    useContentSize: true
   })
 
   mainWindow.loadURL(winURL)
@@ -32,7 +45,15 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  globalShortcut.register('CommandOrControl+S', () => {
+    mainWindow.webContents.send('command', 'save')
+  })
+  globalShortcut.register('CommandOrControl+O', () => {
+    mainWindow.webContents.send('command', 'open')
+  })
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

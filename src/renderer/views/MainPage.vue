@@ -4,9 +4,14 @@
       <toolbar></toolbar>
     </toolbar-plane>
     <document-body>
-      <quill-editor :options="editorOption"></quill-editor>
+      <quill-editor
+       :options="editorOption"
+       @change="onChange"
+      ></quill-editor>
     </document-body>
-    <status-bar-plane></status-bar-plane>
+    <status-bar-plane>
+      <div> {{ status ? 'Saved !' : 'Press `Ctrl + S` to save.' }} </div>
+    </status-bar-plane>
   </div>
 </template>
 
@@ -26,6 +31,11 @@ export default {
     'toolbar': Toolbar,
     'status-bar-plane': StatusBarPlane
   },
+  methods: {
+    onChange (event) {
+      this.$store.commit('updateSavingStatus', false)
+    }
+  },
   computed: {
     editorOption: {
       get () {
@@ -36,6 +46,11 @@ export default {
             toolbar: '#toolbar'
           }
         }
+      }
+    },
+    status: {
+      get () {
+        return this.$store.getters.saved
       }
     }
   }

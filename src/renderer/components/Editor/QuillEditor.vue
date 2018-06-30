@@ -112,6 +112,7 @@ export default {
 
         // Instance
         this.quill = new Quill(this.$refs.editor, this._options)
+        window.editor = this.quill
         this.quill.enable(false)
 
         // Set editor content
