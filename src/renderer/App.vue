@@ -83,6 +83,8 @@ export default {
             return
           }
 
+          this.$store.commit('updatePath', { path: path })
+
           this.$store.commit('updateSavingStatus', true)
         })
       } else {
@@ -99,6 +101,8 @@ export default {
               })
               return
             }
+
+            this.$store.commit('updatePath', { path: fileName })
 
             this.$store.commit('updateSavingStatus', true)
           })
