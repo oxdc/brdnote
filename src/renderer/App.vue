@@ -13,79 +13,167 @@ export default {
   mounted () {
     loadTheme('default')
     this.initCmdHander()
+    this.initStyle()
+    this.autosave()
   },
   methods: {
-    initCmdHander () {
-      this.$electron.ipcRenderer.on('command', (event, arg) => {
-        if (arg === 'save') {
-          var content = null
+    autosave () {
+      setInterval(() => {
+        if (this.$store.getters.path) {
+          this.save()
+        }
+      }, 10000)
+    },
+    open () {
+      this.$electron.remote.dialog.showOpenDialog((fileNames) => {
+        if (fileNames === undefined || fileNames[0] === undefined) {
+          return
+        }
 
-          if (window.editor) {
-            content = JSON.stringify(window.editor.getContents(), null, 2)
-          }
-
-          var data = {
-            title: this.$store.getters.title,
-            content: content
-          }
-
-          var path = this.$store.getters.path
-
-          if (path) {
-            fs.writeFile(path, JSON.stringify(data, null, 2), (err) => {
-              if (err) {
-                console.log('An error ocurred creating the file ' + err.message)
-              }
-
-              this.$store.commit('updateSavingStatus', true)
-              console.log('The file has been succesfully saved')
+        fs.readFile(fileNames[0], 'utf-8', (err, content) => {
+          if (err) {
+            this.$Notice.error({
+              title: 'Error',
+              desc: 'An error ocurred reading the file :' + err.message
             })
             return
           }
 
-          this.$electron.remote.dialog.showSaveDialog((fileName) => {
-            if (fileName === undefined) {
-              console.log('No file selected')
+          this.$store.commit('updatePath', { path: fileNames[0] })
+
+          var data = JSON.parse(content)
+
+          if (window.editor && data.content) {
+            data.content = JSON.parse(data.content)
+            window.editor.setContents(data.content.ops)
+            this.$store.commit('updateTitle', { title: data.title })
+          } else {
+            this.$Notice.error({
+              title: 'Error',
+              desc: 'The file is not consistent with brdnote.'
+            })
+            return
+          }
+
+          this.$store.commit('updateSavingStatus', true)
+        })
+      })
+    },
+    save () {
+      var content = null
+
+      if (window.editor) {
+        content = JSON.stringify(window.editor.getContents(), null, 2)
+      }
+
+      var data = {
+        title: this.$store.getters.title,
+        content: content
+      }
+
+      var path = this.$store.getters.path
+
+      if (path) {
+        fs.writeFile(path, JSON.stringify(data, null, 2), (err) => {
+          if (err) {
+            this.$Notice.error({
+              title: 'Error',
+              desc: 'An error ocurred creating the file ' + err.message
+            })
+            return
+          }
+
+          this.$store.commit('updateSavingStatus', true)
+        })
+      } else {
+        this.$electron.remote.dialog.showSaveDialog((fileName) => {
+          if (fileName === undefined) {
+            return
+          }
+
+          fs.writeFile(fileName, JSON.stringify(data, null, 2), (err) => {
+            if (err) {
+              this.$Notice.error({
+                title: 'Error',
+                desc: 'An error ocurred creating the file ' + err.message
+              })
               return
             }
 
-            fs.writeFile(fileName, JSON.stringify(data, null, 2), (err) => {
-              if (err) {
-                console.log('An error ocurred creating the file ' + err.message)
-              }
-
-              this.$store.commit('updateSavingStatus', true)
-              console.log('The file has been succesfully saved')
-            })
+            this.$store.commit('updateSavingStatus', true)
           })
-        } else if (arg === 'open') {
-          this.$electron.remote.dialog.showOpenDialog((fileNames) => {
-            if (fileNames === undefined || fileNames[0] === undefined) {
-              console.log('No file selected')
-              return
-            }
+        })
+      }
+    },
+    close () {
+      var mainWindow = this.$electron.remote.getCurrentWindow()
 
-            fs.readFile(fileNames[0], 'utf-8', (err, content) => {
-              if (err) {
-                console.log('An error ocurred reading the file :' + err.message)
-                return
-              }
+      if (this.$store.getters.saved) {
+        mainWindow.destroy()
+      } else {
+        this.$Modal.confirm({
+          title: 'Notice',
+          content: 'Do you want to save the changes?',
+          closable: true,
+          okText: 'Save',
+          cancelText: 'Discard',
+          onOk: () => {
+            this.save()
+            mainWindow.destroy()
+          },
+          onCancel: () => {
+            mainWindow.destroy()
+          }
+        })
+      }
+    },
+    initCmdHander () {
+      this.$electron.ipcRenderer.on('command', (event, arg) => {
+        switch (arg) {
+          case 'save':
+            this.save()
+            break
 
-              this.$store.commit('updatePath', { path: fileNames[0] })
+          case 'open':
+            this.open()
+            break
 
-              var data = JSON.parse(content)
+          case 'close':
+            this.close()
+            break
 
-              if (window.editor && data.content) {
-                data.content = JSON.parse(data.content)
-                window.editor.setContents(data.content.ops)
-                this.$store.commit('updateTitle', { title: data.title })
-              }
-
-              this.$store.commit('updateSavingStatus', true)
-            })
-          })
+          default:
+            break
         }
       })
+    },
+    initStyle () {
+      function changeMargins () {
+        var notice = document.getElementsByClassName('ivu-notice')
+        if (notice) {
+          Array.from(notice).forEach((e) => {
+            e.style.marginTop = document.getElementById('toolbar-plane').clientHeight + 'px'
+          })
+        }
+        var message = document.getElementsByClassName('ivu-message')
+        if (message) {
+          Array.from(message).forEach((e) => {
+            e.style.marginTop = document.getElementById('toolbar-plane').clientHeight + 'px'
+          })
+        }
+      }
+
+      changeMargins()
+      window.addEventListener('resize', changeMargins, true)
+
+      var targetNode = document.body
+      var config = { childList: true }
+      var callback = () => {
+        changeMargins()
+      }
+
+      var observer = new MutationObserver(callback)
+      observer.observe(targetNode, config)
     }
   }
 }

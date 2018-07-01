@@ -40,8 +40,26 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
 
+  mainWindow.onbeforeunload = (e) => {
+    console.log('aa')
+    var answer = confirm('Do you really want to close the application?')
+    e.returnValue = answer // this will *prevent* the closing no matter what value is passed
+    if (answer) {
+      mainWindow.destroy()
+    } // this will close the app
+  }
+  mainWindow.on('close', (e) => {
+    e.preventDefault()
+    e.returnValue = false
+    mainWindow.webContents.send('command', 'close')
+  })
+
   mainWindow.on('closed', () => {
     mainWindow = null
+  })
+
+  ipcMain.on('vuex-state', (e, state) => {
+    global.vuexState = state
   })
 }
 
@@ -52,6 +70,9 @@ app.on('ready', () => {
   })
   globalShortcut.register('CommandOrControl+O', () => {
     mainWindow.webContents.send('command', 'open')
+  })
+  globalShortcut.register('CommandOrControl+Shift+Q', () => {
+    mainWindow.destroy()
   })
 })
 
