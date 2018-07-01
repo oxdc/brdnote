@@ -37,7 +37,9 @@ function createWindow () {
     minHeight: 500,
     minWidth: 300,
     useContentSize: true,
-    icon: path.join(__dirname, '/icon.png')
+    icon: process.env.NODE_ENV !== 'development'
+      ? path.join(__dirname, '/../../../icon.png')
+      : path.join(__dirname, '/icon.png')
   })
 
   mainWindow.loadURL(winURL)
