@@ -9,6 +9,7 @@
 // require sources
 import _Quill from 'quill'
 // import Markdown from '@/uitls/markdown.js'
+import Counter from '@/quillModules/counter'
 
 var defaultOptions = {
   theme: 'snow',
@@ -37,6 +38,8 @@ var defaultOptions = {
 
 const Quill = window.Quill || _Quill
 
+Quill.register('modules/wordcounter', Counter)
+Quill.register('modules/symbolcounter', Counter)
 // Quill.register('modules/markdown', Markdown)
 
 // pollfill

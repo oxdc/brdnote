@@ -37,7 +37,6 @@ export default {
 .document-container {
   position: fixed;
   overflow: scroll;
-  /* height: 100%; */
   width: 100%;
   padding: 100px 0px 800px 0px;
 }
