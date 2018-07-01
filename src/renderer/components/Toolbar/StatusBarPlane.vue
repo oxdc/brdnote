@@ -21,6 +21,7 @@ export default {
 
 <style scoped>
 .status-bar-plane-container {
+  overflow: hidden;
   position: fixed;
   height: 25px;
   width: 100%;

@@ -6,6 +6,7 @@ import {
   globalShortcut,
   ipcMain
 } from 'electron'
+import path from 'path'
 
 /**
  * Set `__static` path to static files in production
@@ -32,22 +33,15 @@ function createWindow () {
    */
   mainWindow = new BrowserWindow({
     height: 618,
-    width: 1000,
+    width: 1100,
     minHeight: 500,
     minWidth: 300,
-    useContentSize: true
+    useContentSize: true,
+    icon: path.join(__dirname, '/icon.png')
   })
 
   mainWindow.loadURL(winURL)
 
-  mainWindow.onbeforeunload = (e) => {
-    console.log('aa')
-    var answer = confirm('Do you really want to close the application?')
-    e.returnValue = answer // this will *prevent* the closing no matter what value is passed
-    if (answer) {
-      mainWindow.destroy()
-    } // this will close the app
-  }
   mainWindow.on('close', (e) => {
     e.preventDefault()
     e.returnValue = false
