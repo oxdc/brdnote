@@ -6,6 +6,7 @@ import {
   globalShortcut,
   ipcMain
 } from 'electron'
+import electronLocalshortcut from 'electron-localshortcut'
 import path from 'path'
 
 /**
@@ -51,6 +52,7 @@ function createWindow () {
   })
 
   mainWindow.on('closed', () => {
+    electronLocalshortcut.unregisterAll(mainWindow)
     mainWindow = null
   })
 
@@ -61,10 +63,10 @@ function createWindow () {
 
 app.on('ready', () => {
   createWindow()
-  globalShortcut.register('CommandOrControl+S', () => {
+  electronLocalshortcut.register(mainWindow, 'CommandOrControl+S', () => {
     mainWindow.webContents.send('command', 'save')
   })
-  globalShortcut.register('CommandOrControl+O', () => {
+  electronLocalshortcut.register(mainWindow, 'CommandOrControl+O', () => {
     mainWindow.webContents.send('command', 'open')
   })
   globalShortcut.register('CommandOrControl+Shift+Q', () => {
