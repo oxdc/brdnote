@@ -22,8 +22,6 @@
       <option value="huge"></option>
     </select>
 
-    <select class="ql-align"></select>
-
     <select class="ql-font"></select>
 
     <button class="ql-script" value="sub"></button>
@@ -34,6 +32,7 @@
 
     <button class="ql-indent" value="+1"></button>
     <button class="ql-indent" value="-1"></button>
+    <button class="ql-direction" value="rtl"></button>
 
     <select class="ql-color"></select>
     <select class="ql-background"></select>

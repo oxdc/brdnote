@@ -10,10 +10,18 @@ import { getSize } from '@/uitls/miscellaneous'
 
 export default {
   name: 'StatusBarPlane',
+  methods: {
+    setPosition () {
+      var statusbar = this.$refs['status-bar']
+      if (statusbar) {
+        statusbar.style.top = getSize().height - 25 + 'px'
+      }
+    }
+  },
   mounted () {
-    this.$refs['status-bar'].style.top = getSize().height - 25 + 'px'
+    this.setPosition()
     window.addEventListener('resize', () => {
-      this.$refs['status-bar'].style.top = getSize().height - 25 + 'px'
+      this.setPosition()
     }, true)
   }
 }

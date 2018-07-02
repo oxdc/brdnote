@@ -18,16 +18,20 @@ export default {
   components: {
     'document-title': DocumentTitle
   },
+  methods: {
+    setDocumentPosition () {
+      var documentBody = this.$refs['document-body']
+      var toolbar = document.getElementById('toolbar-plane')
+      if (documentBody && toolbar) {
+        documentBody.style.top = toolbar.clientHeight + 'px'
+        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+      }
+    }
+  },
   mounted () {
-    this.$refs['document-body'].style.top =
-      document.getElementById('toolbar-plane').clientHeight + 'px'
-    this.$refs['document-body'].style.height =
-      getSize().height - 25 - document.getElementById('toolbar-plane').clientHeight + 'px'
+    this.setDocumentPosition()
     window.addEventListener('resize', () => {
-      this.$refs['document-body'].style.top =
-        document.getElementById('toolbar-plane').clientHeight + 'px'
-      this.$refs['document-body'].style.height =
-        getSize().height - 25 - document.getElementById('toolbar-plane').clientHeight + 'px'
+      this.setDocumentPosition()
     }, true)
   }
 }

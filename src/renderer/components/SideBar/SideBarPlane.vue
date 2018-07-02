@@ -9,16 +9,20 @@ import { getSize } from '@/uitls/miscellaneous'
 
 export default {
   name: 'SideBarPlane',
+  methods: {
+    setPosition () {
+      var sidebar = this.$refs['sidebar-plane']
+      var toolbar = document.getElementById('toolbar-plane')
+      if (sidebar && toolbar) {
+        sidebar.style.top = toolbar.clientHeight + 'px'
+        sidebar.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+      }
+    }
+  },
   mounted () {
-    this.$refs['sidebar-plane'].style.top =
-      document.getElementById('toolbar-plane').clientHeight + 'px'
-    this.$refs['sidebar-plane'].style.height =
-      getSize().height - 25 - document.getElementById('toolbar-plane').clientHeight + 'px'
+    this.setPosition()
     window.addEventListener('resize', () => {
-      this.$refs['sidebar-plane'].style.top =
-        document.getElementById('toolbar-plane').clientHeight + 'px'
-      this.$refs['sidebar-plane'].style.height =
-        getSize().height - 25 - document.getElementById('toolbar-plane').clientHeight + 'px'
+      this.setPosition()
     }, true)
   }
 }

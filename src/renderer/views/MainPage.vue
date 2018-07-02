@@ -3,7 +3,7 @@
     <toolbar-plane>
       <toolbar></toolbar>
     </toolbar-plane>
-    <document-body>
+    <document-body id="document-body">
       <quill-editor
        :options="editorOption"
        @change="onChange"
@@ -58,7 +58,11 @@ export default {
       get () {
         return {
           theme: 'snow',
+          scrollingContainer: '#document-body',
           modules: {
+            syntax: {
+              highlight: text => window.hljs.highlightAuto(text).value
+            },
             formula: true,
             toolbar: '#toolbar',
             wordcounter: {

@@ -154,15 +154,16 @@ export default {
     initStyle () {
       function changeMargins () {
         var notice = document.getElementsByClassName('ivu-notice')
+        var toolbar = document.getElementById('toolbar-plane')
         if (notice) {
           Array.from(notice).forEach((e) => {
-            e.style.marginTop = document.getElementById('toolbar-plane').clientHeight + 'px'
+            e.style.marginTop = toolbar.clientHeight + 'px'
           })
         }
         var message = document.getElementsByClassName('ivu-message')
         if (message) {
           Array.from(message).forEach((e) => {
-            e.style.marginTop = document.getElementById('toolbar-plane').clientHeight + 'px'
+            e.style.marginTop = toolbar.clientHeight + 'px'
           })
         }
       }

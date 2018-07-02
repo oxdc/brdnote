@@ -8,6 +8,9 @@ import store from './store'
 import 'simplebar'
 import 'simplebar/dist/simplebar.css'
 
+import hljs from 'highlight.js'
+import 'highlight.js/styles/vs2015.css'
+
 import iView from 'iview'
 import locale from 'iview/dist/locale/en-US'
 
@@ -22,7 +25,9 @@ import 'iview/dist/styles/iview.css'
 import 'katex/dist/katex.min.css'
 
 import katex from 'katex'
+
 window.katex = katex
+window.hljs = hljs
 
 Vue.use(iView, { locale })
 
