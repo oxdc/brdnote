@@ -52,7 +52,6 @@ function createWindow () {
   })
 
   mainWindow.on('closed', () => {
-    electronLocalshortcut.unregisterAll(mainWindow)
     mainWindow = null
   })
 

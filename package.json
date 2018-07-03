@@ -29,6 +29,7 @@
     "iview": "^2.14.3",
     "katex": "^0.10.0-beta",
     "quill": "^1.3.6",
+    "quill-blot-formatter": "^1.0.5",
     "simplebar": "^2.6.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",

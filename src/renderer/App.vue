@@ -24,7 +24,7 @@ export default {
         }
       }, 10000)
     },
-    open () {
+    open (callback) {
       this.$electron.remote.dialog.showOpenDialog((fileNames) => {
         if (fileNames === undefined || fileNames[0] === undefined) {
           return
@@ -56,10 +56,14 @@ export default {
           }
 
           this.$store.commit('updateSavingStatus', true)
+
+          if (typeof callback === 'function') {
+            callback()
+          }
         })
       })
     },
-    save () {
+    save (callback) {
       var content = null
 
       if (window.editor) {
@@ -86,6 +90,10 @@ export default {
           this.$store.commit('updatePath', { path: path })
 
           this.$store.commit('updateSavingStatus', true)
+
+          if (typeof callback === 'function') {
+            callback()
+          }
         })
       } else {
         this.$electron.remote.dialog.showSaveDialog((fileName) => {
@@ -105,6 +113,10 @@ export default {
             this.$store.commit('updatePath', { path: fileName })
 
             this.$store.commit('updateSavingStatus', true)
+
+            if (typeof callback === 'function') {
+              callback()
+            }
           })
         })
       }
@@ -122,8 +134,9 @@ export default {
           okText: 'Save',
           cancelText: 'Discard',
           onOk: () => {
-            this.save()
-            mainWindow.destroy()
+            this.save(() => {
+              mainWindow.destroy()
+            })
           },
           onCancel: () => {
             mainWindow.destroy()

@@ -6,11 +6,25 @@
 </template>
 
 <script>
-// require sources
-import _Quill from 'quill'
-// import Markdown from '@/uitls/markdown.js'
+import Quill from 'quill'
+// styles
+import ImageFormat from '@/quillModules/extendimg'
+import VideoFormat from '@/quillModules/extendvideo'
+// modules
+// import Markdown from '@/quillModules/markdown.js'
 import Counter from '@/quillModules/counter'
+import BlotFormatter from 'quill-blot-formatter'
 
+// styles
+Quill.register(ImageFormat, true)
+Quill.register(VideoFormat, true)
+// modules
+// Quill.register('modules/markdown', Markdown)
+Quill.register('modules/wordcounter', Counter)
+Quill.register('modules/symbolcounter', Counter)
+Quill.register('modules/blotFormatter', BlotFormatter)
+
+// Options
 var defaultOptions = {
   theme: 'snow',
   boundary: document.body,
@@ -35,12 +49,6 @@ var defaultOptions = {
   placeholder: 'Insert text here ...',
   readOnly: false
 }
-
-const Quill = window.Quill || _Quill
-
-Quill.register('modules/wordcounter', Counter)
-Quill.register('modules/symbolcounter', Counter)
-// Quill.register('modules/markdown', Markdown)
 
 // pollfill
 if (typeof Object.assign !== 'function') {

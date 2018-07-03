@@ -72,7 +72,13 @@ export default {
             symbolcounter: {
               container: '#symbol-counter',
               unit: 'symbol'
-            }
+            },
+            history: {
+              delay: 1000,
+              maxStack: 500,
+              userOnly: false
+            },
+            blotFormatter: {}
           }
         }
       }
