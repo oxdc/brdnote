@@ -2,6 +2,7 @@
   <div class="document-container" ref="document-body">
     <div class="document-body">
       <document-title></document-title>
+      <tag-bar-plane></tag-bar-plane>
       <div class="content-container">
         <slot></slot>
       </div>
@@ -12,11 +13,13 @@
 <script>
 import { getSize } from '@/uitls/miscellaneous'
 import DocumentTitle from '@/components/Document/DocumentTitle'
+import TagBarPlane from '@/components/TagBar/TagBarPlane'
 
 export default {
   name: 'DocumentBody',
   components: {
-    'document-title': DocumentTitle
+    'document-title': DocumentTitle,
+    'tag-bar-plane': TagBarPlane
   },
   methods: {
     setDocumentPosition () {

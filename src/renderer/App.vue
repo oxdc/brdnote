@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import fs from 'fs'
 import { loadTheme } from '@/uitls/miscellaneous'
+import commands from '@/uitls/commands'
 
 export default {
   name: 'brdnote',
@@ -20,143 +20,23 @@ export default {
     autosave () {
       setInterval(() => {
         if (this.$store.getters.path) {
-          this.save()
+          commands.save(this.$root)
         }
       }, 10000)
-    },
-    open (callback) {
-      this.$electron.remote.dialog.showOpenDialog((fileNames) => {
-        if (fileNames === undefined || fileNames[0] === undefined) {
-          return
-        }
-
-        fs.readFile(fileNames[0], 'utf-8', (err, content) => {
-          if (err) {
-            this.$Notice.error({
-              title: 'Error',
-              desc: 'An error ocurred reading the file :' + err.message
-            })
-            return
-          }
-
-          this.$store.commit('updatePath', { path: fileNames[0] })
-
-          var data = JSON.parse(content)
-
-          if (window.editor && data.content) {
-            data.content = JSON.parse(data.content)
-            window.editor.setContents(data.content.ops)
-            this.$store.commit('updateTitle', { title: data.title })
-          } else {
-            this.$Notice.error({
-              title: 'Error',
-              desc: 'The file is not consistent with brdnote.'
-            })
-            return
-          }
-
-          this.$store.commit('updateSavingStatus', true)
-
-          if (typeof callback === 'function') {
-            callback()
-          }
-        })
-      })
-    },
-    save (callback) {
-      var content = null
-
-      if (window.editor) {
-        content = JSON.stringify(window.editor.getContents(), null, 2)
-      }
-
-      var data = {
-        title: this.$store.getters.title,
-        content: content
-      }
-
-      var path = this.$store.getters.path
-
-      if (path) {
-        fs.writeFile(path, JSON.stringify(data, null, 2), (err) => {
-          if (err) {
-            this.$Notice.error({
-              title: 'Error',
-              desc: 'An error ocurred creating the file ' + err.message
-            })
-            return
-          }
-
-          this.$store.commit('updatePath', { path: path })
-
-          this.$store.commit('updateSavingStatus', true)
-
-          if (typeof callback === 'function') {
-            callback()
-          }
-        })
-      } else {
-        this.$electron.remote.dialog.showSaveDialog((fileName) => {
-          if (fileName === undefined) {
-            return
-          }
-
-          fs.writeFile(fileName, JSON.stringify(data, null, 2), (err) => {
-            if (err) {
-              this.$Notice.error({
-                title: 'Error',
-                desc: 'An error ocurred creating the file ' + err.message
-              })
-              return
-            }
-
-            this.$store.commit('updatePath', { path: fileName })
-
-            this.$store.commit('updateSavingStatus', true)
-
-            if (typeof callback === 'function') {
-              callback()
-            }
-          })
-        })
-      }
-    },
-    close () {
-      var mainWindow = this.$electron.remote.getCurrentWindow()
-
-      if (this.$store.getters.saved) {
-        mainWindow.destroy()
-      } else {
-        this.$Modal.confirm({
-          title: 'Notice',
-          content: 'Do you want to save the changes?',
-          closable: true,
-          okText: 'Save',
-          cancelText: 'Discard',
-          onOk: () => {
-            this.save(() => {
-              mainWindow.destroy()
-            })
-          },
-          onCancel: () => {
-            mainWindow.destroy()
-          }
-        })
-      }
     },
     initCmdHander () {
       this.$electron.ipcRenderer.on('command', (event, arg) => {
         switch (arg) {
           case 'save':
-            this.save()
+            commands.save(this.$root)
             break
 
           case 'open':
-            this.open()
+            commands.open(this.$root)
             break
 
           case 'close':
-            this.close()
+            commands.close(this.$root)
             break
 
           default:

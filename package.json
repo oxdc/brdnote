@@ -31,6 +31,7 @@
     "quill": "^1.3.6",
     "quill-blot-formatter": "^1.0.5",
     "simplebar": "^2.6.1",
+    "uuid-js": "^0.7.5",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",

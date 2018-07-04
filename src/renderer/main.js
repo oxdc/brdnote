@@ -22,9 +22,8 @@ import '@/assets/Themes/Quill/quill.bubble.css'
 
 import 'iview/dist/styles/iview.css'
 
-import 'katex/dist/katex.min.css'
-
 import katex from 'katex'
+import 'katex/dist/katex.min.css'
 
 window.katex = katex
 window.hljs = hljs
