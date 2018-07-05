@@ -14,6 +14,8 @@ import 'highlight.js/styles/vs2015.css'
 import iView from 'iview'
 import locale from 'iview/dist/locale/en-US'
 
+import '@/quillModules/formats/focus.css'
+
 import '@/assets/Themes/base.css'
 import '@/assets/Themes/default.css'
 import '@/assets/Themes/Quill/quill.core.css'

@@ -8,7 +8,14 @@ export function open (vueRoot, callback) {
     return
   }
 
-  remote.dialog.showOpenDialog((fileNames) => {
+  remote.dialog.showOpenDialog({
+    filters: [
+      { name: 'Notes', extensions: ['brdnote'] },
+      { name: 'Notebooks', extensions: ['brdnb'] },
+      { name: 'Plain texts', extensions: ['txt', 'md'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  }, (fileNames) => {
     if (fileNames === undefined || fileNames[0] === undefined) {
       return
     }

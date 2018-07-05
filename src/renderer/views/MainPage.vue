@@ -64,7 +64,10 @@ export default {
               highlight: text => window.hljs.highlightAuto(text).value
             },
             formula: true,
-            toolbar: '#toolbar',
+            toolbar: {
+              container: '#toolbar',
+              handlers: {'emoji': () => {}}
+            },
             wordcounter: {
               container: '#word-counter',
               unit: 'word'
@@ -78,7 +81,12 @@ export default {
               maxStack: 500,
               userOnly: false
             },
-            blotFormatter: {}
+            blotFormatter: {},
+            markdownShortcuts: {},
+            magicUrl: true,
+            focus: {
+              focusClass: 'focused-blot'
+            }
           }
         }
       }
@@ -102,7 +110,7 @@ export default {
       if (distance % remindingTime === 0) {
         this.$Message.info({
           content: 'You have been working for ' + this.timer + ', you\'d better take a break.',
-          duration: 10
+          duration: 15
         })
       }
     }, 1000)

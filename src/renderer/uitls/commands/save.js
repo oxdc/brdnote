@@ -43,7 +43,14 @@ export function save (vueRoot, callback) {
       }
     })
   } else {
-    remote.dialog.showSaveDialog((fileName) => {
+    remote.dialog.showSaveDialog({
+      filters: [
+        { name: 'Notes', extensions: ['brdnote'] },
+        { name: 'Notebooks', extensions: ['brdnb'] },
+        { name: 'Plain texts', extensions: ['txt', 'md'] },
+        { name: 'All Files', extensions: ['*'] }
+      ]
+    }, (fileName) => {
       if (fileName === undefined) {
         return
       }

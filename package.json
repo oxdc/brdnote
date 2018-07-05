@@ -30,6 +30,7 @@
     "katex": "^0.10.0-beta",
     "quill": "^1.3.6",
     "quill-blot-formatter": "^1.0.5",
+    "quill-emoji": "0.0.9",
     "simplebar": "^2.6.1",
     "uuid-js": "^0.7.5",
     "vue": "^2.5.16",
