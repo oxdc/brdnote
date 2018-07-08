@@ -15,7 +15,7 @@ import MarkdownShortcuts from '@/quillModules/markdown.js'
 import Counter from '@/quillModules/counter'
 import BlotFormatter from 'quill-blot-formatter'
 import MagicUrl from '@/quillModules/magicurl'
-import Focus from '@/quillModules/focus'
+// import Focus from '@/quillModules/focus'
 // import 'quill-emoji'
 
 // styles
@@ -27,7 +27,7 @@ Quill.register('modules/wordcounter', Counter)
 Quill.register('modules/symbolcounter', Counter)
 Quill.register('modules/blotFormatter', BlotFormatter)
 Quill.register('modules/magicUrl', MagicUrl)
-Quill.register('modules/focus', Focus)
+// Quill.register('modules/focus', Focus)
 // Quill.register('modules/toolbar_emoji', ToolbarEmoji)
 
 // Options

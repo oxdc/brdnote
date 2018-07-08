@@ -83,10 +83,7 @@ export default {
             },
             blotFormatter: {},
             markdownShortcuts: {},
-            magicUrl: true,
-            focus: {
-              focusClass: 'focused-blot'
-            }
+            magicUrl: true
           }
         }
       }

@@ -16,7 +16,27 @@
        @click="onClickHome"
       ></Button>
     </Tooltip>
-    <Tooltip content="Document details" placement="right">
+    <!-- <Tooltip content="Document details" placement="right">
+      <Button
+       v-show="visible"
+       type="default"
+       shape="circle"
+       icon="information"
+       class="sidebar-btn"
+      ></Button>
+    </Tooltip>
+    <Tooltip content="Explorer" placement="right">
+      <Button
+       v-show="visible"
+       type="default"
+       shape="circle"
+       icon="android-document"
+       class="sidebar-btn"
+      ></Button>
+    </Tooltip>
+    <Tooltip content="Outline" placement="right">
+      <Button
+       v-show="visible" details" placement="right">
       <Button
        v-show="visible"
        type="default"
@@ -61,6 +81,30 @@
        class="sidebar-btn"
       ></Button>
     </Tooltip>
+       type="default"
+       shape="circle"
+       icon="android-list"
+       class="sidebar-btn"
+      ></Button>
+    </Tooltip>
+    <Tooltip content="Search" placement="right">
+      <Button
+       v-show="visible"
+       type="default"
+       shape="circle"
+       icon="ios-search-strong"
+       class="sidebar-btn"
+      ></Button>
+    </Tooltip>
+    <Tooltip content="Settings" placement="right">
+      <Button
+       v-show="visible"
+       type="default"
+       shape="circle"
+       icon="settings"
+       class="sidebar-btn"
+      ></Button>
+    </Tooltip> -->
   </div>
 </template>
 
