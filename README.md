@@ -6,7 +6,12 @@ A desktop note taking app
 
 ![screen shot 1](https://raw.githubusercontent.com/oxdc/brdnote/master/docs/imgs/Screenshot%201.png)
 
-![screen shot 1](https://raw.githubusercontent.com/oxdc/brdnote/master/docs/imgs/Screenshot%202.png)
+## Features
+
++ Markdown shortcuts
++ Rich texts
++ KATEX supported
++ Embed videos and images
 
 ## Build Setup
 
