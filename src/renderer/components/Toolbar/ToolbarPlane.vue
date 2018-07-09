@@ -23,7 +23,6 @@ export default {
 
 .toolbar-plane {
   margin: 0px auto;
-  max-width: 900px;
   width: fit-content;
   height: 100%;
 }
