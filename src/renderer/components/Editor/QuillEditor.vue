@@ -11,7 +11,8 @@ import Quill from 'quill'
 import ImageFormat from '@/quillModules/extendimg'
 import VideoFormat from '@/quillModules/extendvideo'
 // modules
-import MarkdownShortcuts from '@/quillModules/markdown.js'
+import MarkdownShortcuts from '@/quillModules/markdown'
+import MarkPlusShortcuts from '@/quillModules/markplus'
 import Counter from '@/quillModules/counter'
 import BlotFormatter from 'quill-blot-formatter'
 import MagicUrl from '@/quillModules/magicurl'
@@ -23,6 +24,7 @@ Quill.register(ImageFormat, true)
 Quill.register(VideoFormat, true)
 // modules
 Quill.register('modules/markdownShortcuts', MarkdownShortcuts)
+Quill.register('modules/markplusShortcuts', MarkPlusShortcuts)
 Quill.register('modules/wordcounter', Counter)
 Quill.register('modules/symbolcounter', Counter)
 Quill.register('modules/blotFormatter', BlotFormatter)

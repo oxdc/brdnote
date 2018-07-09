@@ -1,9 +1,13 @@
 <template>
-  <div class="sidebar-plane" ref="sidebar-plane">
+  <div
+   :class="{
+     'sidebar-plane': true,
+     'sidebar-plane-active': visible
+    }"
+   ref="sidebar-plane">
     <Tooltip
      :content="visible ? 'Hide': 'Home'"
-     placement="right"
-    >
+     placement="right">
       <Button
        :type="visible ? 'error' : 'primary'"
        shape="circle"
@@ -13,98 +17,63 @@
          'sidebar-toggle-btn-open': visible,
          'sidebar-toggle-btn-close': !visible
         }"
-       @click="onClickHome"
-      ></Button>
+       @click="onClickHome">
+      </Button>
     </Tooltip>
-    <!-- <Tooltip content="Document details" placement="right">
+    <Tooltip content="Document details" placement="right">
       <Button
        v-show="visible"
-       type="default"
+       :type="view === 1 ? 'primary' : 'default'"
        shape="circle"
        icon="information"
        class="sidebar-btn"
-      ></Button>
+       @click="onView(1)">
+      </Button>
     </Tooltip>
     <Tooltip content="Explorer" placement="right">
       <Button
        v-show="visible"
-       type="default"
+       :type="view === 2 ? 'primary' : 'default'"
        shape="circle"
        icon="android-document"
        class="sidebar-btn"
-      ></Button>
-    </Tooltip>
-    <Tooltip content="Outline" placement="right">
-      <Button
-       v-show="visible" details" placement="right">
-      <Button
-       v-show="visible"
-       type="default"
-       shape="circle"
-       icon="information"
-       class="sidebar-btn"
-      ></Button>
-    </Tooltip>
-    <Tooltip content="Explorer" placement="right">
-      <Button
-       v-show="visible"
-       type="default"
-       shape="circle"
-       icon="android-document"
-       class="sidebar-btn"
-      ></Button>
+       @click="onView(2)">
+      </Button>
     </Tooltip>
     <Tooltip content="Outline" placement="right">
       <Button
        v-show="visible"
-       type="default"
+       :type="view === 3 ? 'primary' : 'default'"
        shape="circle"
        icon="android-list"
        class="sidebar-btn"
-      ></Button>
+       @click="onView(3)">
+      </Button>
     </Tooltip>
-    <Tooltip content="Search" placement="right">
+    <Tooltip content="Searching" placement="right">
       <Button
        v-show="visible"
-       type="default"
+       :type="view === 4 ? 'primary' : 'default'"
        shape="circle"
        icon="ios-search-strong"
        class="sidebar-btn"
-      ></Button>
+       @click="onView(4)">
+      </Button>
     </Tooltip>
     <Tooltip content="Settings" placement="right">
       <Button
        v-show="visible"
-       type="default"
+       :type="view === 5 ? 'primary' : 'default'"
        shape="circle"
        icon="settings"
        class="sidebar-btn"
-      ></Button>
+       @click="onView(5)">
+      </Button>
     </Tooltip>
-       type="default"
-       shape="circle"
-       icon="android-list"
-       class="sidebar-btn"
-      ></Button>
-    </Tooltip>
-    <Tooltip content="Search" placement="right">
-      <Button
-       v-show="visible"
-       type="default"
-       shape="circle"
-       icon="ios-search-strong"
-       class="sidebar-btn"
-      ></Button>
-    </Tooltip>
-    <Tooltip content="Settings" placement="right">
-      <Button
-       v-show="visible"
-       type="default"
-       shape="circle"
-       icon="settings"
-       class="sidebar-btn"
-      ></Button>
-    </Tooltip> -->
+    <Card class="sidebar-explorer" id="sidebar-explorer" v-show="visible" data-simplebar>
+      <p slot="title"> {{ titles[view] }} </p>
+      <p>Coming soon ...</p>
+    </Card>
   </div>
 </template>
 
@@ -115,20 +84,37 @@ export default {
   name: 'SideBarPlane',
   data () {
     return {
-      visible: false
+      visible: false,
+      view: 1
     }
   },
   methods: {
     setPosition () {
       var sidebar = this.$refs['sidebar-plane']
       var toolbar = document.getElementById('toolbar-plane')
-      if (sidebar && toolbar) {
+      var sidebarexplorer = document.getElementById('sidebar-explorer')
+      var documentBody = document.getElementById('document-body')
+      if (sidebar && toolbar && sidebarexplorer) {
         sidebar.style.top = toolbar.clientHeight + 'px'
         sidebar.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+        sidebarexplorer.style.top = toolbar.clientHeight + 'px'
+        sidebarexplorer.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+      }
+      if (documentBody) {
+        if (this.visible) {
+          documentBody.style.left = sidebarexplorer.clientWidth + 62 + 'px'
+          documentBody.style.width = getSize().width - sidebarexplorer.clientWidth - 62 + 'px'
+        } else {
+          documentBody.style.left = 0 + 'px'
+          documentBody.style.width = getSize().width + 'px'
+        }
       }
     },
     onClickHome (event) {
       this.visible = !this.visible
+    },
+    onView (view) {
+      this.view = view
     }
   },
   mounted () {
@@ -136,6 +122,28 @@ export default {
     window.addEventListener('resize', () => {
       this.setPosition()
     }, true)
+
+    var targetNode = this.$refs['sidebar-plane']
+    var config = { attributes: true, childList: true, subtree: true }
+    var callback = () => {
+      this.setPosition()
+    }
+
+    var observer = new MutationObserver(callback)
+    observer.observe(targetNode, config)
+  },
+  computed: {
+    titles: {
+      get () {
+        return {
+          '1': 'Document details',
+          '2': 'Explorer',
+          '3': 'Outline',
+          '4': 'Searching',
+          '5': 'Settings'
+        }
+      }
+    }
   }
 }
 </script>
@@ -148,6 +156,10 @@ export default {
   background: transparent;
   outline: none;
   border: none;
+}
+
+.sidebar-plane-active {
+  background: rgb(222, 222, 222) !important;
 }
 
 .sidebar-btn {
@@ -164,5 +176,13 @@ export default {
 
 .sidebar-toggle-btn-close {
   box-shadow: 0px 0px 8px rgb(45, 140, 240);
+}
+
+.sidebar-explorer {
+  left: 62px;
+  min-width: 260px;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="document-container" ref="document-body">
+  <div class="document-container" ref="document-body" id="document-body">
     <div class="document-body">
       <document-title></document-title>
       <tag-bar-plane></tag-bar-plane>

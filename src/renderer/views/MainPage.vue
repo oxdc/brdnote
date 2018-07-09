@@ -83,6 +83,7 @@ export default {
             },
             blotFormatter: {},
             markdownShortcuts: {},
+            markplusShortcuts: {},
             magicUrl: true
           }
         }
