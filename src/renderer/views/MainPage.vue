@@ -1,12 +1,13 @@
 <template>
   <div>
-    <toolbar-plane>
-      <toolbar></toolbar>
-    </toolbar-plane>
     <document-body id="document-body">
+      <toolbar-plane slot="toolbar">
+        <toolbar></toolbar>
+      </toolbar-plane>
       <quill-editor
        :options="editorOption"
        @change="onChange"
+       slot="content"
       ></quill-editor>
     </document-body>
     <status-bar-plane>

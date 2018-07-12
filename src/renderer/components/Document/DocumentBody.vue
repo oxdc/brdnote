@@ -1,10 +1,11 @@
 <template>
   <div class="document-container" ref="document-body" id="document-body">
+    <slot name="toolbar"></slot>
     <div class="document-body">
       <document-title></document-title>
       <tag-bar-plane></tag-bar-plane>
       <div class="content-container">
-        <slot></slot>
+        <slot name="content"></slot>
       </div>
     </div>
   </div>
@@ -24,10 +25,8 @@ export default {
   methods: {
     setDocumentPosition () {
       var documentBody = this.$refs['document-body']
-      var toolbar = document.getElementById('toolbar-plane')
-      if (documentBody && toolbar) {
-        documentBody.style.top = toolbar.clientHeight + 'px'
-        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+      if (documentBody) {
+        documentBody.style.height = getSize().height - 25 + 'px'
       }
     }
   },

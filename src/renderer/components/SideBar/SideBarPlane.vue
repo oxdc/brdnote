@@ -2,6 +2,7 @@
   <div
    :class="{
      'sidebar-plane': true,
+     'noselect': true,
      'sidebar-plane-active': visible
     }"
    ref="sidebar-plane">
@@ -9,13 +10,12 @@
      :content="visible ? 'Hide': 'Home'"
      placement="right">
       <Button
-       :type="visible ? 'error' : 'primary'"
+       :type="visible ? 'text' : 'primary'"
        shape="circle"
        :icon="visible ? 'close-round' : 'home'"
        :class="{
          'sidebar-btn': true,
-         'sidebar-toggle-btn-open': visible,
-         'sidebar-toggle-btn-close': !visible
+         'sidebar-toggle-btn-open': visible
         }"
        @click="onClickHome">
       </Button>
@@ -72,16 +72,21 @@
     </Tooltip>
     <Card class="sidebar-explorer" id="sidebar-explorer" v-show="visible" data-simplebar>
       <p slot="title"> {{ titles[view] }} </p>
-      <p>Coming soon ...</p>
+      <side-bar-outline  v-show="view === 3"></side-bar-outline>
+      <p v-show="view !== 3"> Comming soon </p>
     </Card>
   </div>
 </template>
 
 <script>
 import { getSize } from '@/uitls/miscellaneous'
+import SideBarOutline from '@/components/SideBar/SideBarOutline'
 
 export default {
   name: 'SideBarPlane',
+  components: {
+    'side-bar-outline': SideBarOutline
+  },
   data () {
     return {
       visible: false,
@@ -94,19 +99,19 @@ export default {
       var toolbar = document.getElementById('toolbar-plane')
       var sidebarexplorer = document.getElementById('sidebar-explorer')
       var documentBody = document.getElementById('document-body')
-      if (sidebar && toolbar && sidebarexplorer) {
-        sidebar.style.top = toolbar.clientHeight + 'px'
-        sidebar.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
-        sidebarexplorer.style.top = toolbar.clientHeight + 'px'
-        sidebarexplorer.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+      if (sidebar && sidebarexplorer) {
+        sidebar.style.height = getSize().height - 25 + 'px'
+        sidebarexplorer.style.height = getSize().height - 25 + 'px'
       }
-      if (documentBody) {
+      if (documentBody && sidebar && toolbar) {
         if (this.visible) {
+          sidebar.style.paddingTop = 15 + 'px'
           documentBody.style.left = sidebarexplorer.clientWidth + 62 + 'px'
-          documentBody.style.width = getSize().width - sidebarexplorer.clientWidth - 62 + 'px'
+          toolbar.style.width = documentBody.style.width = getSize().width - sidebarexplorer.clientWidth - 62 + 'px'
         } else {
+          sidebar.style.paddingTop = toolbar.clientHeight + 15 + 'px'
           documentBody.style.left = 0 + 'px'
-          documentBody.style.width = getSize().width + 'px'
+          toolbar.style.width = documentBody.style.width = getSize().width + 'px'
         }
       }
     },
@@ -159,7 +164,7 @@ export default {
 }
 
 .sidebar-plane-active {
-  background: rgb(222, 222, 222) !important;
+  background: rgb(240, 240, 240) !important;
 }
 
 .sidebar-btn {
@@ -170,19 +175,28 @@ export default {
   margin-top: 0px;
 }
 
-.sidebar-toggle-btn-open {
-  box-shadow: 0px 0px 8px rgb(237, 63, 20);
-}
-
 .sidebar-toggle-btn-close {
   box-shadow: 0px 0px 8px rgb(45, 140, 240);
 }
 
 .sidebar-explorer {
+  top: 0px;
   left: 62px;
   min-width: 260px;
+  max-width: 400px;
+  border-radius: 0px !important;
   position: fixed;
   overflow-x: hidden;
   overflow-y: scroll;
+  resize: horizontal;
+  background: rgb(222, 222, 222) !important;
+}
+
+.sidebar-explorer > .simplebar-track {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2px !important;
 }
 </style>
