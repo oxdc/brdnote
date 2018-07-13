@@ -37,6 +37,7 @@
       <button class="ql-code-block"></button>
       <button class="ql-list" value="ordered"></button>
       <button class="ql-list" value="bullet"></button>
+      <button class="ql-list" value="check"></button>
     </span>
 
     <span class="ql-formats">

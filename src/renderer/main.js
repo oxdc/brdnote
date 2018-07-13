@@ -21,6 +21,7 @@ import '@/assets/Themes/default.css'
 import '@/assets/Themes/Quill/quill.core.css'
 import '@/assets/Themes/Quill/quill.snow.css'
 import '@/assets/Themes/Quill/quill.bubble.css'
+import '@/assets/Themes/Quill/quill.extend.css'
 
 import 'iview/dist/styles/iview.css'
 
