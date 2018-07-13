@@ -16,8 +16,11 @@ import MarkPlusShortcuts from '@/quillModules/markplus'
 import Counter from '@/quillModules/counter'
 import BlotFormatter from 'quill-blot-formatter'
 import MagicUrl from '@/quillModules/magicurl'
+import EmojiBlot from '@/quillModules/emoji/format-emoji-blot'
+import ShortNameEmoji from '@/quillModules/emoji/module-emoji'
+import ToolbarEmoji from '@/quillModules/emoji/module-toolbar-emoji'
+import TextAreaEmoji from '@/quillModules/emoji/module-textarea-emoji'
 // import Focus from '@/quillModules/focus'
-// import 'quill-emoji'
 
 // styles
 Quill.register(ImageFormat, true)
@@ -29,8 +32,12 @@ Quill.register('modules/wordcounter', Counter)
 Quill.register('modules/symbolcounter', Counter)
 Quill.register('modules/blotFormatter', BlotFormatter)
 Quill.register('modules/magicUrl', MagicUrl)
+Quill.register('modules/textAreaEmoji', TextAreaEmoji)
+Quill.register('formats/emoji', EmojiBlot)
+Quill.register('modules/emojiShortname', ShortNameEmoji)
+Quill.register('modules/emojiToolbar', ToolbarEmoji)
+Quill.register('modules/emojiTextarea', TextAreaEmoji)
 // Quill.register('modules/focus', Focus)
-// Quill.register('modules/toolbar_emoji', ToolbarEmoji)
 
 // Options
 var defaultOptions = {

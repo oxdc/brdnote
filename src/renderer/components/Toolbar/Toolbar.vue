@@ -56,6 +56,7 @@
       <button class="ql-link"></button>
       <button class="ql-image"></button>
       <button class="ql-video"></button>
+      <button class="ql-emoji"></button>
     </span>
 
     <span class="ql-formats">

@@ -85,7 +85,9 @@ export default {
             blotFormatter: {},
             markdownShortcuts: {},
             markplusShortcuts: {},
-            magicUrl: true
+            magicUrl: true,
+            emojiShortname: true,
+            emojiToolbar: true
           }
         }
       }
