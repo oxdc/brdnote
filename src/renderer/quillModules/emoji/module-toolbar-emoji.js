@@ -10,9 +10,7 @@ class ToolbarEmoji extends Module {
 
     this.quill = quill
     this.toolbar = quill.getModule('toolbar')
-    if (typeof this.toolbar !== 'undefined') {
-      this.toolbar.addHandler('emoji', this.checkPalatteExist)
-    }
+    if (typeof this.toolbar !== 'undefined') this.toolbar.addHandler('emoji', this.checkPalatteExist)
 
     var emojiBtns = document.getElementsByClassName('ql-emoji')
     if (emojiBtns) {
@@ -24,11 +22,11 @@ class ToolbarEmoji extends Module {
 
   checkPalatteExist () {
     let quill = this.quill
-    fncheckDialogOpen(quill)
+    fnCheckDialogOpen(quill)
     this.quill.on('text-change', function (delta, oldDelta, source) {
       if (source === 'user') {
-        fnclose()
-        fnupdateRange(quill)
+        fnClose()
+        fnUpdateRange(quill)
       }
     })
   }
@@ -38,60 +36,60 @@ ToolbarEmoji.DEFAULTS = {
   buttonIcon: '<svg viewbox="0 0 18 18"><circle class="ql-fill" cx="7" cy="7" r="1"></circle><circle class="ql-fill" cx="11" cy="7" r="1"></circle><path class="ql-stroke" d="M7,10a2,2,0,0,0,4,0H7Z"></path><circle class="ql-stroke" cx="9" cy="9" r="6"></circle></svg>'
 }
 
-function fnclose () {
-  let eleemojiplate = document.getElementById('emoji-palette')
+function fnClose () {
+  let eleEmojiPlate = document.getElementById('emoji-palette')
   document.getElementById('emoji-close-div').style.display = 'none'
-  if (eleemojiplate) { eleemojiplate.remove() }
+  if (eleEmojiPlate) { eleEmojiPlate.remove() }
 }
 
-function fncheckDialogOpen (quill) {
+function fnCheckDialogOpen (quill) {
   let elementExists = document.getElementById('emoji-palette')
   if (elementExists) {
     elementExists.remove()
   } else {
-    fnshowEmojiPalatte(quill)
+    fnShowEmojiPalatte(quill)
   }
 }
 
-function fnupdateRange (quill) {
+function fnUpdateRange (quill) {
   let range = quill.getSelection()
   return range
 }
 
-function fnshowEmojiPalatte (quill) {
-  let eleemojiarea = document.createElement('div')
-  // let toolbarcontainer = document.querySelector('.ql-toolbar')
+function fnShowEmojiPalatte (quill) {
+  let eleEmojiArea = document.createElement('div')
+  // let toolbar_container = document.querySelector('.ql-toolbar')
   let range = quill.getSelection()
   const atSignBounds = quill.getBounds(range.index)
 
-  quill.container.appendChild(eleemojiarea)
-  let paletteMaxPos = atSignBounds.left + 250 // palette max width is 250
-  eleemojiarea.id = 'emoji-palette'
-  eleemojiarea.style.top = 10 + atSignBounds.top + atSignBounds.height + 'px'
+  quill.container.appendChild(eleEmojiArea)
+  let paletteMaxPos = atSignBounds.left + 250// palette max width is 250
+  eleEmojiArea.id = 'emoji-palette'
+  eleEmojiArea.style.top = 10 + atSignBounds.top + atSignBounds.height + 'px'
   if (paletteMaxPos > quill.container.offsetWidth) {
-    eleemojiarea.style.left = (atSignBounds.left - 250) + 'px'
+    eleEmojiArea.style.left = (atSignBounds.left - 250) + 'px'
   } else {
-    eleemojiarea.style.left = atSignBounds.left + 'px'
+    eleEmojiArea.style.left = atSignBounds.left + 'px'
   }
 
   let tabToolbar = document.createElement('div')
   tabToolbar.id = 'tab-toolbar'
-  eleemojiarea.appendChild(tabToolbar)
+  eleEmojiArea.appendChild(tabToolbar)
 
   // panel
   let panel = document.createElement('div')
   panel.id = 'tab-panel'
-  eleemojiarea.appendChild(panel)
+  eleEmojiArea.appendChild(panel)
 
   var emojiType = [
-    { 'type': 'p', 'name': 'people', 'content': '<div class="i-people"></div>' },
-    { 'type': 'n', 'name': 'nature', 'content': '<div class="i-nature"></div>' },
-    { 'type': 'd', 'name': 'food', 'content': '<div class="i-food"></div>' },
-    { 'type': 's', 'name': 'symbols', 'content': '<div class="i-symbols"></div>' },
-    { 'type': 'a', 'name': 'activity', 'content': '<div class="i-activity"></div>' },
-    { 'type': 't', 'name': 'travel', 'content': '<div class="i-travel"></div>' },
-    { 'type': 'o', 'name': 'objects', 'content': '<div class="i-objects"></div>' },
-    { 'type': 'f', 'name': 'flags', 'content': '<div class="i-flags"></div>' }
+    {'type': 'p', 'name': 'people', 'content': '<div class="i-people"></div>'},
+    {'type': 'n', 'name': 'nature', 'content': '<div class="i-nature"></div>'},
+    {'type': 'd', 'name': 'food', 'content': '<div class="i-food"></div>'},
+    {'type': 's', 'name': 'symbols', 'content': '<div class="i-symbols"></div>'},
+    {'type': 'a', 'name': 'activity', 'content': '<div class="i-activity"></div>'},
+    {'type': 't', 'name': 'travel', 'content': '<div class="i-travel"></div>'},
+    {'type': 'o', 'name': 'objects', 'content': '<div class="i-objects"></div>'},
+    {'type': 'f', 'name': 'flags', 'content': '<div class="i-flags"></div>'}
   ]
 
   let tabElementHolder = document.createElement('ul')
@@ -100,8 +98,8 @@ function fnshowEmojiPalatte (quill) {
   if (document.getElementById('emoji-close-div') === null) {
     let closeDiv = document.createElement('div')
     closeDiv.id = 'emoji-close-div'
-    closeDiv.addEventListener('click', fnclose, false)
-    document.getElementById('emoji-palette').appendChild(closeDiv)
+    closeDiv.addEventListener('click', fnClose, false)
+    document.getElementsByTagName('body')[0].appendChild(closeDiv)
   } else {
     document.getElementById('emoji-close-div').style.display = 'block'
   }
@@ -123,18 +121,18 @@ function fnshowEmojiPalatte (quill) {
         tab.classList.remove('active')
       }
       emojiFilter.classList.toggle('active')
-      fnupdateEmojiContainer(emojiFilter, panel, quill)
+      fnUpdateEmojiContainer(emojiFilter, panel, quill)
     })
   })
-  fnemojiPanelInit(panel, quill)
+  fnEmojiPanelInit(panel, quill)
 }
 
-function fnemojiPanelInit (panel, quill) {
-  fnemojiElementsToPanel('p', panel, quill)
+function fnEmojiPanelInit (panel, quill) {
+  fnEmojiElementsToPanel('p', panel, quill)
   document.querySelector('.filter-people').classList.add('active')
 }
 
-function fnemojiElementsToPanel (type, panel, quill) {
+function fnEmojiElementsToPanel (type, panel, quill) {
   let fuseOptions = {
     shouldSort: true,
     matchAllTokens: true,
@@ -150,11 +148,11 @@ function fnemojiElementsToPanel (type, panel, quill) {
   let fuse = new Fuse(emojiList, fuseOptions)
   let result = fuse.search(type)
   result.sort(function (a, b) {
-    return a.emojiorder - b.emojiorder
+    return a.emojiOrder - b.emojiOrder
   })
 
   quill.focus()
-  let range = fnupdateRange(quill)
+  let range = fnUpdateRange(quill)
 
   result.map(function (emoji) {
     let span = document.createElement('span')
@@ -164,37 +162,36 @@ function fnemojiElementsToPanel (type, panel, quill) {
     span.classList.add('bem-' + emoji.name)
     span.classList.add('ap')
     span.classList.add('ap-' + emoji.name)
-    let output = '' + emoji.codedecimal + ''
+    let output = '' + emoji.codeDecimal + ''
     span.innerHTML = output + ' '
     panel.appendChild(span)
 
     let customButton = document.querySelector('.bem-' + emoji.name)
     if (customButton) {
       customButton.addEventListener('click', function () {
-        makeElement('span', { className: 'ico', innerHTML: '' + emoji.codedecimal + ' ' })
-        // let emojiicon = emojiiconhtml.innerHTML
+        makeElement('span', { className: 'ico', innerHTML: '' + emoji.codeDecimal + ' ' })
+        // let emojiIconHtml = makeElement('span', { className: 'ico', innerHTML: '' + emoji.codeDecimal + ' ' })
+        // let emojiIcon = emojiIconHtml.innerHTML
         quill.insertEmbed(range.index, 'emoji', emoji)
-        fnclose()
+        fnClose()
       })
     }
   })
 }
 
-function fnupdateEmojiContainer (emojiFilter, panel, quill) {
+function fnUpdateEmojiContainer (emojiFilter, panel, quill) {
   while (panel.firstChild) {
     panel.removeChild(panel.firstChild)
   }
   let type = emojiFilter.dataset.filter
-  fnemojiElementsToPanel(type, panel, quill)
+  fnEmojiElementsToPanel(type, panel, quill)
 }
 
 function makeElement (tag, attrs, ...children) {
   const elem = document.createElement(tag)
-  Object.keys(attrs).forEach(function (key) { elem[key] = attrs[key] })
+  Object.keys(attrs).forEach(key => (elem[key] = attrs[key]))
   children.forEach(child => {
-    if (typeof child === 'string') {
-      child = document.createTextNode(child)
-    }
+    if (typeof child === 'string') child = document.createTextNode(child)
     elem.appendChild(child)
   })
   return elem

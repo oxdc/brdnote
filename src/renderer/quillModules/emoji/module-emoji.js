@@ -15,7 +15,7 @@ class ShortNameEmoji extends Module {
     this.onClose = options.onClose
     this.onOpen = options.onOpen
     this.container = document.createElement('ul')
-    this.container.classList.add('emojicompletions')
+    this.container.classList.add('emoji_completions')
     this.quill.container.appendChild(this.container)
     this.container.style.position = 'absolute'
     this.container.style.display = 'none'
@@ -36,14 +36,14 @@ class ShortNameEmoji extends Module {
     }
 
     quill.keyboard.addBinding({
-      // TODO: Once Quill supports using event.key change this to ':'
-      key: 190, // '.', which is ':' together with [Shift]
+      // TODO: Once Quill supports using event.key change this to ":"
+      key: 190, // ".", which is ":" together with [Shift]
       shiftKey: true
     }, this.triggerPicker.bind(this))
 
     quill.keyboard.addBinding({
-      // TODO: Once Quill supports using event.key change this to ':'
-      key: 186, // ':' instead of 190 in Safari. Since it's the same key it doesn't matter if we register both.
+      // TODO: Once Quill supports using event.key change this to ":"
+      key: 186, // ":" instead of 190 in Safari. Since it's the same key it doesn't matter if we register both.
       shiftKey: true
     }, this.triggerPicker.bind(this))
 
@@ -63,9 +63,7 @@ class ShortNameEmoji extends Module {
 
   triggerPicker (range, context) {
     if (this.open) return true
-    if (range.length > 0) {
-      this.quill.deleteText(range.index, range.length, Quill.sources.USER)
-    }
+    if (range.length > 0) this.quill.deleteText(range.index, range.length, Quill.sources.USER)
 
     this.quill.insertText(range.index, ':', 'emoji-shortname', Quill.sources.USER)
     const atSignBounds = this.quill.getBounds(range.index)
@@ -114,7 +112,7 @@ class ShortNameEmoji extends Module {
 
     let emojis = this.fuse.search(this.query)
     emojis.sort(function (a, b) {
-      return a.emojiorder - b.emojiorder
+      return a.emojiOrder - b.emojiOrder
     })
 
     if (this.query.length < this.options.fuse.minMatchCharLength || emojis.length === 0) {
@@ -173,8 +171,8 @@ class ShortNameEmoji extends Module {
         event.preventDefault()
         buttons[Math.max(0, i - 1)].focus()
       } else if (event.key === 'Enter' || event.keyCode === 13 ||
-                event.key === ' ' || event.keyCode === 32 ||
-                event.key === 'Tab' || event.keyCode === 9) {
+               event.key === ' ' || event.keyCode === 32 ||
+               event.key === 'Tab' || event.keyCode === 9) {
         event.preventDefault()
         this.quill.enable()
         this.close(emoji)
@@ -186,9 +184,9 @@ class ShortNameEmoji extends Module {
         'li', {},
         makeElement(
           'button', {type: 'button'},
-          makeElement('span', { className: 'emoji ap ap-' + emoji.name, innerHTML: emoji.codedecimal }),
-          // makeElement('span', {className: 'matched'}, this.query),
-          // makeElement('span', {className: 'unmatched'}, emoji.shortname.slice(this.query.length+1))
+          makeElement('span', { className: 'emoji ap ap-' + emoji.name, innerHTML: emoji.codeDecimal }),
+          // makeElement('span', {className: "matched"}, this.query),
+          // makeElement('span', {className: "unmatched"}, emoji.shortname.slice(this.query.length+1))
           makeElement('span', {className: 'unmatched'}, emoji.shortname)
         )
       )
@@ -197,8 +195,8 @@ class ShortNameEmoji extends Module {
       // Events will be GC-ed with button on each re-render:
       buttons[i].addEventListener('keydown', handler(i, emoji))
       buttons[i].addEventListener('mousedown', () => this.close(emoji))
-      buttons[i].addEventListener('focus', function () { this.focusedButton = i })
-      buttons[i].addEventListener('unfocus', function () { this.focusedButton = null })
+      buttons[i].addEventListener('focus', () => (this.focusedButton = i))
+      buttons[i].addEventListener('unfocus', () => (this.focusedButton = null))
     })
 
     this.container.style.display = 'block'
@@ -227,7 +225,7 @@ class ShortNameEmoji extends Module {
     this.quill.off('selection-change', this.onSelectionChange)
     this.quill.off('text-change', this.onTextChange)
     if (value) {
-      // const {name, unicode, shortname, codeDecimal} = value
+      // const { name, unicode, shortname, codeDecimal } = value
       this.quill.deleteText(this.atIndex, this.query.length + 1, Quill.sources.USER)
       this.quill.insertEmbed(this.atIndex, 'emoji', value)
     }
@@ -239,8 +237,11 @@ class ShortNameEmoji extends Module {
   enterEmoji (value) {
     if (value) {
       const { codeDecimal } = value
+      // const { name, unicode, shortname, codeDecimal } = value
       makeElement('span', { className: 'ico', innerHTML: ' ' + codeDecimal + ' ' })
-      // let emojiicon = emojiiconhtml.innerHTML
+      // let emojiIconHtml = makeElement('span', { className: 'ico', innerHTML: ' ' + codeDecimal + ' ' })
+      // let emojiIcon = emojiIconHtml.innerHTML
+      // let delta = new Delta()
       let currentText = this.quill.getSelection()
       let ops = []
       if (this.atIndex > 0) {
@@ -286,7 +287,7 @@ ShortNameEmoji.DEFAULTS = {
 
 function makeElement (tag, attrs, ...children) {
   const elem = document.createElement(tag)
-  Object.keys(attrs).forEach(function (key) { elem[key] = attrs[key] })
+  Object.keys(attrs).forEach(key => (elem[key] = attrs[key]))
   children.forEach(child => {
     if (typeof child === 'string') {
       child = document.createTextNode(child)

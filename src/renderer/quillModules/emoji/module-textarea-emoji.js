@@ -22,22 +22,22 @@ class TextAreaEmoji extends Module {
     if (elementExists) {
       elementExists.remove()
     } else {
-      let eleemojiarea = document.createElement('div')
-      eleemojiarea.id = 'textarea-emoji'
-      this.quill.container.appendChild(eleemojiarea)
+      let eleEmojiArea = document.createElement('div')
+      eleEmojiArea.id = 'textarea-emoji'
+      this.quill.container.appendChild(eleEmojiArea)
       let tabToolbar = document.createElement('div')
       tabToolbar.id = 'tab-toolbar'
-      eleemojiarea.appendChild(tabToolbar)
+      eleEmojiArea.appendChild(tabToolbar)
 
       var emojiType = [
-        { 'type': 'p', 'name': 'people', 'content': '<div class="ap ap-smiley"></div>' },
-        { 'type': 'n', 'name': 'nature', 'content': '<div class="ap ap-herb"></div>' },
-        { 'type': 'd', 'name': 'food', 'content': '<div class="ap ap-birthday"></div>' },
-        { 'type': 's', 'name': 'symbols', 'content': '<div class="ap ap-heart"></div>' },
-        { 'type': 'a', 'name': 'activity', 'content': '<div class="ap ap-soccer"></div>' },
-        { 'type': 't', 'name': 'travel', 'content': '<div class="ap ap-airplane"></div>' },
-        { 'type': 'o', 'name': 'objects', 'content': '<div class="ap ap-bulb"></div>' },
-        { 'type': 'f', 'name': 'flags', 'content': '<div class="ap ap-flag-sg"></div>' }
+        {'type': 'p', 'name': 'people', 'content': '<div class="ap ap-smiley"></div>'},
+        {'type': 'n', 'name': 'nature', 'content': '<div class="ap ap-herb"></div>'},
+        {'type': 'd', 'name': 'food', 'content': '<div class="ap ap-birthday"></div>'},
+        {'type': 's', 'name': 'symbols', 'content': '<div class="ap ap-heart"></div>'},
+        {'type': 'a', 'name': 'activity', 'content': '<div class="ap ap-soccer"></div>'},
+        {'type': 't', 'name': 'travel', 'content': '<div class="ap ap-airplane"></div>'},
+        {'type': 'o', 'name': 'objects', 'content': '<div class="ap ap-bulb"></div>'},
+        {'type': 'f', 'name': 'flags', 'content': '<div class="ap ap-flag-sg"></div>'}
       ]
 
       let tabElementHolder = document.createElement('ul')
@@ -46,14 +46,14 @@ class TextAreaEmoji extends Module {
       if (document.getElementById('emoji-close-div') === null) {
         let closeDiv = document.createElement('div')
         closeDiv.id = 'emoji-close-div'
-        closeDiv.addEventListener('click', fnclose, false)
+        closeDiv.addEventListener('click', fnClose, false)
         document.getElementsByTagName('body')[0].appendChild(closeDiv)
       } else {
         document.getElementById('emoji-close-div').style.display = 'block'
       }
       let panel = document.createElement('div')
       panel.id = 'tab-panel'
-      eleemojiarea.appendChild(panel)
+      eleEmojiArea.appendChild(panel)
       let innerQuill = this.quill
       emojiType.map(function (emojiType) {
         let tabElement = document.createElement('li')
@@ -74,16 +74,16 @@ class TextAreaEmoji extends Module {
             panel.removeChild(panel.firstChild)
           }
           let type = emojiFilter.dataset.filter
-          fnemojiElementsToPanel(type, panel, innerQuill)
+          fnEmojiElementsToPanel(type, panel, innerQuill)
         })
       })
 
       let windowHeight = window.innerHeight
       let editorPos = this.quill.container.getBoundingClientRect().top
       if (editorPos > windowHeight / 2) {
-        eleemojiarea.style.top = '-250px'
+        eleEmojiArea.style.top = '-250px'
       }
-      fnemojiPanelInit(panel, this.quill)
+      fnEmojiPanelInit(panel, this.quill)
     }
   }
 }
@@ -92,23 +92,23 @@ TextAreaEmoji.DEFAULTS = {
   buttonIcon: '<svg viewbox="0 0 18 18"><circle class="ql-fill" cx="7" cy="7" r="1"></circle><circle class="ql-fill" cx="11" cy="7" r="1"></circle><path class="ql-stroke" d="M7,10a2,2,0,0,0,4,0H7Z"></path><circle class="ql-stroke" cx="9" cy="9" r="6"></circle></svg>'
 }
 
-function fnclose () {
-  let eleemojiplate = document.getElementById('textarea-emoji')
+function fnClose () {
+  let eleEmojiPlate = document.getElementById('textarea-emoji')
   document.getElementById('emoji-close-div').style.display = 'none'
-  if (eleemojiplate) { eleemojiplate.remove() }
+  if (eleEmojiPlate) { eleEmojiPlate.remove() }
 }
 
-function fnupdateRange (quill) {
+function fnUpdateRange (quill) {
   let range = quill.getSelection()
   return range
 }
 
-function fnemojiPanelInit (panel, quill) {
-  fnemojiElementsToPanel('p', panel, quill)
+function fnEmojiPanelInit (panel, quill) {
+  fnEmojiElementsToPanel('p', panel, quill)
   document.querySelector('.filter-people').classList.add('active')
 }
 
-function fnemojiElementsToPanel (type, panel, quill) {
+function fnEmojiElementsToPanel (type, panel, quill) {
   let fuseOptions = {
     shouldSort: true,
     matchAllTokens: true,
@@ -124,11 +124,11 @@ function fnemojiElementsToPanel (type, panel, quill) {
   let fuse = new Fuse(emojiList, fuseOptions)
   let result = fuse.search(type)
   result.sort(function (a, b) {
-    return a.emojiorder - b.emojiorder
+    return a.emoji_order - b.emoji_order
   })
 
   quill.focus()
-  let range = fnupdateRange(quill)
+  let range = fnUpdateRange(quill)
 
   result.map(function (emoji) {
     let span = document.createElement('span')
@@ -138,18 +138,18 @@ function fnemojiElementsToPanel (type, panel, quill) {
     span.classList.add('bem-' + emoji.name)
     span.classList.add('ap')
     span.classList.add('ap-' + emoji.name)
-    let output = '' + emoji.codedecimal + ''
+    let output = '' + emoji.code_decimal + ''
     span.innerHTML = output + ' '
     panel.appendChild(span)
 
     let customButton = document.querySelector('.bem-' + emoji.name)
     if (customButton) {
       customButton.addEventListener('click', function () {
-        // quill.insertText(range.index, customButton.innerHTML)
-        // quill.setSelection(range.index + customButton.innerHTML.length, 0)
-        // range.index = range.index + customButton.innerHTML.length
+        // quill.insertText(range.index, customButton.innerHTML);
+        // quill.setSelection(range.index + customButton.innerHTML.length, 0);
+        // range.index = range.index + customButton.innerHTML.length;
         quill.insertEmbed(range.index, 'emoji', emoji)
-        fnclose()
+        fnClose()
       })
     }
   })
