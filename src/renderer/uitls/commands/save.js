@@ -27,7 +27,7 @@ export function save (vueRoot, callback) {
       if (err) {
         vueRoot.$Notice.error({
           title: 'Error',
-          desc: 'An error ocurred creating the file ' + err.message
+          desc: 'An error ocurred while creating the file ' + err.message
         })
         return
       }
@@ -59,7 +59,7 @@ export function save (vueRoot, callback) {
         if (err) {
           vueRoot.$Notice.error({
             title: 'Error',
-            desc: 'An error ocurred creating the file ' + err.message
+            desc: 'An error ocurred while creating the file ' + err.message
           })
           return
         }

@@ -39,6 +39,10 @@ export default {
             commands.close(this.$root)
             break
 
+          case 'print':
+            commands.print(this.$root)
+            break
+
           default:
             break
         }

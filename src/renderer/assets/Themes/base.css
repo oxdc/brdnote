@@ -12,3 +12,27 @@
   user-select: none;
   /* Non-prefixed version, currently supported by Chrome and Opera */
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .document-body,
+  .document-body * {
+    visibility: visible;
+  }
+
+  .document-body {
+    page-break-after: always;
+    position: unset !important;
+    height: fit-content !important;
+    left: 0;
+    top: 0;
+  }
+
+  .document-container {
+    position: unset !important;
+    height: fit-content !important;
+  }
+}

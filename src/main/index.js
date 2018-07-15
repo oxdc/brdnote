@@ -68,6 +68,9 @@ app.on('ready', () => {
   electronLocalshortcut.register(mainWindow, 'CommandOrControl+O', () => {
     mainWindow.webContents.send('command', 'open')
   })
+  electronLocalshortcut.register(mainWindow, 'CommandOrControl+P', () => {
+    mainWindow.webContents.send('command', 'print')
+  })
   globalShortcut.register('CommandOrControl+Shift+Q', () => {
     mainWindow.destroy()
   })

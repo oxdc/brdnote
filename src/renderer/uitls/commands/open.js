@@ -24,7 +24,7 @@ export function open (vueRoot, callback) {
       if (err) {
         vueRoot.$Notice.error({
           title: 'Error',
-          desc: 'An error ocurred reading the file :' + err.message
+          desc: 'An error ocurred while reading the file :' + err.message
         })
         return
       }
