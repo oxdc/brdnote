@@ -105,11 +105,11 @@ export default {
       }
       if (documentBody && sidebar && toolbar) {
         if (this.visible) {
-          sidebar.style.paddingTop = 15 + 'px'
+          sidebar.style.marginTop = 15 + 'px'
           documentBody.style.left = sidebarexplorer.clientWidth + 62 + 'px'
           toolbar.style.width = documentBody.style.width = getSize().width - sidebarexplorer.clientWidth - 62 + 'px'
         } else {
-          sidebar.style.paddingTop = toolbar.clientHeight + 15 + 'px'
+          sidebar.style.marginTop = toolbar.clientHeight + 15 + 'px'
           documentBody.style.left = 0 + 'px'
           toolbar.style.width = documentBody.style.width = getSize().width + 'px'
         }
@@ -136,6 +136,11 @@ export default {
 
     var observer = new MutationObserver(callback)
     observer.observe(targetNode, config)
+
+    var toolbar = document.getElementById('toolbar-plane')
+
+    var toolbarobserver = new MutationObserver(callback)
+    toolbarobserver.observe(toolbar, config)
   },
   computed: {
     titles: {
