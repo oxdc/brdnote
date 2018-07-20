@@ -105,7 +105,7 @@ export default {
       }
       if (documentBody && sidebar && toolbar) {
         if (this.visible) {
-          sidebar.style.marginTop = 15 + 'px'
+          sidebar.style.marginTop = '0px'
           documentBody.style.left = sidebarexplorer.clientWidth + 62 + 'px'
           toolbar.style.width = documentBody.style.width = getSize().width - sidebarexplorer.clientWidth - 62 + 'px'
         } else {
