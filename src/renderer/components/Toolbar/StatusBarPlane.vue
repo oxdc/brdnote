@@ -6,24 +6,8 @@
 </template>
 
 <script>
-import { getSize } from '@/uitls/miscellaneous'
-
 export default {
-  name: 'StatusBarPlane',
-  methods: {
-    setPosition () {
-      var statusbar = this.$refs['status-bar']
-      if (statusbar) {
-        statusbar.style.top = getSize().height - 25 + 'px'
-      }
-    }
-  },
-  mounted () {
-    this.setPosition()
-    window.addEventListener('resize', () => {
-      this.setPosition()
-    }, true)
-  }
+  name: 'StatusBarPlane'
 }
 </script>
 
@@ -32,6 +16,7 @@ export default {
   overflow: hidden;
   position: fixed;
   height: 25px;
+  bottom: 0px;
   width: 100%;
   z-index: 5;
   vertical-align: -webkit-baseline-middle;

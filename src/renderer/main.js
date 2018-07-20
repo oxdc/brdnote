@@ -22,11 +22,13 @@ import '@/assets/Themes/Quill/quill.core.css'
 import '@/assets/Themes/Quill/quill.snow.css'
 import '@/assets/Themes/Quill/quill.bubble.css'
 import '@/assets/Themes/Quill/quill.extend.css'
+import '@/assets/Themes/Quill/quill.emoji.css'
 import 'iview/dist/styles/iview.css'
 
-import katex from 'katex'
 import 'katex/dist/katex.min.css'
-import '@/assets/Themes/Quill/quill.emoji.css'
+import 'mathquill/build/mathquill.css'
+import katex from 'katex'
+import 'mathquill/build/mathquill'
 
 window.katex = katex
 window.hljs = hljs

@@ -2,7 +2,8 @@
   <div>
     <document-body id="document-body">
       <toolbar-plane slot="toolbar">
-        <toolbar></toolbar>
+        <toolbar slot="toolbar"></toolbar>
+        <formula-editor slot="tooltip"></formula-editor>
       </toolbar-plane>
       <quill-editor
        :options="editorOption"
@@ -30,6 +31,7 @@
 import DocumentBody from '@/components/Document/DocumentBody'
 import ToolbarPlane from '@/components/Toolbar/ToolbarPlane'
 import Toolbar from '@/components/Toolbar/Toolbar'
+import FormulaEditor from '@/components/Toolbar/FormulaEditor'
 import StatusBarPlane from '@/components/Toolbar/StatusBarPlane'
 import SideBarPlane from '@/components/SideBar/SideBarPlane'
 import QuillEditor from '@/components/Editor/QuillEditor'
@@ -42,7 +44,8 @@ export default {
     'quill-editor': QuillEditor,
     'toolbar': Toolbar,
     'status-bar-plane': StatusBarPlane,
-    'side-bar-plane': SideBarPlane
+    'side-bar-plane': SideBarPlane,
+    'formula-editor': FormulaEditor
   },
   data: () => {
     return {
@@ -64,7 +67,7 @@ export default {
             syntax: {
               highlight: text => window.hljs.highlightAuto(text).value
             },
-            formula: true,
+            formulaPlus: true,
             toolbar: {
               container: '#toolbar',
               handlers: {'emoji': () => {}}

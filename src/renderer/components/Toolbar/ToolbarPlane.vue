@@ -1,7 +1,11 @@
 <template>
   <div class="toolbar-plane-container" id="toolbar-plane">
     <div class="toolbar-plane">
-      <slot>
+      <slot name="toolbar">
+      </slot>
+    </div>
+    <div class="tooltip-plane">
+      <slot name="tooltip">
       </slot>
     </div>
   </div>

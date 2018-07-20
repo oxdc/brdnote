@@ -20,6 +20,7 @@ import EmojiBlot from '@/quillModules/emoji/format-emoji-blot'
 import ShortNameEmoji from '@/quillModules/emoji/module-emoji'
 import ToolbarEmoji from '@/quillModules/emoji/module-toolbar-emoji'
 import TextAreaEmoji from '@/quillModules/emoji/module-textarea-emoji'
+import FormulaPlus from '@/quillModules/formulaplus'
 // import Focus from '@/quillModules/focus'
 
 // styles
@@ -37,6 +38,7 @@ Quill.register('formats/emoji', EmojiBlot)
 Quill.register('modules/emojiShortname', ShortNameEmoji)
 Quill.register('modules/emojiToolbar', ToolbarEmoji)
 Quill.register('modules/emojiTextarea', TextAreaEmoji)
+Quill.register('modules/formulaPlus', FormulaPlus)
 // Quill.register('modules/focus', Focus)
 
 // Options
