@@ -70,7 +70,7 @@
        @click="onView(5)">
       </Button>
     </Tooltip>
-    <Card class="sidebar-explorer" id="sidebar-explorer" v-show="visible" data-simplebar>
+    <Card class="sidebar-explorer tiny-scrollbar" id="sidebar-explorer" v-show="visible">
       <p slot="title"> {{ titles[view] }} </p>
       <side-bar-outline  v-show="view === 3"></side-bar-outline>
       <p v-show="view !== 3"> Comming soon </p>

@@ -13,19 +13,21 @@
   /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
-::-webkit-scrollbar {
-  width: 5px;
+.tiny-scrollbar::-webkit-scrollbar {
+  width: 6px;
 }
-::-webkit-scrollbar-track {
+.tiny-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
-::-webkit-scrollbar-thumb {
-  background: transparent;
+.tiny-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgb(190, 190, 190);
 }
-::-webkit-scrollbar-track:hover {
+.tiny-scrollbar::-webkit-scrollbar-track:hover {
   background: rgb(241, 241, 241);
 }
-::-webkit-scrollbar-thumb:hover {
+.tiny-scrollbar::-webkit-scrollbar-thumb:hover {
+  border-radius: 3px;
   background: rgb(85, 85, 85);
 }
 

@@ -1,16 +1,28 @@
 <template>
   <div id="formula-editor-container" class="formula-editor-container noselect">
     <div id="formula-editor" class="formula-editor">
-      <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keypress.tab="onClickOk">
+      <div class="formula-editor-row formula-editor-flex-row">
+        <div class="formula-editor-flex-column">
+          <span class="formula-editor-title">Formula Editor</span>
+        </div>
+        <div class="formula-editor-flex-column align-right">
+          <Button type="text" shape="circle" size="small" icon="close-round" @click="onClickCancle"></Button>
+        </div>
       </div>
-      <div class="formula-editor-row latex-preview-container">
+      <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onClickOk">
+      </div>
+      <div class="formula-editor-row latex-preview-container tiny-scrollbar">
         <span class="formula-label noselect"> LaTeX Preview </span>
         <span class="latex-preview" id="latex"></span>
       </div>
-      <div class="formula-editor-row align-right">
-        <Button type="text" @click="onClickCopy"> Copy LaTeX </Button>
-        <Button type="text" @click="onClickCancle"> Cancle </Button>
-        <Button type="primary" @click="onClickOk"> Ok </Button>
+      <div class="formula-editor-row formula-editor-flex-row">
+        <div class="formula-editor-flex-column">
+          <Button type="ghost" @click="onClickCopy"> Copy LaTeX </Button>
+        </div>
+        <div class="formula-editor-flex-column align-right">
+          <Button type="text" @click="onClickCancle"> Cancle </Button>
+          <Button type="primary" @click="onClickOk"> Ok </Button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,9 +117,23 @@ export default {
   font-size: 16px;
 }
 
+.formula-editor-title {
+  font-size: 14px;
+  font-family: monospace;
+  color: gray;
+}
+
 .formula-editor-row {
   margin: 5px;
   display: block;
+}
+
+.formula-editor-flex-row {
+  display: flex;
+}
+
+.formula-editor-flex-column {
+  width: 50%;
 }
 
 .formula-label {
@@ -127,6 +153,7 @@ export default {
 }
 .latex-preview {
   word-break: break-all;
+  font-weight: bold;
   font-family: "Droid Sans Mono", monospace, monospace, "Droid Sans Fallback";
 }
 </style>
