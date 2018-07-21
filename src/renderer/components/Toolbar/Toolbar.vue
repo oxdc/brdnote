@@ -100,6 +100,7 @@ export default {
       var tooltip = document.getElementById('formula-editor-container')
       tooltip.style.height = 'unset'
       tooltip.style.visibility = 'visible'
+      window.mathField.latex('')
       window.mathField.focus()
     }
   }

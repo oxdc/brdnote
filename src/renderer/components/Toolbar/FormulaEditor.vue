@@ -9,7 +9,7 @@
           <Button type="text" shape="circle" size="small" icon="close-round" @click="onClickCancle"></Button>
         </div>
       </div>
-      <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onClickOk">
+      <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onPressTab">
       </div>
       <div class="formula-editor-row latex-preview-container tiny-scrollbar">
         <span class="formula-label noselect"> LaTeX Preview </span>
@@ -17,7 +17,8 @@
       </div>
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
-          <Button type="ghost" @click="onClickCopy"> Copy LaTeX </Button>
+          <Button type="ghost" icon="ios-copy-outline" @click="onClickCopy"> Copy LaTeX </Button>
+          <Button type="ghost" icon="android-options"> Professional Mode </Button>
         </div>
         <div class="formula-editor-flex-column align-right">
           <Button type="text" @click="onClickCancle"> Cancle </Button>
@@ -100,6 +101,11 @@ export default {
         formula: null
       }
       window.focusIndex = null
+    },
+    onPressTab (event) {
+      if (event.ctrlKey) {
+        this.onClickOk()
+      }
     }
   }
 }

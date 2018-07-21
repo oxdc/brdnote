@@ -26,9 +26,9 @@ import '@/assets/Themes/Quill/quill.emoji.css'
 import 'iview/dist/styles/iview.css'
 
 import 'katex/dist/katex.min.css'
-import 'mathquill/build/mathquill.css'
+import '../../static/mathquill/mathquill.css'
 import katex from 'katex'
-import 'mathquill/build/mathquill'
+import '../../static/mathquill/mathquill.min.js'
 
 window.katex = katex
 window.hljs = hljs
