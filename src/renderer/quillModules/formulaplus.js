@@ -39,35 +39,17 @@ class FormulaPlus {
     if (!e || !e.index) {
       return
     }
-    var deltaBefore = this.quill.getContents(e.index - 1, 1)
-    var delta = this.quill.getContents(e.index, 1)
-    var deltaAfter = this.quill.getContents(e.index + 1, 1)
-    try {
-      var index = null
-      var oldFormula = null
-      if (deltaBefore.ops[0] && deltaBefore.ops[0].insert.formula) {
-        index = e.index - 1
-        oldFormula = deltaBefore.ops[0].insert.formula
-      } else if (delta.ops[0] && delta.ops[0].insert.formula) {
-        index = e.index
-        oldFormula = delta.ops[0].insert.formula
-      } else if (deltaAfter.ops[0] && deltaAfter.ops[0].insert.formula) {
-        index = e.index
-        oldFormula = deltaAfter.ops[0].insert.formula
+    var { index, formula } = this.searchFormula(e.index)
+    if (formula) {
+      this.showTooltip()
+      window.mathField.latex(formula)
+      window.mathEmbed = {
+        index: index,
+        formula: formula
       }
-      if (oldFormula) {
-        this.showTooltip()
-        window.mathField.latex(oldFormula)
-        window.mathEmbed = {
-          index: index,
-          formula: oldFormula
-        }
-      } else {
-        this.hideTooltip()
-        window.focusIndex = index = e.index + e.length
-      }
-    } catch (error) {
-      console.error(error)
+    } else {
+      this.hideTooltip()
+      window.focusIndex = index = e.index + e.length
     }
   }
 
@@ -75,6 +57,36 @@ class FormulaPlus {
     const range = this.quill.getSelection(true)
     const index = range.index + range.length
     window.focusIndex = index
+    var { formula } = this.searchFormula(index)
+    if (!formula) {
+      this.hideTooltip()
+    }
+  }
+
+  searchFormula = (index) => {
+    var deltaBefore = this.quill.getContents(index - 1, 1)
+    var delta = this.quill.getContents(index, 1)
+    var deltaAfter = this.quill.getContents(index + 1, 1)
+    var formulaIndex = null
+    var formula = null
+    try {
+      if (deltaBefore.ops[0] && deltaBefore.ops[0].insert.formula) {
+        formulaIndex = index - 1
+        formula = deltaBefore.ops[0].insert.formula
+      } else if (delta.ops[0] && delta.ops[0].insert.formula) {
+        formulaIndex = index
+        formula = delta.ops[0].insert.formula
+      } else if (deltaAfter.ops[0] && deltaAfter.ops[0].insert.formula) {
+        formulaIndex = index
+        formula = deltaAfter.ops[0].insert.formula
+      }
+    } catch (error) {
+      console.error(error)
+    }
+    return {
+      index: formulaIndex,
+      formula: formula
+    }
   }
 
   showTooltip = () => {
