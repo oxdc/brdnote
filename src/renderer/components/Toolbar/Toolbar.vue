@@ -101,6 +101,9 @@ export default {
       tooltip.style.height = 'unset'
       tooltip.style.visibility = 'visible'
       window.mathField.latex('')
+      if (window.cmFormulaEditor) {
+        window.cmFormulaEditor.doc.setValue('')
+      }
       window.mathField.focus()
     }
   }

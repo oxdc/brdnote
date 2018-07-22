@@ -30,10 +30,22 @@ import '../../static/mathquill/mathquill.css'
 import katex from 'katex'
 import '../../static/mathquill/mathquill.min.js'
 
+import CodeMirror from 'codemirror/lib/codemirror.js'
+import 'codemirror/lib/codemirror.css'
+
 window.katex = katex
 window.hljs = hljs
+window.CodeMirror = CodeMirror
 
 Vue.use(iView, { locale })
+
+require.config({
+  packages: [{
+    name: 'codemirror',
+    location: '../../node_modules/codemirror',
+    main: 'lib/codemirror'
+  }]
+})
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

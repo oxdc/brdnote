@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "codemirror": "^5.39.2",
     "electron-localshortcut": "^3.1.0",
     "highlight.js": "^9.12.0",
     "iview": "^2.14.3",
@@ -36,6 +37,7 @@
     "simplebar": "^2.6.1",
     "uuid-js": "^0.7.5",
     "vue": "^2.5.16",
+    "vue-codemirror": "^4.0.5",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vuex": "^2.3.1"

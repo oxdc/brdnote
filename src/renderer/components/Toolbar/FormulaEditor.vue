@@ -9,16 +9,19 @@
           <Button type="text" shape="circle" size="small" icon="close-round" @click="onClickCancle"></Button>
         </div>
       </div>
-      <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onPressTab">
+      <div class="formula-editor-row" :class="{ 'formula-editor-row-hidden': !professionalMode }">
+        <codemirror v-model="code" :options="cmOptions" @ready="onReady"></codemirror>
       </div>
-      <div class="formula-editor-row latex-preview-container tiny-scrollbar">
+      <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onPressTab" v-show="!professionalMode">
+      </div>
+      <div class="formula-editor-row latex-preview-container tiny-scrollbar" v-show="!professionalMode">
         <span class="formula-label noselect"> LaTeX Preview </span>
         <span class="latex-preview" id="latex"></span>
       </div>
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
           <Button type="ghost" icon="ios-copy-outline" @click="onClickCopy"> Copy LaTeX </Button>
-          <Button type="ghost" icon="android-options"> Professional Mode </Button>
+          <Button type="ghost" icon="android-options" @click="onClickProMode"> Professional Mode </Button>
         </div>
         <div class="formula-editor-flex-column align-right">
           <Button type="text" @click="onClickCancle"> Cancle </Button>
@@ -30,11 +33,39 @@
 </template>
 
 <script>
+import codemirror from '@/components/Editor/CodeMirror/codemirror.vue'
+import 'codemirror/mode/stex/stex.js'
+import 'codemirror/addon/selection/active-line.js'
+import 'codemirror/addon/display/placeholder.js'
 import Quill from 'quill/core/quill'
 const Delta = Quill.import('delta')
 
 export default {
   name: 'FormulaEditor',
+  components: {
+    'codemirror': codemirror
+  },
+  data () {
+    return {
+      professionalMode: false,
+      code: ''
+    }
+  },
+  computed: {
+    cmOptions: {
+      get () {
+        return {
+          tabSize: 2,
+          mode: 'text/x-stex',
+          theme: 'default',
+          lineNumbers: true,
+          line: true,
+          styleActiveLine: true,
+          placeholder: 'Write your code here\n'
+        }
+      }
+    }
+  },
   mounted () {
     if (window.MathQuill) {
       var mathFieldSpan = document.getElementById('math-field')
@@ -64,14 +95,14 @@ export default {
             .retain(window.mathEmbed.index)
             .delete(1)
           )
-          window.editor.insertEmbed(window.mathEmbed.index, 'formula', window.mathField.latex())
+          window.editor.insertEmbed(window.mathEmbed.index, 'formula', this.professionalMode ? this.code : window.mathField.latex())
           window.editor.setSelection(window.mathEmbed.index + 1, 0)
         }
       } else if (window.focusIndex) {
-        window.editor.insertEmbed(window.focusIndex, 'formula', window.mathField.latex())
+        window.editor.insertEmbed(window.focusIndex, 'formula', this.professionalMode ? this.code : window.mathField.latex())
         window.editor.setSelection(window.focusIndex + 1, 0)
       } else {
-        window.editor.insertEmbed(0, 'formula', window.mathField.latex())
+        window.editor.insertEmbed(0, 'formula', this.professionalMode ? this.code : window.mathField.latex())
         window.editor.setSelection(1, 0)
       }
       window.mathField.latex('')
@@ -85,7 +116,7 @@ export default {
       window.focusIndex = null
     },
     onClickCopy () {
-      this.$electron.clipboard.writeText(window.mathField.latex())
+      this.$electron.clipboard.writeText(this.professionalMode ? this.code : window.mathField.latex())
       this.$Notice.success({
         title: 'Success',
         desc: 'Copying to clipboard was successful!'
@@ -106,6 +137,12 @@ export default {
       if (event.ctrlKey) {
         this.onClickOk()
       }
+    },
+    onClickProMode (event) {
+      this.professionalMode = !this.professionalMode
+    },
+    onReady (cmFormulaEditor) {
+      window.cmFormulaEditor = cmFormulaEditor
     }
   }
 }
@@ -157,9 +194,29 @@ export default {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
 .latex-preview {
   word-break: break-all;
   font-weight: bold;
   font-family: "Droid Sans Mono", monospace, monospace, "Droid Sans Fallback";
+}
+</style>
+
+<style>
+.formula-editor-row .CodeMirror {
+  height: 100px !important;
+}
+
+.formula-editor-row-hidden {
+  visibility: hidden;
+}
+
+.formula-editor-row-hidden .CodeMirror {
+  visibility: hidden;
+  height: 0px !important;
+}
+
+.formula-editor-row .CodeMirror pre.CodeMirror-placeholder {
+  color: rgb(153, 153, 153);
 }
 </style>

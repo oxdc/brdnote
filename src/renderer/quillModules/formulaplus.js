@@ -43,6 +43,9 @@ class FormulaPlus {
     if (formula) {
       this.showTooltip()
       window.mathField.latex(formula)
+      if (window.cmFormulaEditor) {
+        window.cmFormulaEditor.doc.setValue(formula)
+      }
       window.mathEmbed = {
         index: index,
         formula: formula
