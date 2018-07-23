@@ -12,6 +12,10 @@
       <div class="formula-editor-row" :class="{ 'formula-editor-row-hidden': !professionalMode }">
         <codemirror v-model="code" :options="cmOptions" @ready="onReady"></codemirror>
       </div>
+      <div class="formula-editor-row" v-show="professionalMode">
+        <div class="formula-label noselect"> Formula Preview </div>
+        <div class="formula-preview" id="formula"></div>
+      </div>
       <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onPressTab" v-show="!professionalMode">
       </div>
       <div class="formula-editor-row latex-preview-container tiny-scrollbar" v-show="!professionalMode">
@@ -21,7 +25,7 @@
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
           <Button type="ghost" icon="ios-copy-outline" @click="onClickCopy"> Copy LaTeX </Button>
-          <Button type="ghost" icon="android-options" @click="onClickProMode"> Professional Mode </Button>
+          <Button type="ghost" icon="android-options" @click="onClickProMode"> {{ professionalMode ? 'Easy mode' : 'Professional Mode' }} </Button>
         </div>
         <div class="formula-editor-flex-column align-right">
           <Button type="text" @click="onClickCancle"> Cancle </Button>
@@ -139,10 +143,25 @@ export default {
       }
     },
     onClickProMode (event) {
+      if (this.professionalMode) {
+        window.mathField.latex(this.code)
+      }
       this.professionalMode = !this.professionalMode
     },
     onReady (cmFormulaEditor) {
       window.cmFormulaEditor = cmFormulaEditor
+    }
+  },
+  watch: {
+    code (value) {
+      var node = document.getElementById('formula')
+      if (window.katex) {
+        window.katex.render(value, node, {
+          displayMode: true,
+          throwOnError: false,
+          errorColor: '#f00'
+        })
+      }
     }
   }
 }
@@ -186,7 +205,8 @@ export default {
 }
 
 .align-right {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .latex-preview-container {
@@ -199,6 +219,12 @@ export default {
   word-break: break-all;
   font-weight: bold;
   font-family: "Droid Sans Mono", monospace, monospace, "Droid Sans Fallback";
+}
+
+.formula-preview {
+  min-height: 20px;
+  display: flex;
+  justify-content: center;
 }
 </style>
 
