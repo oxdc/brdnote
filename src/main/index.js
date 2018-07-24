@@ -8,6 +8,7 @@ import {
 } from 'electron'
 import electronLocalshortcut from 'electron-localshortcut'
 import path from 'path'
+import isValid from 'is-valid-path'
 
 /**
  * Set `__static` path to static files in production
@@ -23,6 +24,7 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 global.vuexState = null
+app.filepath = null
 
 ipcMain.on('vuex-state', (e, state) => {
   global.vuexState = state
@@ -45,6 +47,12 @@ function createWindow () {
 
   mainWindow.loadURL(winURL)
 
+  mainWindow.webContents.on('did-finish-load', (e) => {
+    if (app.filepath) {
+      mainWindow.webContents.send('command', 'cmdopen', app.filepath)
+    }
+  })
+
   mainWindow.on('close', (e) => {
     e.preventDefault()
     e.returnValue = false
@@ -61,6 +69,19 @@ function createWindow () {
 }
 
 app.on('ready', () => {
+  if (process.argv.length >= 2) {
+    for (var arg of process.argv) {
+      if (!isValid(arg)) continue
+      if (!isSupportedFile(arg)) continue
+      if (path.isAbsolute(arg)) {
+        app.filepath = arg
+        break
+      } else {
+        app.filepath = path.join(__dirname, './../../../../', arg)
+        break
+      }
+    }
+  }
   createWindow()
   electronLocalshortcut.register(mainWindow, 'CommandOrControl+S', () => {
     mainWindow.webContents.send('command', 'save')
@@ -71,9 +92,22 @@ app.on('ready', () => {
   electronLocalshortcut.register(mainWindow, 'CommandOrControl+P', () => {
     mainWindow.webContents.send('command', 'print')
   })
+  electronLocalshortcut.register(mainWindow, 'F12', () => {
+    mainWindow.webContents.openDevTools()
+  })
   globalShortcut.register('CommandOrControl+Shift+Q', () => {
     mainWindow.destroy()
   })
+})
+
+app.on('open-file', (e, filepath) => {
+  e.preventDefault()
+  if (!isValid(filepath) || !isSupportedFile(filepath)) return
+  if (path.isAbsolute(filepath)) {
+    app.filepath = filepath
+  } else {
+    app.filepath = path.join(__dirname, './../../../../', filepath)
+  }
 })
 
 app.on('window-all-closed', () => {
@@ -87,3 +121,15 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+function isSupportedFile (file) {
+  if (path.extname(file) === '.brdnote' ||
+      path.extname(file) === '.brdnb' ||
+      path.extname(file) === '.txt' ||
+      path.extname(file) === '.md'
+  ) {
+    return true
+  } else {
+    return false
+  }
+}

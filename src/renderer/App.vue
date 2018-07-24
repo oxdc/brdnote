@@ -25,8 +25,8 @@ export default {
       }, 10000)
     },
     initCmdHander () {
-      this.$electron.ipcRenderer.on('command', (event, arg) => {
-        switch (arg) {
+      this.$electron.ipcRenderer.on('command', (event, cmd, arg) => {
+        switch (cmd) {
           case 'save':
             commands.save(this.$root)
             break
@@ -41,6 +41,10 @@ export default {
 
           case 'print':
             commands.print(this.$root)
+            break
+
+          case 'cmdopen':
+            commands.cmdopen(this.$root, arg)
             break
 
           default:
