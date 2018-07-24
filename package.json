@@ -121,6 +121,10 @@
     },
     "linux": {
       "icon": "build/icons"
+    },
+    "fileAssociations": {
+      "ext": ["brdnote", "brdnb"],
+      "name": "brdnote"
     }
   }
 }
