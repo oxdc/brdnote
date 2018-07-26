@@ -2,6 +2,11 @@
   padding: 0px !important;
 }
 
+.ql-editor.ql-blank::before {
+  left: 0px !important;
+  right: 0px !important;
+}
+
 .ql-editor p,
 .ql-editor ol,
 .ql-editor ul,
@@ -17,26 +22,45 @@
 
 .ql-editor h1 {
   margin: 1.2em 0em !important;
+  font-size: 2em !important;
 }
 
 .ql-editor h2 {
   margin: 1.0em 0em !important;
+  font-size: 1.7em !important;
 }
 
 .ql-editor h3 {
   margin: 0.8em 0em !important;
+  font-size: 1.4em !important;
 }
 
 .ql-editor h4 {
   margin: 0.6em 0em !important;
+  font-size: 1.2em !important;
 }
 
 .ql-editor h5 {
   margin: 0.4em 0em !important;
+  font-size: 1.1em !important;
 }
 
 .ql-editor h6 {
   margin: 0.2em 0em !important;
+  font-size: 1em !important;
+}
+
+.ql-editor h1:hover::before,
+.ql-editor h2:hover::before,
+.ql-editor h3:hover::before,
+.ql-editor h4:hover::before,
+.ql-editor h5:hover::before,
+.ql-editor h6:hover::before {
+  position: absolute !important;
+  content: '\B6' !important;
+  left: 30px !important;
+  color: rgba(64, 160, 255, 0.6) !important;
+  cursor: pointer !important;
 }
 
 .ql-editor blockquote {
@@ -185,6 +209,12 @@
 
 .ql-editor li.ql-indent-8.ql-direction-rtl.ql-align-right {
   padding-right: 1.5em !important;
+}
+
+.ql-editor pre {
+  border-radius: 0px !important;
+  padding: 10px 60px 10px 56px !important;
+  font-family: monospace !important;
 }
 
 .noselect {

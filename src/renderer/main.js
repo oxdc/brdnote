@@ -9,7 +9,7 @@ import 'simplebar'
 import 'simplebar/dist/simplebar.css'
 
 import hljs from 'highlight.js'
-import 'highlight.js/styles/vs2015.css'
+import 'highlight.js/styles/vs.css'
 
 import iView from 'iview'
 import locale from 'iview/dist/locale/en-US'

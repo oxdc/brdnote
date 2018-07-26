@@ -44,3 +44,12 @@
 .theme-default .ql-container.ql-snow {
   border: none !important;
 }
+
+.theme-default .ql-editor pre {
+  background-color: rgb(231, 245, 255) !important;
+  border-left: solid 4px rgb(0, 122, 204) !important;
+}
+
+.theme-default .ql-editor pre.ql-syntax {
+  color: darkslategray !important;
+}
