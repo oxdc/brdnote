@@ -26,3 +26,21 @@
   border-top: solid 1px #d2d2d2;
   background: #fafafa;
 }
+
+.theme-default .ql-snow .ql-editor blockquote {
+  margin: 0px !important;
+  background: #f7f7f7 !important;
+  border-left: 4px solid gray !important;
+}
+
+.theme-default .ql-container {
+  font-size: 17px !important;
+}
+
+.theme-default .ql-toolbar.ql-snow {
+  border: none !important;
+}
+
+.theme-default .ql-container.ql-snow {
+  border: none !important;
+}
