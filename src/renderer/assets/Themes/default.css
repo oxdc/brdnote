@@ -53,3 +53,8 @@
 .theme-default .ql-editor pre.ql-syntax {
   color: darkslategray !important;
 }
+
+.theme-default .ql-editor p,
+.theme-default .ql-editor blockquote {
+  text-align: justify !important;
+}
