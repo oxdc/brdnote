@@ -238,6 +238,7 @@ body {
 
 .tiny-scrollbar::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 .tiny-scrollbar::-webkit-scrollbar-track {
   background: transparent;
@@ -252,6 +253,10 @@ body {
 .tiny-scrollbar::-webkit-scrollbar-thumb:hover {
   border-radius: 3px;
   background: rgb(85, 85, 85);
+}
+.tiny-scrollbar::-webkit-resizer,
+.tiny-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 @media print {

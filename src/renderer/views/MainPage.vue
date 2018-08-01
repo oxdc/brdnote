@@ -1,5 +1,5 @@
 <template>
-  <div id="app-split-root">
+  <div class="app-split-root">
     <Split
      v-model="rootSplit"
      min="230px"
@@ -77,8 +77,6 @@ export default {
       this.$store.commit('updateSavingStatus', false)
     },
     setPosition () {
-      var splitRoot = document.getElementById('app-split-root')
-      splitRoot.style.height = getSize().height - 25 + 'px'
       if (!this.sidebarVisibility) {
         this.rootSplit = '0px'
       }
@@ -198,5 +196,13 @@ export default {
 .sidebar-toggle-btn {
   position: absolute;
   margin: 20px;
+}
+
+.app-split-root {
+  position: absolute;
+  top: 0px;
+  bottom: 25px;
+  left: 0px;
+  right: 0px;
 }
 </style>

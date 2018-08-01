@@ -88,8 +88,4 @@ export default {
 .sidebar-outline-explorer .ivu-tree ul li {
   margin: 0px;
 }
-
-.sidebar-outline-explorer .ivu-card-body {
-  overflow: scroll
-}
 </style>

@@ -129,7 +129,7 @@
       </Tooltip>
     </div>
     <div class="sidebar-right">
-      <Card class="sidebar-explorer tiny-scrollbar" id="sidebar-explorer" >
+      <Card class="sidebar-explorer" id="sidebar-explorer">
         <p slot="title"> {{ titles[view] }} </p>
         <side-bar-outline  v-show="view === 3"></side-bar-outline>
         <p v-show="view !== 3"> Comming soon </p>
@@ -196,6 +196,12 @@ export default {
         }
       }
     }
+  },
+  mounted () {
+    document
+      .getElementById('sidebar-explorer')
+      .getElementsByClassName('ivu-card-body')[0]
+      .classList.add('tiny-scrollbar')
   }
 }
 </script>
@@ -240,6 +246,7 @@ export default {
 
 <style>
 .sidebar-explorer .ivu-card-head {
+  height: 90px !important;
   padding: 40px 16px 25px !important;
   background: gray;
   text-align: center;
@@ -249,5 +256,14 @@ export default {
 .sidebar-explorer .ivu-card-head-inner {
   color: #e6e6e6 !important;
   font-size: 16px !important;
+}
+
+.sidebar-explorer .ivu-card-body {
+  position: absolute;
+  top: 90px;
+  bottom: 0px;
+  width: 100%;
+  padding-bottom: 300px;
+  overflow: scroll !important;
 }
 </style>
