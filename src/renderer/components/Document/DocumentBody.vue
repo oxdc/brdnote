@@ -1,6 +1,5 @@
 <template>
   <div class="document-container" ref="document-body" id="document-body">
-    <slot name="toolbar"></slot>
     <div class="document-body">
       <document-title></document-title>
       <tag-bar-plane></tag-bar-plane>
@@ -41,10 +40,7 @@ export default {
 
 <style scoped>
 .document-container {
-  position: fixed;
-  overflow-y: scroll;
   overflow-x: hidden;
-  width: 100%;
   padding: 100px 0px 800px 0px;
 }
 

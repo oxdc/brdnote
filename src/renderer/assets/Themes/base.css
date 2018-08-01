@@ -1,3 +1,7 @@
+body {
+  overflow: hidden !important;
+}
+
 .ql-editor {
   padding: 0px !important;
 }

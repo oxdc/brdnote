@@ -19,8 +19,6 @@ export default {
 
 <style scoped>
 .toolbar-plane-container {
-  top: 0px;
-  position: fixed;
   min-height: 40px;
   z-index: 5;
 }

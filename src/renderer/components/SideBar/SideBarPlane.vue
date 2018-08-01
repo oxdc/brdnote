@@ -1,82 +1,82 @@
 <template>
   <div
-   :class="{
-     'sidebar-plane': true,
-     'noselect': true,
-     'sidebar-plane-active': true
-    }"
+   class="sidebar-plane noselect"
    ref="sidebar-plane">
-    <Tooltip
-     content="Hide"
-     placement="right">
-      <Button
-       type="text"
-       shape="circle"
-       icon="md-close"
-       class="sidebar-btn"
-       @click="onClickHome">
-      </Button>
-    </Tooltip>
-    <Tooltip content="Document details" placement="right">
-      <Button
-       v-show="visible"
-       :type="view === 1 ? 'primary' : 'default'"
-       shape="circle"
-       icon="md-infinite"
-       class="sidebar-btn"
-       @click="onView(1)">
-      </Button>
-    </Tooltip>
-    <Tooltip content="Explorer" placement="right">
-      <Button
-       v-show="visible"
-       :type="view === 2 ? 'primary' : 'default'"
-       shape="circle"
-       icon="md-document"
-       class="sidebar-btn"
-       @click="onView(2)">
-      </Button>
-    </Tooltip>
-    <Tooltip content="Outline" placement="right">
-      <Button
-       v-show="visible"
-       :type="view === 3 ? 'primary' : 'default'"
-       shape="circle"
-       icon="md-list"
-       class="sidebar-btn"
-       @click="onView(3)">
-      </Button>
-    </Tooltip>
-    <Tooltip content="Searching" placement="right">
-      <Button
-       v-show="visible"
-       :type="view === 4 ? 'primary' : 'default'"
-       shape="circle"
-       icon="md-search"
-       class="sidebar-btn"
-       @click="onView(4)">
-      </Button>
-    </Tooltip>
-    <Tooltip content="Settings" placement="right">
-      <Button
-       v-show="visible"
-       :type="view === 5 ? 'primary' : 'default'"
-       shape="circle"
-       icon="md-settings"
-       class="sidebar-btn"
-       @click="onView(5)">
-      </Button>
-    </Tooltip>
-    <Card class="sidebar-explorer tiny-scrollbar" id="sidebar-explorer" v-show="visible">
-      <p slot="title"> {{ titles[view] }} </p>
-      <side-bar-outline  v-show="view === 3"></side-bar-outline>
-      <p v-show="view !== 3"> Comming soon </p>
-    </Card>
+    <div class="sidebar-left">
+      <Tooltip
+       content="Hide"
+       placement="right">
+        <Button
+         type="text"
+         shape="circle"
+         icon="md-close"
+         class="sidebar-btn"
+         @click="onClickToggle">
+        </Button>
+      </Tooltip>
+      <Tooltip content="Document details" placement="right">
+        <Button
+         v-show="visible"
+         :type="view === 1 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-infinite"
+         class="sidebar-btn"
+         @click="onView(1)">
+        </Button>
+      </Tooltip>
+      <Tooltip content="Explorer" placement="right">
+        <Button
+         v-show="visible"
+         :type="view === 2 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-document"
+         class="sidebar-btn"
+         @click="onView(2)">
+        </Button>
+      </Tooltip>
+      <Tooltip content="Outline" placement="right">
+        <Button
+         v-show="visible"
+         :type="view === 3 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-list"
+         class="sidebar-btn"
+         @click="onView(3)">
+        </Button>
+      </Tooltip>
+      <Tooltip content="Searching" placement="right">
+        <Button
+         v-show="visible"
+         :type="view === 4 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-search"
+         class="sidebar-btn"
+         @click="onView(4)">
+        </Button>
+      </Tooltip>
+      <Tooltip content="Settings" placement="right">
+        <Button
+         v-show="visible"
+         :type="view === 5 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-settings"
+         class="sidebar-btn"
+         @click="onView(5)">
+        </Button>
+      </Tooltip>
+    </div>
+    <div class="sidebar-right">
+      <Card class="sidebar-explorer tiny-scrollbar" id="sidebar-explorer" v-show="visible">
+        <p slot="title"> {{ titles[view] }} </p>
+        <side-bar-outline  v-show="view === 3"></side-bar-outline>
+        <p v-show="view !== 3"> Comming soon </p>
+      </Card>
+    </div>
   </div>
 </template>
 
 <script>
-import { getSize } from '@/uitls/miscellaneous'
+// import { getSize } from '@/uitls/miscellaneous'
 import SideBarOutline from '@/components/SideBar/SideBarOutline'
 
 export default {
@@ -86,60 +86,23 @@ export default {
   },
   data () {
     return {
-      visible: false,
       view: 1
     }
   },
   methods: {
-    setPosition () {
-      var sidebar = this.$refs['sidebar-plane']
-      var toolbar = document.getElementById('toolbar-plane')
-      var sidebarexplorer = document.getElementById('sidebar-explorer')
-      var documentBody = document.getElementById('document-body')
-      if (sidebar && sidebarexplorer) {
-        sidebar.style.height = getSize().height - 25 + 'px'
-        sidebarexplorer.style.height = getSize().height - 25 + 'px'
-      }
-      if (documentBody && sidebar && toolbar) {
-        if (this.visible) {
-          sidebar.style.marginTop = '0px'
-          documentBody.style.left = sidebarexplorer.clientWidth + 62 + 'px'
-          toolbar.style.width = documentBody.style.width = getSize().width - sidebarexplorer.clientWidth - 62 + 'px'
-        } else {
-          sidebar.style.marginTop = toolbar.clientHeight + 15 + 'px'
-          documentBody.style.left = 0 + 'px'
-          toolbar.style.width = documentBody.style.width = getSize().width + 'px'
-        }
-      }
-    },
-    onClickHome (event) {
-      this.visible = !this.visible
+    onClickToggle (event) {
+      this.$store.commit('toggleSidebar')
     },
     onView (view) {
       this.view = view
     }
   },
-  mounted () {
-    this.setPosition()
-    window.addEventListener('resize', () => {
-      this.setPosition()
-    }, true)
-
-    var targetNode = this.$refs['sidebar-plane']
-    var config = { attributes: true, childList: true, subtree: true }
-    var callback = () => {
-      this.setPosition()
-    }
-
-    var observer = new MutationObserver(callback)
-    observer.observe(targetNode, config)
-
-    var toolbar = document.getElementById('toolbar-plane')
-
-    var toolbarobserver = new MutationObserver(callback)
-    toolbarobserver.observe(toolbar, config)
-  },
   computed: {
+    visible: {
+      get () {
+        return this.$store.getters.sidebarVisibility
+      }
+    },
     titles: {
       get () {
         return {
@@ -157,16 +120,20 @@ export default {
 
 <style scoped>
 .sidebar-plane {
-  width: 62px;
-  padding: 15px;
-  position: fixed;
-  background: transparent;
+  height: 100%;
+  display: flex;
   outline: none;
   border: none;
+  background: rgb(240, 240, 240);
 }
 
-.sidebar-plane-active {
-  background: rgb(240, 240, 240) !important;
+.sidebar-left {
+  width: 62px;
+  padding: 15px;
+}
+
+.sidebar-right {
+  width: 100%;
 }
 
 .sidebar-btn {
@@ -177,20 +144,11 @@ export default {
   margin-top: 0px;
 }
 
-.sidebar-toggle-btn-close {
-  box-shadow: 0px 0px 8px rgb(45, 140, 240);
-}
-
 .sidebar-explorer {
-  top: 0px;
-  left: 62px;
-  min-width: 260px;
-  max-width: 400px;
+  height: 100%;
   border-radius: 0px !important;
-  position: fixed;
   overflow-x: hidden;
   overflow-y: scroll;
-  resize: horizontal;
   background: rgb(222, 222, 222) !important;
 }
 </style>
