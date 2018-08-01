@@ -169,6 +169,7 @@ export default {
 
 <style scoped>
 .formula-editor-container {
+  padding: 10px;
   height: 0px;
   visibility: hidden;
 }

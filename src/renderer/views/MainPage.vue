@@ -21,7 +21,7 @@
     <status-bar-plane>
       <div>
         <Icon
-         :type="status ? 'checkmark-circled' : 'information-circled'"
+         :type="status ? 'md-checkmark-circle' : 'md-information-circle'"
          :style="{'color': status ? '#19be6b' : '#fcbb58'}"
         ></Icon>
         {{ status ? 'Saved !' : 'Press `Ctrl + S` to save.' }}
