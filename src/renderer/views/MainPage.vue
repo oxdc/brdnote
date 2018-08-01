@@ -3,6 +3,7 @@
     <Split
      v-model="rootSplit"
      min="230px"
+     max="300px"
      @on-moving="onResize">
       <side-bar-plane slot="left"></side-bar-plane>
       <div slot="right">
@@ -97,11 +98,19 @@ export default {
       this.$store.commit('showSidebar')
     },
     onResize (event) {
+      this.setDocumentPosition()
       if (!this.sidebarVisibility) {
         this.rootSplit = '0px'
       }
       if (!this.sidebarExpanded) {
         this.rootSplit = '62px'
+      }
+    },
+    setDocumentPosition () {
+      var documentBody = document.getElementById('document-body')
+      var toolbar = document.getElementById('toolbar-plane')
+      if (documentBody && toolbar) {
+        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
       }
     }
   },

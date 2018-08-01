@@ -24,8 +24,9 @@ export default {
   methods: {
     setDocumentPosition () {
       var documentBody = this.$refs['document-body']
-      if (documentBody) {
-        documentBody.style.height = getSize().height - 25 + 'px'
+      var toolbar = document.getElementById('toolbar-plane')
+      if (documentBody && toolbar) {
+        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
       }
     }
   },
@@ -41,7 +42,7 @@ export default {
 <style scoped>
 .document-container {
   overflow-x: hidden;
-  padding: 100px 0px 800px 0px;
+  padding: 100px 0px 200px;
 }
 
 .document-body {
