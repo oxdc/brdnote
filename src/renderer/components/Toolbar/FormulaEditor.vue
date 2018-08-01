@@ -24,8 +24,8 @@
       </div>
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
-          <Button type="ghost" icon="ios-copy-outline" @click="onClickCopy"> Copy LaTeX </Button>
-          <Button type="ghost" icon="android-options" @click="onClickProMode"> {{ professionalMode ? 'Easy mode' : 'Professional Mode' }} </Button>
+          <Button type="default" icon="md-copy" @click="onClickCopy"> Copy LaTeX </Button>
+          <Button type="default" icon="md-options" @click="onClickProMode"> {{ professionalMode ? 'Easy mode' : 'Professional Mode' }} </Button>
         </div>
         <div class="formula-editor-flex-column align-right">
           <Button type="text" @click="onClickCancle"> Cancle </Button>

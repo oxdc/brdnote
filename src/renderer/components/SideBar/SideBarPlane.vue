@@ -3,20 +3,17 @@
    :class="{
      'sidebar-plane': true,
      'noselect': true,
-     'sidebar-plane-active': visible
+     'sidebar-plane-active': true
     }"
    ref="sidebar-plane">
     <Tooltip
-     :content="visible ? 'Hide': 'Home'"
+     content="Hide"
      placement="right">
       <Button
-       :type="visible ? 'text' : 'primary'"
+       type="text"
        shape="circle"
-       :icon="visible ? 'close-round' : 'home'"
-       :class="{
-         'sidebar-btn': true,
-         'sidebar-toggle-btn-open': visible
-        }"
+       icon="md-close"
+       class="sidebar-btn"
        @click="onClickHome">
       </Button>
     </Tooltip>
@@ -25,7 +22,7 @@
        v-show="visible"
        :type="view === 1 ? 'primary' : 'default'"
        shape="circle"
-       icon="information"
+       icon="md-infinite"
        class="sidebar-btn"
        @click="onView(1)">
       </Button>
@@ -35,7 +32,7 @@
        v-show="visible"
        :type="view === 2 ? 'primary' : 'default'"
        shape="circle"
-       icon="android-document"
+       icon="md-document"
        class="sidebar-btn"
        @click="onView(2)">
       </Button>
@@ -45,7 +42,7 @@
        v-show="visible"
        :type="view === 3 ? 'primary' : 'default'"
        shape="circle"
-       icon="android-list"
+       icon="md-list"
        class="sidebar-btn"
        @click="onView(3)">
       </Button>
@@ -55,7 +52,7 @@
        v-show="visible"
        :type="view === 4 ? 'primary' : 'default'"
        shape="circle"
-       icon="ios-search-strong"
+       icon="md-search"
        class="sidebar-btn"
        @click="onView(4)">
       </Button>
@@ -65,7 +62,7 @@
        v-show="visible"
        :type="view === 5 ? 'primary' : 'default'"
        shape="circle"
-       icon="settings"
+       icon="md-settings"
        class="sidebar-btn"
        @click="onView(5)">
       </Button>
@@ -195,13 +192,5 @@ export default {
   overflow-y: scroll;
   resize: horizontal;
   background: rgb(222, 222, 222) !important;
-}
-
-.sidebar-explorer > .simplebar-track {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 2px !important;
 }
 </style>
