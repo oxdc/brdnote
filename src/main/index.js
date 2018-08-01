@@ -35,10 +35,10 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 618,
-    width: 1100,
-    minHeight: 500,
-    minWidth: 300,
+    height: 742,
+    width: 1200,
+    minHeight: 600,
+    minWidth: 400,
     useContentSize: true,
     icon: process.env.NODE_ENV !== 'development'
       ? path.join(__dirname, '/../../../icon.png')

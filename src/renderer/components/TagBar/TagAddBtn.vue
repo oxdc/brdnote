@@ -5,7 +5,7 @@
    v-model="visible"
   >
     <Button
-     icon="ios-plus-empty"
+     icon="md-add"
      type="dashed"
      size="small"
     >

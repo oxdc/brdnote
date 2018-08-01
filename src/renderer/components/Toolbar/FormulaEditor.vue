@@ -6,7 +6,7 @@
           <span class="formula-editor-title">Formula Editor</span>
         </div>
         <div class="formula-editor-flex-column align-right">
-          <Button type="text" shape="circle" size="small" icon="close-round" @click="onClickCancle"></Button>
+          <Button type="text" shape="circle" size="small" icon="md-close" @click="onClickCancle"></Button>
         </div>
       </div>
       <div class="formula-editor-row" :class="{ 'formula-editor-row-hidden': !professionalMode }">
@@ -29,7 +29,7 @@
         </div>
         <div class="formula-editor-flex-column align-right">
           <Button type="text" @click="onClickCancle"> Cancle </Button>
-          <Button type="primary" @click="onClickOk"> Ok </Button>
+          <Button type="primary" icon="md-checkmark" @click="onClickOk"> Ok </Button>
         </div>
       </div>
     </div>
@@ -169,12 +169,12 @@ export default {
 
 <style scoped>
 .formula-editor-container {
-  padding: 10px;
   height: 0px;
   visibility: hidden;
 }
 
 .formula-editor {
+  padding: 10px;
   margin: auto;
   max-width: 900px;
   font-size: 16px;

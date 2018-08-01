@@ -83,10 +83,13 @@ export default {
 <style>
 .sidebar-outline-explorer .ivu-tree-title {
   font-size: 14px !important;
-  width: 100% !important;
 }
 
 .sidebar-outline-explorer .ivu-tree ul li {
   margin: 0px;
+}
+
+.sidebar-outline-explorer .ivu-card-body {
+  overflow: scroll
 }
 </style>

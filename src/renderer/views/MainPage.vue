@@ -2,19 +2,32 @@
   <div id="app-split-root">
     <Split
      v-model="rootSplit"
-     :min="sidebarVisibility ? '62px' : '0px'">
+     min="230px"
+     @on-moving="onResize">
       <side-bar-plane slot="left"></side-bar-plane>
       <div slot="right">
         <toolbar-plane>
           <toolbar slot="toolbar"></toolbar>
           <formula-editor slot="tooltip"></formula-editor>
         </toolbar-plane>
+        <Tooltip
+         content="Home"
+         placement="right"
+         class="sidebar-toggle-btn">
+          <Button
+           type="primary"
+           shape="circle"
+           icon="md-home"
+           v-show="!sidebarVisibility"
+           @click="onClickToggle">
+          </Button>
+        </Tooltip>
         <document-body id="document-body">
           <quill-editor
            :options="editorOption"
            @change="onChange"
-           slot="content"
-          ></quill-editor>
+           slot="content">
+          </quill-editor>
         </document-body>
       </div>
     </Split>
@@ -22,8 +35,8 @@
       <div>
         <Icon
          :type="status ? 'md-checkmark-circle' : 'md-information-circle'"
-         :style="{'color': status ? '#19be6b' : '#fcbb58'}"
-        ></Icon>
+         :style="{'color': status ? '#19be6b' : '#fcbb58'}">
+        </Icon>
         {{ status ? 'Saved !' : 'Press `Ctrl + S` to save.' }}
       </div>
       <div id="word-counter" style="float: right;"></div>
@@ -66,7 +79,32 @@ export default {
     setPosition () {
       var splitRoot = document.getElementById('app-split-root')
       splitRoot.style.height = getSize().height - 25 + 'px'
-      console.log(this.rootSplit)
+      if (!this.sidebarVisibility) {
+        this.rootSplit = '0px'
+      }
+      if (!this.sidebarExpanded) {
+        this.rootSplit = '0px'
+        setTimeout(() => {
+          this.rootSplit = '62px'
+        }, 1)
+      }
+      if (getSize().width < 500 && this.sidebarVisibility && this.sidebarExpanded) {
+        this.$store.commit('minimizeSidebar')
+        setTimeout(() => {
+          this.rootSplit = '62px'
+        }, 1)
+      }
+    },
+    onClickToggle () {
+      this.$store.commit('showSidebar')
+    },
+    onResize (event) {
+      if (!this.sidebarVisibility) {
+        this.rootSplit = '0px'
+      }
+      if (!this.sidebarExpanded) {
+        this.rootSplit = '62px'
+      }
     }
   },
   computed: {
@@ -117,6 +155,11 @@ export default {
         return this.$store.getters.sidebarVisibility
       }
     },
+    sidebarExpanded: {
+      get () {
+        return this.$store.getters.sidebarExpanded
+      }
+    },
     rootSplit: {
       get () {
         return this.$store.getters.rootSplit
@@ -150,3 +193,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.sidebar-toggle-btn {
+  position: absolute;
+  margin: 20px;
+}
+</style>

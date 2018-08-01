@@ -14,9 +14,57 @@
          @click="onClickToggle">
         </Button>
       </Tooltip>
-      <Tooltip content="Document details" placement="right">
+      <Tooltip
+       content="Expand"
+       placement="right">
         <Button
-         v-show="visible"
+         type="text"
+         shape="circle"
+         :icon="expanded ? 'ios-arrow-back' : 'ios-arrow-forward'"
+         class="sidebar-btn"
+         @click="onClickExpand">
+        </Button>
+      </Tooltip>
+      <Tooltip
+       content="Open"
+       placement="right">
+        <Button
+         type="primary"
+         shape="circle"
+         icon="md-folder-open"
+         class="sidebar-btn"
+         @click="onOpen"
+         ghost>
+        </Button>
+      </Tooltip>
+      <Tooltip
+       content="Save"
+       placement="right">
+        <Button
+         type="primary"
+         shape="circle"
+         icon="md-arrow-down"
+         class="sidebar-btn"
+         @click="onSave"
+         ghost>
+        </Button>
+      </Tooltip>
+      <Tooltip
+       content="Print"
+       placement="right">
+        <Button
+         type="primary"
+         shape="circle"
+         icon="md-print"
+         class="sidebar-btn"
+         ghost>
+        </Button>
+      </Tooltip>
+      <Divider />
+      <Tooltip
+       content="Document details"
+       placement="right">
+        <Button
          :type="view === 1 ? 'primary' : 'default'"
          shape="circle"
          icon="md-infinite"
@@ -24,19 +72,21 @@
          @click="onView(1)">
         </Button>
       </Tooltip>
-      <Tooltip content="Explorer" placement="right">
+      <Tooltip
+       content="Explorer"
+       placement="right">
         <Button
-         v-show="visible"
          :type="view === 2 ? 'primary' : 'default'"
          shape="circle"
-         icon="md-document"
+         icon="md-folder"
          class="sidebar-btn"
          @click="onView(2)">
         </Button>
       </Tooltip>
-      <Tooltip content="Outline" placement="right">
+      <Tooltip
+       content="Outline"
+       placement="right">
         <Button
-         v-show="visible"
          :type="view === 3 ? 'primary' : 'default'"
          shape="circle"
          icon="md-list"
@@ -44,9 +94,10 @@
          @click="onView(3)">
         </Button>
       </Tooltip>
-      <Tooltip content="Searching" placement="right">
+      <Tooltip
+       content="Searching"
+       placement="right">
         <Button
-         v-show="visible"
          :type="view === 4 ? 'primary' : 'default'"
          shape="circle"
          icon="md-search"
@@ -54,9 +105,10 @@
          @click="onView(4)">
         </Button>
       </Tooltip>
-      <Tooltip content="Settings" placement="right">
+      <Tooltip
+       content="Settings"
+       placement="right">
         <Button
-         v-show="visible"
          :type="view === 5 ? 'primary' : 'default'"
          shape="circle"
          icon="md-settings"
@@ -64,9 +116,20 @@
          @click="onView(5)">
         </Button>
       </Tooltip>
+      <Tooltip
+       content="Help"
+       placement="right">
+        <Button
+         :type="view === 6 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-help"
+         class="sidebar-btn"
+         @click="onView(6)">
+        </Button>
+      </Tooltip>
     </div>
     <div class="sidebar-right">
-      <Card class="sidebar-explorer tiny-scrollbar" id="sidebar-explorer" v-show="visible">
+      <Card class="sidebar-explorer tiny-scrollbar" id="sidebar-explorer" >
         <p slot="title"> {{ titles[view] }} </p>
         <side-bar-outline  v-show="view === 3"></side-bar-outline>
         <p v-show="view !== 3"> Comming soon </p>
@@ -76,7 +139,7 @@
 </template>
 
 <script>
-// import { getSize } from '@/uitls/miscellaneous'
+import commands from '@/uitls/commands'
 import SideBarOutline from '@/components/SideBar/SideBarOutline'
 
 export default {
@@ -93,14 +156,32 @@ export default {
     onClickToggle (event) {
       this.$store.commit('toggleSidebar')
     },
+    onClickExpand (event) {
+      if (this.expanded) {
+        this.$store.commit('minimizeSidebar')
+      } else {
+        this.$store.commit('expandSidebar')
+      }
+    },
     onView (view) {
       this.view = view
+    },
+    onOpen (event) {
+      commands.open(this.$root)
+    },
+    onSave (event) {
+      commands.save(this.$root)
     }
   },
   computed: {
     visible: {
       get () {
         return this.$store.getters.sidebarVisibility
+      }
+    },
+    expanded: {
+      get () {
+        return this.$store.getters.sidebarExpanded
       }
     },
     titles: {
@@ -110,7 +191,8 @@ export default {
           '2': 'Explorer',
           '3': 'Outline',
           '4': 'Searching',
-          '5': 'Settings'
+          '5': 'Settings',
+          '6': 'Help'
         }
       }
     }
@@ -145,10 +227,27 @@ export default {
 }
 
 .sidebar-explorer {
+  display: inline-table;
   height: 100%;
+  width: 100%;
   border-radius: 0px !important;
   overflow-x: hidden;
   overflow-y: scroll;
   background: rgb(222, 222, 222) !important;
+  border: none !important;
+}
+</style>
+
+<style>
+.sidebar-explorer .ivu-card-head {
+  padding: 40px 16px 25px !important;
+  background: gray;
+  text-align: center;
+}
+
+.sidebar-explorer .ivu-card-head p,
+.sidebar-explorer .ivu-card-head-inner {
+  color: #e6e6e6 !important;
+  font-size: 16px !important;
 }
 </style>
