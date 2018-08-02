@@ -78,11 +78,12 @@ export default {
       this.$store.commit('updateSavingStatus', false)
     },
     setPosition () {
+      this.setDocumentPosition()
       if (!this.sidebarVisibility) {
         this.rootSplit = '0px'
       }
       if (!this.sidebarExpanded) {
-        this.rootSplit = '0px'
+        this.rootSplit = '61.9px'
         setTimeout(() => {
           this.rootSplit = '62px'
         }, 1)
@@ -107,11 +108,13 @@ export default {
       }
     },
     setDocumentPosition () {
-      var documentBody = document.getElementById('document-body')
-      var toolbar = document.getElementById('toolbar-plane')
-      if (documentBody && toolbar) {
-        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
-      }
+      setTimeout(() => {
+        var documentBody = document.getElementById('document-body')
+        var toolbar = document.getElementById('toolbar-plane')
+        if (documentBody && toolbar) {
+          documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+        }
+      }, 1)
     }
   },
   computed: {

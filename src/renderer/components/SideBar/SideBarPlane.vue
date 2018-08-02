@@ -11,7 +11,7 @@
          shape="circle"
          icon="md-close"
          class="sidebar-btn"
-         @click="onClickToggle">
+         @click="onClickHide">
         </Button>
       </Tooltip>
       <Tooltip
@@ -129,16 +129,19 @@
       </Tooltip>
     </div>
     <div class="sidebar-right">
-      <Card class="sidebar-explorer" id="sidebar-explorer">
-        <p slot="title"> {{ titles[view] }} </p>
-        <side-bar-outline  v-show="view === 3"></side-bar-outline>
-        <p v-show="view !== 3"> Comming soon </p>
-      </Card>
+      <div class="sidebar-explorer" id="sidebar-explorer">
+        <div class="sidebar-explorer-head"> {{ titles[view] }} </div>
+        <div class="sidebar-explorer-body tiny-scrollbar">
+          <side-bar-outline  v-show="view === 3"></side-bar-outline>
+          <p v-show="view !== 3"> Comming soon </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getSize } from '@/uitls/miscellaneous'
 import commands from '@/uitls/commands'
 import SideBarOutline from '@/components/SideBar/SideBarOutline'
 
@@ -153,8 +156,9 @@ export default {
     }
   },
   methods: {
-    onClickToggle (event) {
-      this.$store.commit('toggleSidebar')
+    onClickHide (event) {
+      this.$store.commit('hideSidebar')
+      this.setDocumentPosition()
     },
     onClickExpand (event) {
       if (this.expanded) {
@@ -162,6 +166,7 @@ export default {
       } else {
         this.$store.commit('expandSidebar')
       }
+      this.setDocumentPosition()
     },
     onView (view) {
       this.view = view
@@ -171,6 +176,15 @@ export default {
     },
     onSave (event) {
       commands.save(this.$root)
+    },
+    setDocumentPosition () {
+      setTimeout(() => {
+        var documentBody = document.getElementById('document-body')
+        var toolbar = document.getElementById('toolbar-plane')
+        if (documentBody && toolbar) {
+          documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+        }
+      }, 1)
     }
   },
   computed: {
@@ -196,12 +210,6 @@ export default {
         }
       }
     }
-  },
-  mounted () {
-    document
-      .getElementById('sidebar-explorer')
-      .getElementsByClassName('ivu-card-body')[0]
-      .classList.add('tiny-scrollbar')
   }
 }
 </script>
@@ -234,36 +242,37 @@ export default {
 
 .sidebar-explorer {
   display: inline-table;
+  position: relative;
   height: 100%;
   width: 100%;
-  border-radius: 0px !important;
+  border-radius: 0px;
   overflow-x: hidden;
   overflow-y: scroll;
-  background: rgb(222, 222, 222) !important;
-  border: none !important;
+  background: rgb(222, 222, 222);
+  border: none;
 }
-</style>
 
-<style>
-.sidebar-explorer .ivu-card-head {
-  height: 90px !important;
-  padding: 40px 16px 25px !important;
+.sidebar-explorer:hover {
+  box-shadow: 0 1px 6px rgba(0,0,0,.2);
+}
+
+.sidebar-explorer-head {
+  height: 90px;
+  padding: 40px 16px 0px;
   background: gray;
   text-align: center;
+  color: #e6e6e6;
+  font-size: 18px;
+  font-weight: 700;
 }
 
-.sidebar-explorer .ivu-card-head p,
-.sidebar-explorer .ivu-card-head-inner {
-  color: #e6e6e6 !important;
-  font-size: 16px !important;
-}
-
-.sidebar-explorer .ivu-card-body {
+.sidebar-explorer-body {
   position: absolute;
   top: 90px;
   bottom: 0px;
+  padding: 16px;
   width: 100%;
-  padding-bottom: 300px;
-  overflow: scroll !important;
+  overflow: scroll;
+  font-size: 16px;
 }
 </style>

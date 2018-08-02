@@ -23,11 +23,13 @@ export default {
   },
   methods: {
     setDocumentPosition () {
-      var documentBody = this.$refs['document-body']
-      var toolbar = document.getElementById('toolbar-plane')
-      if (documentBody && toolbar) {
-        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
-      }
+      setTimeout(() => {
+        var documentBody = document.getElementById('document-body')
+        var toolbar = document.getElementById('toolbar-plane')
+        if (documentBody && toolbar) {
+          documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+        }
+      }, 1)
     }
   },
   mounted () {

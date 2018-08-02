@@ -38,10 +38,12 @@ const mutations = {
     state.sidebarVisibility = !state.sidebarVisibility
   },
   expandSidebar: (state) => {
+    state.sidebarVisibility = true
     state.sidebarExpanded = true
     state.rootSplit = '350px'
   },
   minimizeSidebar: (state) => {
+    state.sidebarVisibility = true
     state.sidebarExpanded = false
     state.rootSplit = '62px'
   },
