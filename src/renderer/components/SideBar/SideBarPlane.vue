@@ -63,7 +63,7 @@
       </Tooltip>
       <Divider />
       <Tooltip
-       content="Document details"
+       content="Document"
        placement="right">
         <Button
          :type="view === 1 ? 'primary' : 'default'"
@@ -133,8 +133,9 @@
       <div class="sidebar-explorer" id="sidebar-explorer">
         <div class="sidebar-explorer-head"> {{ titles[view] }} </div>
         <div class="sidebar-explorer-body tiny-scrollbar">
+          <side-bar-document v-show="view === 1"></side-bar-document>
           <side-bar-outline  v-show="view === 3"></side-bar-outline>
-          <p v-show="view !== 3"> Comming soon </p>
+          <side-bar-help v-show="view === 6"></side-bar-help>
         </div>
       </div>
     </div>
@@ -144,12 +145,16 @@
 <script>
 import { getSize } from '@/uitls/miscellaneous'
 import commands from '@/uitls/commands'
+import SideBarDocument from '@/components/SideBar/SideBarDocument'
 import SideBarOutline from '@/components/SideBar/SideBarOutline'
+import SideBarHelp from '@/components/SideBar/SideBarHelp'
 
 export default {
   name: 'SideBarPlane',
   components: {
-    'side-bar-outline': SideBarOutline
+    'side-bar-document': SideBarDocument,
+    'side-bar-outline': SideBarOutline,
+    'side-bar-help': SideBarHelp
   },
   data () {
     return {
@@ -205,7 +210,7 @@ export default {
     titles: {
       get () {
         return {
-          '1': 'Document details',
+          '1': 'Document',
           '2': 'Explorer',
           '3': 'Outline',
           '4': 'Searching',
@@ -250,8 +255,6 @@ export default {
   height: 100%;
   width: 100%;
   border-radius: 0px;
-  overflow-x: hidden;
-  overflow-y: scroll;
   background: rgb(222, 222, 222);
   border: none;
 }
@@ -275,7 +278,7 @@ export default {
   top: 90px;
   bottom: 0px;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   font-size: 16px;
 }
 </style>
