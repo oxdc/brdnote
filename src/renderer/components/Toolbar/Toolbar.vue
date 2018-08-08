@@ -97,9 +97,10 @@ export default {
       }
     },
     onClickFormula (event) {
-      var tooltip = document.getElementById('formula-editor-container')
-      tooltip.style.height = 'unset'
-      tooltip.style.visibility = 'visible'
+      this.$store.commit('setTooltip', {
+        editor: 'richText',
+        tooltip: 'formula'
+      })
       window.mathField.latex('')
       if (window.cmFormulaEditor) {
         window.cmFormulaEditor.doc.setValue('')

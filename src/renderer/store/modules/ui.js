@@ -1,7 +1,14 @@
+import { getSize } from '@/uitls/miscellaneous'
+
 const state = {
   sidebarVisibility: false,
   sidebarExpanded: true,
-  rootSplit: '0px'
+  rootSplit: '0px',
+  editors: {
+    richText: {
+      tooltip: null
+    }
+  }
 }
 
 const getters = {
@@ -13,6 +20,9 @@ const getters = {
   },
   rootSplit: state => {
     return state.rootSplit
+  },
+  editors: state => {
+    return state.editors
   }
 }
 
@@ -49,6 +59,18 @@ const mutations = {
   },
   setRootSplit: (state, value) => {
     state.rootSplit = value
+  },
+  setTooltip: (state, { editor, tooltip }) => {
+    if (editor in state.editors) {
+      state.editors[editor].tooltip = tooltip
+    }
+    setTimeout(() => {
+      var documentBody = document.getElementById('document-body')
+      var toolbar = document.getElementById('toolbar-plane')
+      if (documentBody && toolbar) {
+        documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
+      }
+    }, 1)
   }
 }
 

@@ -89,6 +89,9 @@ app.on('ready', () => {
   electronLocalshortcut.register(mainWindow, 'CommandOrControl+O', () => {
     mainWindow.webContents.send('command', 'open')
   })
+  electronLocalshortcut.register(mainWindow, 'CommandOrControl+E', () => {
+    mainWindow.webContents.send('command', 'printpdf')
+  })
   electronLocalshortcut.register(mainWindow, 'CommandOrControl+P', () => {
     mainWindow.webContents.send('command', 'print')
   })

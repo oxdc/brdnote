@@ -1,5 +1,11 @@
 <template>
-  <div id="formula-editor-container" class="formula-editor-container noselect">
+  <div
+   id="formula-editor-container"
+   class="formula-editor-container noselect"
+   :style="{
+    'visibility': tooltip === 'formula' ? 'visible' : 'hidden',
+    'height': tooltip === 'formula' ? 'unset' : '0px'
+   }">
     <div id="formula-editor" class="formula-editor">
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
@@ -68,6 +74,11 @@ export default {
           placeholder: 'Write your code here\n'
         }
       }
+    },
+    tooltip: {
+      get () {
+        return this.$store.getters.editors.richText.tooltip
+      }
     }
   },
   mounted () {
@@ -110,14 +121,15 @@ export default {
         window.editor.setSelection(1, 0)
       }
       window.mathField.latex('')
-      var tooltip = document.getElementById('formula-editor-container')
-      tooltip.style.height = '0px'
-      tooltip.style.visibility = 'hidden'
       window.mathEmbed = {
         index: null,
         formula: null
       }
       window.focusIndex = null
+      this.$store.commit('setTooltip', {
+        editor: 'richText',
+        tooltip: null
+      })
     },
     onClickCopy () {
       this.$electron.clipboard.writeText(this.professionalMode ? this.code : window.mathField.latex())
@@ -128,14 +140,15 @@ export default {
     },
     onClickCancle () {
       window.mathField.latex('')
-      var tooltip = document.getElementById('formula-editor-container')
-      tooltip.style.height = '0px'
-      tooltip.style.visibility = 'hidden'
       window.mathEmbed = {
         index: null,
         formula: null
       }
       window.focusIndex = null
+      this.$store.commit('setTooltip', {
+        editor: 'richText',
+        tooltip: null
+      })
     },
     onPressTab (event) {
       if (event.ctrlKey) {

@@ -57,6 +57,7 @@
          shape="circle"
          icon="md-print"
          class="sidebar-btn"
+         @click="onPrint"
          ghost>
         </Button>
       </Tooltip>
@@ -177,6 +178,9 @@ export default {
     onSave (event) {
       commands.save(this.$root)
     },
+    onPrint (event) {
+      commands.print(this.$root)
+    },
     setDocumentPosition () {
       setTimeout(() => {
         var documentBody = document.getElementById('document-body')
@@ -270,7 +274,6 @@ export default {
   position: absolute;
   top: 90px;
   bottom: 0px;
-  padding: 16px;
   width: 100%;
   overflow: scroll;
   font-size: 16px;

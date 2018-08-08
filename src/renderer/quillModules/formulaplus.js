@@ -93,15 +93,21 @@ class FormulaPlus {
   }
 
   showTooltip = () => {
-    var tooltip = document.getElementById('formula-editor-container')
-    tooltip.style.height = 'unset'
-    tooltip.style.visibility = 'visible'
+    if (window.vueStore) {
+      window.vueStore.commit('setTooltip', {
+        editor: 'richText',
+        tooltip: 'formula'
+      })
+    }
   }
 
   hideTooltip = () => {
-    var tooltip = document.getElementById('formula-editor-container')
-    tooltip.style.height = '0px'
-    tooltip.style.visibility = 'hidden'
+    if (window.vueStore) {
+      window.vueStore.commit('setTooltip', {
+        editor: 'richText',
+        tooltip: null
+      })
+    }
   }
 }
 

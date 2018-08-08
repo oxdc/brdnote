@@ -15,6 +15,7 @@ export default {
     this.initCmdHander()
     this.initStyle()
     this.autosave()
+    window.vueStore = this.$store
   },
   methods: {
     autosave () {
@@ -39,12 +40,16 @@ export default {
             commands.close(this.$root)
             break
 
-          case 'print':
-            commands.print(this.$root)
+          case 'printpdf':
+            commands.printpdf(this.$root)
             break
 
           case 'cmdopen':
             commands.cmdopen(this.$root, arg)
+            break
+
+          case 'print':
+            commands.print(this.$root)
             break
 
           default:
