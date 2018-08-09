@@ -17,6 +17,7 @@ export function save (vueRoot, callback) {
   var data = {
     title: vueRoot.$store.getters.title,
     tags: vueRoot.$store.getters.tags,
+    totalTime: vueRoot.$store.getters.totalTime,
     content: content
   }
 

@@ -21,7 +21,7 @@ class Counter {
   update () {
     var length = this.calculate()
     var label = this.options.unit
-    if (length !== 1) {
+    if (length > 1) {
       label += 's'
     }
     this.container.innerHTML = length + ' ' + label

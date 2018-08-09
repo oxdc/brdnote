@@ -44,6 +44,15 @@ export function open (vueRoot, callback) {
         vueRoot.$store.commit('initTags', {
           tags: data.tags
         })
+        vueRoot.$store.commit('updateTotalTime', {
+          newTime: data.totalTime
+        })
+        vueRoot.$store.commit('initLastSavedTime', {
+          lastSavedTime: data.totalTime
+        })
+        vueRoot.$store.commit('initOpeningTime', {
+          openingTime: new Date().getTime()
+        })
       } catch (error) {
         vueRoot.$Notice.error({
           title: 'Error',

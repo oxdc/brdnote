@@ -180,10 +180,18 @@ export default {
     }
   },
   mounted () {
-    var openingTime = new Date().getTime()
+    this.$store.commit('initOpeningTime', {
+      openingTime: new Date().getTime()
+    })
     setInterval(() => {
+      var openingTime = this.$store.getters.openingTime
       var now = new Date().getTime()
       var distance = now - openingTime
+      var lastStoredTime = this.$store.getters.lastSavedTime
+      var newTime = lastStoredTime + distance
+      this.$store.commit('updateTotalTime', {
+        newTime: newTime
+      })
       var hours = Math.floor(distance / (1000 * 60 * 60))
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
       var seconds = Math.floor((distance % (1000 * 60)) / 1000)

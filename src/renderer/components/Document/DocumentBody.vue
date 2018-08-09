@@ -44,7 +44,7 @@ export default {
 <style scoped>
 .document-container {
   overflow-x: hidden;
-  padding: 100px 0px 200px;
+  padding: 100px 20px 200px;
 }
 
 .document-body {

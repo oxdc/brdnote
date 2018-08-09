@@ -15,7 +15,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Expand"
+       :content="expanded ? 'Minilize' : 'Expand'"
        placement="right">
         <Button
          type="text"

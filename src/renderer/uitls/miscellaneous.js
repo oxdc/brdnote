@@ -1,3 +1,5 @@
+import fs from 'fs'
+
 export function loadTheme (theme) {
   document.body.className = 'theme-' + theme
 }
@@ -70,8 +72,15 @@ export function getSelectionCoords (win) {
   }
 }
 
+export function getFilesizeInBytes (filename) {
+  var stats = fs.statSync(filename)
+  var fileSizeInBytes = stats['size']
+  return fileSizeInBytes
+}
+
 export default {
   loadTheme,
   getSize,
-  getSelectionCoords
+  getSelectionCoords,
+  getFilesizeInBytes
 }

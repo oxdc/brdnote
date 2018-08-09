@@ -4,7 +4,10 @@ const state = {
   title: null,
   path: null,
   tags: [],
-  saved: false
+  saved: false,
+  totalTime: 0,
+  lastSavedTime: 0,
+  openingTime: null
 }
 
 const getters = {
@@ -24,6 +27,15 @@ const getters = {
     return state.tags.findIndex((element) => {
       return element.tag === tag
     })
+  },
+  totalTime: state => {
+    return state.totalTime
+  },
+  lastSavedTime: state => {
+    return state.lastSavedTime
+  },
+  openingTime: state => {
+    return state.openingTime
   }
 }
 
@@ -38,6 +50,15 @@ const mutations = {
   },
   updateSavingStatus: (state, status) => {
     state.saved = status
+  },
+  updateTotalTime: (state, { newTime }) => {
+    state.totalTime = newTime
+  },
+  initLastSavedTime: (state, { lastSavedTime }) => {
+    state.lastSavedTime = lastSavedTime
+  },
+  initOpeningTime: (state, { openingTime }) => {
+    state.openingTime = openingTime
   },
   initTags: (state, { tags }) => {
     state.tags = tags
