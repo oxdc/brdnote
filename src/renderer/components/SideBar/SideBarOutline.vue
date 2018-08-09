@@ -1,5 +1,8 @@
 <template>
-  <div class="sidebar-outline-explorer">
+  <div>
+    <div v-if="headers.length === 0" class="label-empty">
+      Waiting for you to write something amazing ...
+    </div>
     <CellGroup>
       <Cell v-for="item in headers" :title="item.title" :key="item.key"></Cell>
     </CellGroup>
@@ -38,3 +41,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.label-empty {
+  padding: 80px 20px 0px;
+  font-family: monospace;
+  color: gray;
+}
+</style>
+
