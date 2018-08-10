@@ -2,6 +2,9 @@ import fs from 'fs'
 import {
   remote
 } from 'electron'
+import {
+  encryptContent
+} from '../miscellaneous'
 
 export function save (vueRoot, callback) {
   if (!vueRoot) {
@@ -14,10 +17,18 @@ export function save (vueRoot, callback) {
     content = JSON.stringify(window.editor.getContents())
   }
 
+  var password = vueRoot.$store.getters.password
+
+  if (password) {
+    content = encryptContent(content, password)
+    content = window.btoa(content)
+  }
+
   var data = {
     title: vueRoot.$store.getters.title,
     tags: vueRoot.$store.getters.tags,
     totalTime: vueRoot.$store.getters.totalTime,
+    encrypted: vueRoot.$store.getters.encrypted,
     content: content
   }
 
@@ -56,7 +67,7 @@ export function save (vueRoot, callback) {
         return
       }
 
-      fs.writeFile(fileName, JSON.stringify(data, null, 2), (err) => {
+      fs.writeFile(fileName, JSON.stringify(data), (err) => {
         if (err) {
           vueRoot.$Notice.error({
             title: 'Error',

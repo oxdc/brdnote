@@ -20,10 +20,13 @@
         </Select>
       </div>
       <div v-show="encrypted" class="cell-like child-cell">
-        <Input placeholder="Password" type="password">
-          <Button slot="append" icon="md-lock"></Button>
-        </Input>
+        <Input v-model="password" placeholder="Password" type="password" />
       </div>
+      <CellGroup v-show="encrypted">
+        <Cell title="Encrypt" class="child-cell" @click.native="onEncryption">
+          <Icon type="md-lock" slot="icon"/>
+        </Cell>
+      </CellGroup>
       <Cell title="Import" to="/" @click.native="onImport">
         <Icon :type="importMenu ? 'ios-arrow-down' : 'ios-arrow-forward'" slot="arrow" />
       </Cell>
@@ -78,7 +81,8 @@ export default {
         }
       ],
       words: '0',
-      symbols: '0'
+      symbols: '0',
+      password: ''
     }
   },
   methods: {
@@ -90,12 +94,21 @@ export default {
     },
     onCopy (text) {
       this.$electron.clipboard.writeText(text)
+    },
+    onEncryption (e) {
+      this.$store.commit('updatePassword', {
+        password: this.password
+      })
+      this.$Notice.success({
+        title: 'Success',
+        desc: 'Password updated'
+      })
     }
   },
   computed: {
     fileSize: {
       get () {
-        return this.$store.getters.path ? getFilesizeInBytes(this.$store.getters.path) + ' kB' : 'Unsaved file'
+        return this.$store.getters.path ? getFilesizeInBytes(this.$store.getters.path) / 1000 + ' kB' : 'Unsaved file'
       }
     },
     path: {

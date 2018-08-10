@@ -7,7 +7,9 @@ const state = {
   saved: false,
   totalTime: 0,
   lastSavedTime: 0,
-  openingTime: null
+  openingTime: null,
+  encrypted: false,
+  password: null
 }
 
 const getters = {
@@ -36,6 +38,12 @@ const getters = {
   },
   openingTime: state => {
     return state.openingTime
+  },
+  encrypted: state => {
+    return state.encrypted
+  },
+  password: state => {
+    return state.password
   }
 }
 
@@ -53,6 +61,18 @@ const mutations = {
   },
   updateTotalTime: (state, { newTime }) => {
     state.totalTime = newTime
+  },
+  updateEncryptionStatus: (state, status) => {
+    state.encrypted = status
+  },
+  updatePassword: (state, { password }) => {
+    if (password) {
+      state.password = password
+      state.encrypted = true
+    } else {
+      state.password = null
+      state.encrypted = false
+    }
   },
   initLastSavedTime: (state, { lastSavedTime }) => {
     state.lastSavedTime = lastSavedTime

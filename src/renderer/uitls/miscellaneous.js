@@ -1,4 +1,5 @@
 import fs from 'fs'
+import sjcl from 'sjcl'
 
 export function loadTheme (theme) {
   document.body.className = 'theme-' + theme
@@ -78,9 +79,33 @@ export function getFilesizeInBytes (filename) {
   return fileSizeInBytes
 }
 
+export function encryptContent (content, password) {
+  return sjcl.encrypt(password, content)
+}
+
+export function decryptContent (content, password) {
+  return sjcl.decrypt(password, content)
+}
+
+export function checkPassword (content, password) {
+  try {
+    var test = JSON.parse(sjcl.decrypt(password, content))
+    if (test.ops) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export default {
   loadTheme,
   getSize,
   getSelectionCoords,
-  getFilesizeInBytes
+  getFilesizeInBytes,
+  decryptContent,
+  encryptContent,
+  checkPassword
 }
