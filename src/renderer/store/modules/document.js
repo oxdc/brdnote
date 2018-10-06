@@ -112,6 +112,17 @@ const mutations = {
       })
       state.tags[target].tag = tag
     }
+  },
+  initDoc: (state) => {
+    state.title = null
+    state.path = null
+    state.tags = []
+    state.saved = false
+    state.encrypted = false
+    state.password = null
+    state.totalTime = 0
+    state.lastSavedTime = 0
+    state.openingTime = new Date().getTime()
   }
 }
 

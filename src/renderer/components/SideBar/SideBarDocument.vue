@@ -23,8 +23,11 @@
         <Input v-model="password" placeholder="Password" type="password" />
       </div>
       <CellGroup v-show="encrypted">
-        <Cell title="Encrypt" class="child-cell" @click.native="onEncryption">
-          <Icon type="md-lock" slot="icon"/>
+        <Cell :title="hasEncrypted ? 'Change Password' : 'Encrypt'" class="child-cell" @click.native="onEncryption">
+          <Icon :type="hasEncrypted ? 'md-key' : 'md-lock'" slot="icon"/>
+        </Cell>
+        <Cell title="Clear Password" class="child-cell" v-show="hasEncrypted" @click.native="onClearPassword">
+          <Icon type="md-unlock" slot="icon"/>
         </Cell>
       </CellGroup>
       <Cell title="Import" to="/" @click.native="onImport">
@@ -103,6 +106,17 @@ export default {
         title: 'Success',
         desc: 'Password updated'
       })
+    },
+    onClearPassword (e) {
+      this.$store.commit('updatePassword', {
+        password: null
+      })
+      this.$Notice.success({
+        title: 'Success',
+        desc: 'Password cleared'
+      })
+      this.encrypted = false
+      this.password = ''
     }
   },
   computed: {
@@ -129,6 +143,11 @@ export default {
         } else {
           return 'Untitled'
         }
+      }
+    },
+    hasEncrypted: {
+      get () {
+        return this.$store.getters.encrypted
       }
     },
     totalTime: {
@@ -161,6 +180,18 @@ export default {
         this.symbols = '0 symbol'
       }
     }, 1000)
+  },
+  watch: {
+    encrypted (newVal) {
+      if (!newVal) {
+        this.onClearPassword()
+      }
+    },
+    hasEncrypted (newVal) {
+      if (newVal) {
+        this.encrypted = newVal
+      }
+    }
   }
 }
 </script>

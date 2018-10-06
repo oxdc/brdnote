@@ -3,7 +3,8 @@ import {
   remote
 } from 'electron'
 import {
-  decryptContent
+  decryptContent,
+  atou
 } from '@/uitls/miscellaneous'
 
 export function open (vueRoot, callback) {
@@ -29,17 +30,18 @@ export function open (vueRoot, callback) {
           title: 'Error',
           desc: 'An error ocurred while reading the file :' + err.message
         })
+        closeDocument(vueRoot)
         return
       }
 
-      vueRoot.$store.commit('updatePath', {
-        path: fileNames[0]
-      })
+      if (content.startsWith('ENCRYPTED')) {
+        vueRoot.$store.commit('updateEncryptionStatus', true)
+      } else {
+        vueRoot.$store.commit('updateEncryptionStatus', false)
+      }
 
-      var data = JSON.parse(content)
-      vueRoot.$store.commit('updateEncryptionStatus', data.encrypted)
-
-      if (data.encrypted) {
+      if (content.startsWith('ENCRYPTED')) {
+        content = content.substring(9)
         var password = ''
         vueRoot.$Modal.confirm({
           render: (h) => {
@@ -59,33 +61,32 @@ export function open (vueRoot, callback) {
           },
           onOk: () => {
             try {
-              var content = ''
-              window.editor.setText(data.content)
-              content = window.editor.getText()
-              content = window.atob(content)
-              content = decryptContent(content, password)
-              content = JSON.parse(content)
-              window.editor.setContents(content)
+              content = decryptContent(JSON.parse(atou(content)), password)
+              extractContent(content, vueRoot)
               vueRoot.$store.commit('updatePassword', {
                 password: password
               })
-              updateMeta(vueRoot, data)
               vueRoot.$Notice.success({
                 title: 'Success',
                 desc: ''
+              })
+              vueRoot.$store.commit('updatePath', {
+                path: fileNames[0]
               })
             } catch (err) {
               vueRoot.$Notice.error({
                 title: 'Error',
                 desc: 'Password error. ' + err.message
               })
+              closeDocument(vueRoot)
             }
           }
         })
       } else {
-        data.content = JSON.parse(data.content)
-        window.editor.setContents(data.content.ops)
-        updateMeta(vueRoot, data)
+        extractContent(content, vueRoot)
+        vueRoot.$store.commit('updatePath', {
+          path: fileNames[0]
+        })
       }
 
       if (typeof callback === 'function') {
@@ -93,6 +94,25 @@ export function open (vueRoot, callback) {
       }
     })
   })
+}
+
+function extractContent (content, vueRoot) {
+  try {
+    var data = JSON.parse(content)
+    data.content = JSON.parse(data.content)
+    window.editor.setContents(data.content.ops)
+    updateMeta(vueRoot, data)
+  } catch (err) {
+    vueRoot.$Notice.error({
+      title: 'Error',
+      desc: 'Broken files. ' + err.message
+    })
+  }
+}
+
+function closeDocument (vueRoot) {
+  vueRoot.$store.commit('initDoc')
+  window.editor.setContents(null)
 }
 
 function updateMeta (vueRoot, data) {
