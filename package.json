@@ -121,14 +121,44 @@
       "icon": "build/icons/icon.ico"
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "build/icons",
+      "category": "Office",
+      "target": [{
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }, {
+          "target": "snap",
+          "arch": [
+            "x64"
+          ]
+        }, {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }, {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        }, {
+          "target": "pacman",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
     },
-    "fileAssociations": {
-      "ext": [
-        "brdnote",
-        "brdnb"
-      ],
-      "name": "brdnote"
-    }
+    "fileAssociations": [
+      {
+        "name": "Brdnote Note",
+        "ext": "brdnote"
+      }, {
+        "name": "Brdnote Notebook",
+        "ext": "brdnb"
+      }
+    ]
   }
 }

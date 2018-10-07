@@ -7,7 +7,7 @@ import {
   atou
 } from '@/uitls/miscellaneous'
 
-export function open (vueRoot, callback) {
+export function open (vueRoot, callback, path = null) {
   if (!vueRoot) {
     return
   }
@@ -24,7 +24,9 @@ export function open (vueRoot, callback) {
       return
     }
 
-    fs.readFile(fileNames[0], 'utf-8', (err, content) => {
+    if (!path) path = fileNames[0]
+
+    fs.readFile(path, 'utf-8', (err, content) => {
       if (err) {
         vueRoot.$Notice.error({
           title: 'Error',
@@ -71,7 +73,7 @@ export function open (vueRoot, callback) {
                 desc: ''
               })
               vueRoot.$store.commit('updatePath', {
-                path: fileNames[0]
+                path: path
               })
             } catch (err) {
               vueRoot.$Notice.error({
@@ -85,7 +87,7 @@ export function open (vueRoot, callback) {
       } else {
         extractContent(content, vueRoot)
         vueRoot.$store.commit('updatePath', {
-          path: fileNames[0]
+          path: path
         })
       }
 
