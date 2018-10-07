@@ -10,7 +10,7 @@
     </CellGroup>
     <Divider>About</Divider>
     <CellGroup>
-      <Cell title="Version" extra="v0.12.0 alpha" />
+      <Cell title="Version" extra="v0.1.35" />
     </CellGroup>
   </div>
 </template>
