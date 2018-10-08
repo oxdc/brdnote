@@ -123,22 +123,26 @@
     "linux": {
       "icon": "build/icons",
       "category": "Office",
-      "target": [{
+      "target": [
+        {
           "target": "AppImage",
           "arch": [
             "x64"
           ]
-        }, {
+        },
+        {
           "target": "snap",
           "arch": [
             "x64"
           ]
-        }, {
+        },
+        {
           "target": "deb",
           "arch": [
             "x64"
           ]
-        }, {
+        },
+        {
           "target": "rpm",
           "arch": [
             "x64"
@@ -150,7 +154,8 @@
       {
         "name": "Brdnote Note",
         "ext": "brdnote"
-      }, {
+      },
+      {
         "name": "Brdnote Notebook",
         "ext": "brdnb"
       }
