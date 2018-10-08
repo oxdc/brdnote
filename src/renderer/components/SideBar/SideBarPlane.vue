@@ -96,36 +96,47 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Searching"
+       content="History"
        placement="right">
         <Button
          :type="view === 4 ? 'primary' : 'default'"
          shape="circle"
-         icon="md-search"
+         icon="md-git-branch"
          class="sidebar-btn"
          @click="onView(4)">
+        </Button>
+      </Tooltip>
+      <Tooltip
+       content="Searching"
+       placement="right">
+        <Button
+         :type="view === 5 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-search"
+         class="sidebar-btn"
+         @click="onView(5)">
         </Button>
       </Tooltip>
       <Tooltip
        content="Settings"
        placement="right">
         <Button
-         :type="view === 5 ? 'primary' : 'default'"
+         :type="view === 6 ? 'primary' : 'default'"
          shape="circle"
          icon="md-settings"
          class="sidebar-btn"
-         @click="onView(5)">
+         @click="onView(6)">
         </Button>
       </Tooltip>
       <Tooltip
        content="Help"
        placement="right">
         <Button
-         :type="view === 6 ? 'primary' : 'default'"
+         :type="view === 7 ? 'primary' : 'default'"
          shape="circle"
          icon="md-help"
          class="sidebar-btn"
-         @click="onView(6)">
+         @click="onView(7)">
         </Button>
       </Tooltip>
     </div>
@@ -135,7 +146,8 @@
         <div class="sidebar-explorer-body tiny-scrollbar">
           <side-bar-document v-show="view === 1"></side-bar-document>
           <side-bar-outline  v-show="view === 3"></side-bar-outline>
-          <side-bar-help v-show="view === 6"></side-bar-help>
+          <side-bar-help v-show="view === 7"></side-bar-help>
+          <div v-show="view !== 1 && view !== 3 && view !== 7" style="text-align: center; margin: 15px;">Comming soon ... </div>
         </div>
       </div>
     </div>
@@ -213,9 +225,10 @@ export default {
           '1': 'Document',
           '2': 'Explorer',
           '3': 'Outline',
-          '4': 'Searching',
-          '5': 'Settings',
-          '6': 'Help'
+          '4': 'History',
+          '5': 'Searching',
+          '6': 'Settings',
+          '7': 'Help'
         }
       }
     }
@@ -257,10 +270,6 @@ export default {
   border-radius: 0px;
   background: rgb(222, 222, 222);
   border: none;
-}
-
-.sidebar-explorer:hover {
-  box-shadow: 0 1px 6px rgba(0,0,0,.2);
 }
 
 .sidebar-explorer-head {

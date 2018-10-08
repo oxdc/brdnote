@@ -21,7 +21,8 @@ body {
 .ql-editor h4,
 .ql-editor h5,
 .ql-editor h6 {
-  padding: 0px 60px !important;
+  padding: 0px 56px !important;
+  border-left: solid 4px transparent;
 }
 
 .ql-editor h1 {
@@ -71,148 +72,132 @@ body {
   padding: 0px 60px 0px 56px !important;
 }
 
-.ql-editor li.ql-indent-1:not(.ql-direction-rtl),
-.ql-editor .ql-indent-1:not(.ql-direction-rtl) {
-  margin-left: 2em !important;
+.ql-editor .ql-indent-1:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 2em) !important;
 }
 
-.ql-editor li.ql-indent-2:not(.ql-direction-rtl),
-.ql-editor .ql-indent-2:not(.ql-direction-rtl) {
-  margin-left: 4em !important;
+.ql-editor .ql-indent-2:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 4em) !important;
 }
 
-.ql-editor li.ql-indent-3:not(.ql-direction-rtl),
-.ql-editor .ql-indent-3:not(.ql-direction-rtl) {
-  margin-left: 6em !important;
+.ql-editor .ql-indent-3:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 6em) !important;
 }
 
-.ql-editor li.ql-indent-4:not(.ql-direction-rtl),
-.ql-editor .ql-indent-4:not(.ql-direction-rtl) {
-  margin-left: 8em !important;
+.ql-editor .ql-indent-4:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 8em) !important;
 }
 
-.ql-editor li.ql-indent-5:not(.ql-direction-rtl),
-.ql-editor .ql-indent-5:not(.ql-direction-rtl) {
-  margin-left: 10em !important;
+.ql-editor .ql-indent-5:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 10em)  !important;
 }
 
-.ql-editor li.ql-indent-6:not(.ql-direction-rtl),
-.ql-editor .ql-indent-6:not(.ql-direction-rtl) {
-  margin-left: 12em !important;
+.ql-editor .ql-indent-6:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 12em)  !important;
 }
 
-.ql-editor li.ql-indent-7:not(.ql-direction-rtl),
-.ql-editor .ql-indent-7:not(.ql-direction-rtl) {
-  margin-left: 14em !important;
+.ql-editor .ql-indent-7:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 14em)  !important;
 }
 
-.ql-editor li.ql-indent-8:not(.ql-direction-rtl),
-.ql-editor .ql-indent-8:not(.ql-direction-rtl) {
-  margin-left: 16em !important;
+.ql-editor .ql-indent-8:not(.ql-direction-rtl):not(li) {
+  padding-left: calc(56px + 16em)  !important;
 }
 
 .ql-editor li.ql-indent-1:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 3.5em !important;
 }
 
 .ql-editor li.ql-indent-2:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 5.5em !important;
 }
 
 .ql-editor li.ql-indent-3:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 7.5em !important;
 }
 
 .ql-editor li.ql-indent-4:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 9.5em !important;
 }
 
 .ql-editor li.ql-indent-5:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 11.5em !important;
 }
 
 .ql-editor li.ql-indent-6:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 13.5em !important;
 }
 
 .ql-editor li.ql-indent-7:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 15.5em !important;
 }
 
 .ql-editor li.ql-indent-8:not(.ql-direction-rtl) {
-  padding-left: 1.5em !important;
+  padding-left: 17.5em !important;
 }
 
-.ql-editor li.ql-indent-1.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-1.ql-direction-rtl.ql-align-right {
-  margin-right: 2em !important;
+.ql-editor .ql-indent-1.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 2em) !important;
 }
 
-.ql-editor li.ql-indent-2.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-2.ql-direction-rtl.ql-align-right {
-  margin-right: 4em !important;
+.ql-editor .ql-indent-2.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 4em) !important;
 }
 
-.ql-editor li.ql-indent-3.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-3.ql-direction-rtl.ql-align-right {
-  margin-right: 6em !important;
+.ql-editor .ql-indent-3.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 6em) !important;
 }
 
-.ql-editor li.ql-indent-4.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-4.ql-direction-rtl.ql-align-right {
-  margin-right: 8em !important;
+.ql-editor .ql-indent-4.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 8em) !important;
 }
 
-.ql-editor li.ql-indent-5.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-5.ql-direction-rtl.ql-align-right {
-  margin-right: 10em !important;
+.ql-editor .ql-indent-5.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 10em) !important;
 }
 
-.ql-editor li.ql-indent-6.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-6.ql-direction-rtl.ql-align-right {
-  margin-right: 12em !important;
+.ql-editor .ql-indent-6.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 12em) !important;
 }
 
-.ql-editor li.ql-indent-7.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-7.ql-direction-rtl.ql-align-right {
-  margin-right: 14em !important;
+.ql-editor .ql-indent-7.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 14em) !important;
 }
 
-.ql-editor li.ql-indent-8.ql-direction-rtl.ql-align-right,
-.ql-editor .ql-indent-8.ql-direction-rtl.ql-align-right {
-  margin-right: 16em !important;
+.ql-editor .ql-indent-8.ql-direction-rtl:not(li) {
+  padding-right: calc(60px + 16em) !important;
 }
 
-.ql-editor li.ql-indent-1.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-1.ql-direction-rtl {
+  padding-right: 3.5em !important;
 }
 
-.ql-editor li.ql-indent-2.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-2.ql-direction-rtl {
+  padding-right: 5.5em !important;
 }
 
-.ql-editor li.ql-indent-3.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-3.ql-direction-rtl {
+  padding-right: 7.5em !important;
 }
 
-.ql-editor li.ql-indent-4.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-4.ql-direction-rtl {
+  padding-right: 9.5em !important;
 }
 
-.ql-editor li.ql-indent-5.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-5.ql-direction-rtl {
+  padding-right: 11.5em !important;
 }
 
-.ql-editor li.ql-indent-6.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-6.ql-direction-rtl {
+  padding-right: 13.5em !important;
 }
 
-.ql-editor li.ql-indent-7.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-7.ql-direction-rtl {
+  padding-right: 15.5em !important;
 }
 
-.ql-editor li.ql-indent-8.ql-direction-rtl.ql-align-right {
-  padding-right: 1.5em !important;
+.ql-editor li.ql-indent-8.ql-direction-rtl {
+  padding-right: 17.5em !important;
 }
 
 .ql-editor pre {

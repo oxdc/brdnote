@@ -57,6 +57,7 @@ function openDocument (path, vueRoot) {
       content = content.substring(9)
       var password = ''
       vueRoot.$Modal.confirm({
+        title: 'This document has been encrypted !',
         render: (h) => {
           return h('Input', {
             props: {

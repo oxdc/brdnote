@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Divider>Details</Divider>
+    <Divider>  
+      <Icon type="md-document" class="side-bar-group-header" />
+      <label>Details</label>
+    </Divider>
     <CellGroup>
       <Cell title="Name" :label="title" @click.native="onCopy(title)"/>
       <Cell title="Size" :extra="fileSize" @click.native="onCopy(fileSize)"/>
@@ -9,9 +12,13 @@
       <Cell title="Total editing time" :label="totalTime" @click.native="onCopy(totalTime)"/>
       <Cell title="File path" :label="path" @click.native="onCopy(path)"/>
     </CellGroup>
-    <Divider>Tools</Divider>
+    <Divider>
+      <Icon type="md-hammer" class="side-bar-group-header" />
+      <label>Tools</label>
+    </Divider>
     <CellGroup>
-      <Cell title="Encrypted">
+      <Cell title="Encryption">
+        <Icon type="md-lock" slot="icon" />
         <i-switch v-model="encrypted" slot="extra" />
       </Cell>
       <div v-show="encrypted" class="cell-like child-cell">
@@ -24,40 +31,48 @@
       </div>
       <CellGroup v-show="encrypted">
         <Cell :title="hasEncrypted ? 'Change Password' : 'Encrypt'" class="child-cell" @click.native="onEncryption">
-          <Icon :type="hasEncrypted ? 'md-key' : 'md-lock'" slot="icon"/>
+          <Icon :type="hasEncrypted ? 'md-key' : 'md-checkmark'" slot="icon"/>
         </Cell>
         <Cell title="Clear Password" class="child-cell" v-show="hasEncrypted" @click.native="onClearPassword">
           <Icon type="md-unlock" slot="icon"/>
         </Cell>
       </CellGroup>
       <Cell title="Import" to="/" @click.native="onImport">
+        <Icon type="md-arrow-round-forward" slot="icon" />
         <Icon :type="importMenu ? 'ios-arrow-down' : 'ios-arrow-forward'" slot="arrow" />
       </Cell>
       <CellGroup v-show="importMenu">
         <Cell title="Plain texts" class="child-cell">
-          <Icon type="md-arrow-dropright" slot="icon"/>
+          <Icon type="md-document" slot="icon"/>
         </Cell>
         <Cell title="Markdown" class="child-cell">
-          <Icon type="md-arrow-dropright" slot="icon"/>
+          <Icon type="logo-markdown" slot="icon"/>
         </Cell>
         <Cell title="HTML" class="child-cell">
-          <Icon type="md-arrow-dropright" slot="icon"/>
+          <Icon type="md-code" slot="icon"/>
         </Cell>
       </CellGroup>
       <Cell title="Export" to="/" @click.native="onExport">
+        <Icon type="md-arrow-round-back" slot="icon" />
         <Icon :type="exportMenu ? 'ios-arrow-down' : 'ios-arrow-forward'" slot="arrow" />
       </Cell>
       <CellGroup v-show="exportMenu">
         <Cell title="Plain texts" class="child-cell">
-          <Icon type="md-arrow-dropright" slot="icon"/>
+          <Icon type="md-document" slot="icon"/>
         </Cell>
         <Cell title="Markdown" class="child-cell">
-          <Icon type="md-arrow-dropright" slot="icon"/>
+          <Icon type="logo-markdown" slot="icon"/>
         </Cell>
         <Cell title="HTML" class="child-cell">
-          <Icon type="md-arrow-dropright" slot="icon"/>
+          <Icon type="md-code" slot="icon"/>
         </Cell>
       </CellGroup>
+      <Cell title="Sync">
+      <Icon type="md-sync" slot="icon"/>
+      </Cell>
+      <Cell title="Share">
+        <Icon type="md-share" slot="icon"/>
+      </Cell>
     </CellGroup>
   </div>
 </template>
@@ -75,12 +90,8 @@ export default {
       method: '',
       enMethods: [
         {
-          value: 'AES',
-          label: 'AES'
-        },
-        {
-          value: 'RSA',
-          label: 'RSA'
+          value: 'Default',
+          label: 'Default'
         }
       ],
       words: '0',
@@ -208,5 +219,9 @@ export default {
 
 .child-cell:hover {
   background: rgb(243, 243, 243);
+}
+
+.side-bar-group-header {
+  vertical-align: unset !important;
 }
 </style>

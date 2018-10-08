@@ -2,11 +2,11 @@
   <div class="app-split-root">
     <Split
      v-model="rootSplit"
-     min="230px"
+     min="350px"
      max="300px"
      @on-moving="onResize">
       <side-bar-plane slot="left"></side-bar-plane>
-      <div slot="right">
+      <div slot="right" ref="right-view">
         <toolbar-plane>
           <toolbar slot="toolbar"></toolbar>
           <formula-editor slot="tooltip"></formula-editor>
@@ -83,16 +83,14 @@ export default {
         this.rootSplit = '0px'
       }
       if (!this.sidebarExpanded) {
-        this.rootSplit = '61.9px'
-        setTimeout(() => {
-          this.rootSplit = '62px'
-        }, 1)
+        this.rootSplit = '62px'
       }
-      if (getSize().width < 500 && this.sidebarVisibility && this.sidebarExpanded) {
-        this.$store.commit('minimizeSidebar')
-        setTimeout(() => {
-          this.rootSplit = '62px'
-        }, 1)
+      if (
+        (getSize().width < 600 || this.$refs['right-view'].clientWidth < 300) &&
+        this.sidebarVisibility &&
+        this.sidebarExpanded
+      ) {
+        this.rootSplit = '62px'
       }
     },
     onClickToggle () {

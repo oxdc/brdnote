@@ -32,7 +32,11 @@ const mutations = {
   showSidebar: (state) => {
     state.sidebarVisibility = true
     state.sidebarExpanded = true
-    state.rootSplit = '350px'
+    if (getSize().width < 600) {
+      state.rootSplit = getSize().width - 0 + 'px'
+    } else {
+      state.rootSplit = '350px'
+    }
   },
   hideSidebar: (state) => {
     state.sidebarVisibility = false
@@ -43,14 +47,22 @@ const mutations = {
       state.rootSplit = '0px'
     } else {
       state.sidebarExpanded = true
-      state.rootSplit = '350px'
+      if (getSize().width < 600) {
+        state.rootSplit = getSize().width - 0 + 'px'
+      } else {
+        state.rootSplit = '350px'
+      }
     }
     state.sidebarVisibility = !state.sidebarVisibility
   },
   expandSidebar: (state) => {
     state.sidebarVisibility = true
     state.sidebarExpanded = true
-    state.rootSplit = '350px'
+    if (getSize().width < 600) {
+      state.rootSplit = getSize().width - 0 + 'px'
+    } else {
+      state.rootSplit = '350px'
+    }
   },
   minimizeSidebar: (state) => {
     state.sidebarVisibility = true

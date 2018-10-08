@@ -1,7 +1,10 @@
 <template>
   <div>
     <div v-if="headers.length === 0" class="label-empty">
-      Waiting for you to write something amazing ...
+      <Icon type="md-time" :size="40" />
+      <div>
+        Waiting for you to write something amazing ...
+      </div>
     </div>
     <CellGroup>
       <Cell v-for="item in headers" :title="item.title" :key="item.key"></Cell>
@@ -45,8 +48,13 @@ export default {
 <style scoped>
 .label-empty {
   padding: 80px 20px 0px;
+  text-align: center;
   font-family: monospace;
   color: gray;
+}
+
+.label-empty * {
+  margin: 10px 0px;
 }
 </style>
 

@@ -54,7 +54,7 @@
   color: darkslategray !important;
 }
 
-.theme-default .ql-editor p,
-.theme-default .ql-editor blockquote {
-  text-align: justify !important;
+.theme-default .ql-editor p span,
+.theme-default .ql-editor blockquote span {
+  border-radius: 5px;
 }
