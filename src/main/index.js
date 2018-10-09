@@ -4,7 +4,8 @@ import {
   app,
   BrowserWindow,
   globalShortcut,
-  ipcMain
+  ipcMain,
+  shell
 } from 'electron'
 import electronLocalshortcut from 'electron-localshortcut'
 import path from 'path'
@@ -52,6 +53,16 @@ function createWindow () {
       mainWindow.webContents.send('command', 'cmdopen', app.filepath)
     }
   })
+
+  var handleRedirect = (e, url) => {
+    if (url !== mainWindow.webContents.getURL()) {
+      e.preventDefault()
+      shell.openExternal(url)
+    }
+  }
+
+  mainWindow.webContents.on('will-navigate', handleRedirect)
+  mainWindow.webContents.on('new-window', handleRedirect)
 
   mainWindow.on('close', (e) => {
     e.preventDefault()
