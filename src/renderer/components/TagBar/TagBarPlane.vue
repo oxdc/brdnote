@@ -6,9 +6,10 @@
      :id="item.id"
      :name="item.id"
      :tag="item.tag"
-     closable
-    ></tag-btn>
-    <tag-add-btn></tag-add-btn>
+     @change="onChange"
+     closable>
+    </tag-btn>
+    <tag-add-btn @add="onAdd"></tag-add-btn>
   </div>
 </template>
 
@@ -27,6 +28,19 @@ export default {
       get () {
         return this.$store.getters.tags
       }
+    }
+  },
+  methods: {
+    onChange ({ id, tag }) {
+      this.$store.commit('changeTag', {
+        id: id,
+        tag: tag
+      })
+    },
+    onAdd ({ tag }) {
+      this.$store.commit('addTag', {
+        tag: tag
+      })
     }
   }
 }

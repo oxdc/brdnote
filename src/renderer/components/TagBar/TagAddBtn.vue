@@ -69,7 +69,7 @@ export default {
       }
 
       if (this.$store.getters.getTag(this.value) < 0) {
-        this.$store.commit('addTag', {
+        this.$emit('add', {
           tag: this.value
         })
         this.visible = false

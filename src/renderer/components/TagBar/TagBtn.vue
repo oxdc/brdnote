@@ -73,7 +73,6 @@ export default {
   },
   methods: {
     onDisplay (event) {
-      console.log('aa')
       this.visible = true
     },
     onClickDelete (event, name) {
@@ -95,7 +94,7 @@ export default {
       }
 
       if (this.$store.getters.getTag(this.value) < 0) {
-        this.$store.commit('changeTag', {
+        this.$emit('change', {
           id: this.id,
           tag: this.value
         })
