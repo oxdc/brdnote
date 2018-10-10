@@ -157,9 +157,9 @@
 <script>
 import { getSize } from '@/uitls/miscellaneous'
 import commands from '@/uitls/commands'
-import SideBarDocument from '@/components/SideBar/SideBarDocument'
-import SideBarOutline from '@/components/SideBar/SideBarOutline'
-import SideBarHelp from '@/components/SideBar/SideBarHelp'
+import SideBarDocument from '@/components/SideBar/SidebarViews/SideBarDocument'
+import SideBarOutline from '@/components/SideBar/SidebarViews/SideBarOutline'
+import SideBarHelp from '@/components/SideBar/SidebarViews/SideBarHelp'
 
 export default {
   name: 'SideBarPlane',

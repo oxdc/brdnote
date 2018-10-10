@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import TagAddBtn from '@/components/TagBar/TagAddBtn'
-import TagBtn from '@/components/TagBar/TagBtn'
+import TagAddBtn from '@/components/TagBar/TagBarButtons/TagAddBtn'
+import TagBtn from '@/components/TagBar/TagBarButtons/TagBtn'
 
 export default {
   name: 'TagBarPlane',

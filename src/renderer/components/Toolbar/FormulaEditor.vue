@@ -43,18 +43,11 @@
 </template>
 
 <script>
-import codemirror from '@/components/Editor/CodeMirror/codemirror.vue'
-import 'codemirror/mode/stex/stex.js'
-import 'codemirror/addon/selection/active-line.js'
-import 'codemirror/addon/display/placeholder.js'
 import Quill from 'quill/core/quill'
 const Delta = Quill.import('delta')
 
 export default {
   name: 'FormulaEditor',
-  components: {
-    'codemirror': codemirror
-  },
   data () {
     return {
       professionalMode: false,

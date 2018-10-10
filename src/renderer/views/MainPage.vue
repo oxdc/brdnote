@@ -27,6 +27,7 @@
           <quill-editor
            :options="editorOption"
            @change="onChange"
+           @ready="onReady"
            slot="content">
           </quill-editor>
         </document-body>
@@ -55,14 +56,12 @@ import Toolbar from '@/components/Toolbar/Toolbar'
 import FormulaEditor from '@/components/Toolbar/FormulaEditor'
 import StatusBarPlane from '@/components/Toolbar/StatusBarPlane'
 import SideBarPlane from '@/components/SideBar/SideBarPlane'
-import QuillEditor from '@/components/Editor/QuillEditor'
 
 export default {
   name: 'Editor',
   components: {
     'document-body': DocumentBody,
     'toolbar-plane': ToolbarPlane,
-    'quill-editor': QuillEditor,
     'toolbar': Toolbar,
     'status-bar-plane': StatusBarPlane,
     'side-bar-plane': SideBarPlane,
@@ -113,6 +112,9 @@ export default {
           documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
         }
       }, 1)
+    },
+    onReady (quill) {
+      window.editor = quill
     }
   },
   computed: {
