@@ -56,6 +56,7 @@ import ImageFormat from '@/quillModules/extendimg'
 import VideoFormat from '@/quillModules/extendvideo'
 import '@/assets/Themes/Quill/quill.extend.css'
 import '@/assets/Themes/Quill/quill.emoji.css'
+import 'quill-mention/dist/quill.mention.min.css'
 // import '@/quillModules/formats/focus.css'
 
 // Load Quill modules
@@ -69,6 +70,7 @@ import ShortNameEmoji from '@/quillModules/emoji/module-emoji'
 import ToolbarEmoji from '@/quillModules/emoji/module-toolbar-emoji'
 import TextAreaEmoji from '@/quillModules/emoji/module-textarea-emoji'
 import FormulaPlus from '@/quillModules/formulaplus'
+import 'quill-mention/src/quill.mention'
 // import Focus from '@/quillModules/focus'
 
 // Config Katex and Highlight

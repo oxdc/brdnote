@@ -120,6 +120,7 @@ export default {
   computed: {
     editorOption: {
       get () {
+        var tags = this.$store.getters.tags
         return {
           theme: 'snow',
           scrollingContainer: '#document-body',
@@ -150,7 +151,25 @@ export default {
             markplusShortcuts: {},
             magicUrl: true,
             emojiShortname: true,
-            emojiToolbar: true
+            emojiToolbar: true,
+            mention: {
+              allowedChars: /^[A-Za-z\s]*$/,
+              mentionDenotationChars: ['#'],
+              source: function (searchTerm, renderList, mentionChar) {
+                tags.forEach(tag => { tag.value = tag.tag })
+                if (searchTerm.length === 0) {
+                  renderList(tags, searchTerm)
+                } else {
+                  const matches = []
+                  for (var i in tags) {
+                    if (~tags[i].tag.toLowerCase().indexOf(searchTerm.toLowerCase())) {
+                      matches.push(tags[i])
+                    }
+                  }
+                  renderList(matches, searchTerm)
+                }
+              }
+            }
           }
         }
       }
