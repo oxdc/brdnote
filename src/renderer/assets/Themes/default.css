@@ -29,7 +29,7 @@
 
 .theme-default .ql-snow .ql-editor blockquote {
   margin: 0px !important;
-  background: #f7f7f7 !important;
+  background: rgba(238, 238, 238, 0.5) !important;
   border-left: 4px solid gray !important;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .theme-default .ql-editor pre {
-  background-color: rgb(231, 245, 255) !important;
+  background-color: rgba(196, 228, 250, 0.5) !important;
   border-left: solid 4px rgb(0, 122, 204) !important;
 }
 
