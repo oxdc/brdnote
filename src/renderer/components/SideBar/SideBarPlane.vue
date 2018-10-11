@@ -144,10 +144,11 @@
       <div class="sidebar-explorer" id="sidebar-explorer">
         <div class="sidebar-explorer-head"> {{ titles[view] }} </div>
         <div class="sidebar-explorer-body tiny-scrollbar">
-          <side-bar-document v-show="view === 1"></side-bar-document>
-          <side-bar-outline  v-show="view === 3"></side-bar-outline>
-          <side-bar-help v-show="view === 7"></side-bar-help>
-          <div v-show="view !== 1 && view !== 3 && view !== 7" style="text-align: center; margin: 15px;">Comming soon ... </div>
+          <sidebar-document v-show="view === 1"></sidebar-document>
+          <sidebar-outline  v-show="view === 3"></sidebar-outline>
+          <sidebar-history v-show="view === 4"></sidebar-history>
+          <sidebar-help v-show="view === 7"></sidebar-help>
+          <div v-show="view !== 1 && view !== 3 && view !== 4 && view !== 7" style="text-align: center; margin: 15px;">Comming soon ... </div>
         </div>
       </div>
     </div>
@@ -160,13 +161,15 @@ import commands from '@/uitls/commands'
 import SideBarDocument from '@/components/SideBar/SideBarViews/SideBarDocument'
 import SideBarOutline from '@/components/SideBar/SideBarViews/SideBarOutline'
 import SideBarHelp from '@/components/SideBar/SideBarViews/SideBarHelp'
+import SideBarHistory from '@/components/SideBar/SideBarViews/SideBarHistory'
 
 export default {
   name: 'SideBarPlane',
   components: {
-    'side-bar-document': SideBarDocument,
-    'side-bar-outline': SideBarOutline,
-    'side-bar-help': SideBarHelp
+    'sidebar-document': SideBarDocument,
+    'sidebar-outline': SideBarOutline,
+    'sidebar-help': SideBarHelp,
+    'sidebar-history': SideBarHistory
   },
   data () {
     return {

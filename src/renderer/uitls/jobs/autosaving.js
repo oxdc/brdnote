@@ -20,7 +20,8 @@ export default function autosaving (duration, limit) {
         lastSavedTime: window.vueStore.getters.lastSavedTime,
         openingTime: window.vueStore.getters.openingTime,
         encrypted: window.vueStore.getters.encrypted,
-        delta: window.editor.getContents()
+        delta: window.editor.getContents(),
+        time: new Date().getTime()
       })
       window.storejs.set(docId, drafts)
     }

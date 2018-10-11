@@ -39,25 +39,35 @@
        title="Encryption"
        icon="md-lock">
         <i-switch v-model="encrypted" slot="extra" />
+        <sidebar-group v-show="encrypted" slot="children">
+          <sidebar-item fulltitle>
+            <Select
+             v-model="method"
+             filterable
+             slot="title">
+              <Option v-for="item in enMethods" :value="item.value" :key="item.value">{{item.label}}</Option>
+            </Select>
+          </sidebar-item>
+          <sidebar-item fulltitle>
+            <Input
+             v-model="password"
+             placeholder="Password"
+             type="password"
+             slot="title"/>
+          </sidebar-item>
+          <sidebar-item
+           :title="hasEncrypted ? 'Change Password' : 'Encrypt'"
+           :icon="hasEncrypted ? 'md-key' : 'md-checkmark'"
+           @click="onEncryption">
+          </sidebar-item>
+          <sidebar-item
+           title="Clear Password"
+           icon="md-unlock"
+           v-show="hasEncrypted"
+           @click="onClearPassword">
+          </sidebar-item>
+        </sidebar-group>
       </sidebar-item>
-      <!-- TODO -->
-      <div v-show="encrypted" class="cell-like child-cell">
-        <Select v-model="method" filterable>
-          <Option v-for="item in enMethods" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-      </div>
-      <div v-show="encrypted" class="cell-like child-cell">
-        <Input v-model="password" placeholder="Password" type="password" />
-      </div>
-      <CellGroup v-show="encrypted">
-        <Cell :title="hasEncrypted ? 'Change Password' : 'Encrypt'" class="child-cell" @click.native="onEncryption">
-          <Icon :type="hasEncrypted ? 'md-key' : 'md-checkmark'" slot="icon"/>
-        </Cell>
-        <Cell title="Clear Password" class="child-cell" v-show="hasEncrypted" @click.native="onClearPassword">
-          <Icon type="md-unlock" slot="icon"/>
-        </Cell>
-      </CellGroup>
-      <!-- TODO -->
       <sidebar-item
        title="Import"
        to="/"
@@ -67,18 +77,15 @@
         <sidebar-group v-show="importMenu" slot="children">
           <sidebar-item
            title="Plain texts"
-           icon="md-document"
-           class="child-cell">
+           icon="md-document">
           </sidebar-item>
           <sidebar-item
            title="Markdown"
-           icon="logo-markdown"
-           class="child-cell">
+           icon="logo-markdown">
           </sidebar-item>
           <sidebar-item
            title="HTML"
-           icon="md-code"
-           class="child-cell">
+           icon="md-code">
           </sidebar-item>
         </sidebar-group>
       </sidebar-item>
@@ -91,18 +98,15 @@
         <sidebar-group v-show="exportMenu" slot="children">
           <sidebar-item
            title="Plain texts"
-           icon="md-document"
-           class="child-cell">
+           icon="md-document">
           </sidebar-item>
           <sidebar-item
            title="Markdown"
-           icon="logo-markdown"
-           class="child-cell">
+           icon="logo-markdown">
           </sidebar-item>
           <sidebar-item
            title="HTML"
-           icon="md-code"
-           class="child-cell">
+           icon="md-code">
           </sidebar-item>
         </sidebar-group>
       </sidebar-item>
@@ -249,22 +253,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.cell-like {
-  padding: 7px 16px;
-}
-
-.child-cell {
-  background: rgb(237, 237, 237);
-  cursor: pointer;
-}
-
-.child-cell:hover {
-  background: rgb(243, 243, 243);
-}
-
-.side-bar-group-header {
-  vertical-align: unset !important;
-}
-</style>
