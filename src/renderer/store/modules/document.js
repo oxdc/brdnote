@@ -1,6 +1,7 @@
 import UUID from 'uuid-js'
 
 const state = {
+  docId: UUID.create(4).toString(),
   title: null,
   path: null,
   tags: [],
@@ -13,6 +14,9 @@ const state = {
 }
 
 const getters = {
+  docId: state => {
+    return state.docId
+  },
   title: state => {
     return state.title
   },
@@ -50,6 +54,13 @@ const getters = {
 const actions = {}
 
 const mutations = {
+  initDocId: (state, { docId }) => {
+    if (docId) {
+      state.docId = docId
+    } else {
+      state.docId = UUID.create(4).toString()
+    }
+  },
   updateTitle: (state, { title }) => {
     state.title = title
   },
@@ -114,6 +125,7 @@ const mutations = {
     }
   },
   initDoc: (state) => {
+    state.docId = UUID.create(4).toString()
     state.title = null
     state.path = null
     state.tags = []

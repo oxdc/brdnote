@@ -126,6 +126,9 @@ function closeDocument (vueRoot) {
 
 function updateMeta (vueRoot, data) {
   try {
+    vueRoot.$store.commit('initDocId', {
+      docId: data.docId
+    })
     vueRoot.$store.commit('updateTitle', {
       title: data.title
     })

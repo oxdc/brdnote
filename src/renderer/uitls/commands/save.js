@@ -18,6 +18,7 @@ export function save (vueRoot, callback) {
   }
 
   var data = {
+    docId: vueRoot.$store.getters.docId,
     title: vueRoot.$store.getters.title,
     tags: vueRoot.$store.getters.tags,
     totalTime: vueRoot.$store.getters.totalTime,

@@ -76,9 +76,14 @@ import FormulaPlus from '@/quillModules/formulaplus'
 import 'quill-mention/src/quill.mention'
 // import Focus from '@/quillModules/focus'
 
+// Load Store.js
+import * as storejs from 'store'
+
 // Config Katex and Highlight
 window.katex = katex
 window.hljs = hljs
+
+window.storejs = storejs
 
 // Config editors
 window.CodeMirror = CodeMirror

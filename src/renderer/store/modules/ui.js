@@ -4,6 +4,11 @@ const state = {
   sidebarVisibility: false,
   sidebarExpanded: true,
   rootSplit: '0px',
+  timer: {
+    h: 0,
+    m: 0,
+    s: 0
+  },
   editors: {
     richText: {
       tooltip: null
@@ -23,6 +28,9 @@ const getters = {
   },
   editors: state => {
     return state.editors
+  },
+  timer: state => {
+    return state.timer
   }
 }
 
@@ -83,6 +91,11 @@ const mutations = {
         documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
       }
     }, 1)
+  },
+  setTimer: (state, { h, m, s }) => {
+    state.timer.h = h
+    state.timer.m = m
+    state.timer.s = s
   }
 }
 

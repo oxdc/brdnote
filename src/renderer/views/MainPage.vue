@@ -43,7 +43,7 @@
       </div>
       <div id="word-counter" style="float: right;"></div>
       <div id="symbol-counter" style="float: right;"></div>
-      <div style="float: right;"> {{ timer }} </div>
+      <div style="float: right;"> {{ this.$store.getters.timer.h + 'h ' + this.$store.getters.timer.m + 'm ' + this.$store.getters.timer.s + 's' }} </div>
     </status-bar-plane>
   </div>
 </template>
@@ -66,11 +66,6 @@ export default {
     'status-bar-plane': StatusBarPlane,
     'side-bar-plane': SideBarPlane,
     'formula-editor': FormulaEditor
-  },
-  data: () => {
-    return {
-      timer: '0h 0m 0s'
-    }
   },
   methods: {
     onChange (event) {
@@ -199,30 +194,6 @@ export default {
     }
   },
   mounted () {
-    this.$store.commit('initOpeningTime', {
-      openingTime: new Date().getTime()
-    })
-    setInterval(() => {
-      var openingTime = this.$store.getters.openingTime
-      var now = new Date().getTime()
-      var distance = now - openingTime
-      var lastStoredTime = this.$store.getters.lastSavedTime
-      var newTime = lastStoredTime + distance
-      this.$store.commit('updateTotalTime', {
-        newTime: newTime
-      })
-      var hours = Math.floor(distance / (1000 * 60 * 60))
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000)
-      this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's'
-      var remindingTime = 1000 * 60 * 30
-      if (distance % remindingTime === 0) {
-        this.$Message.info({
-          content: 'You have been working for ' + this.timer + ', you\'d better take a break.',
-          duration: 15
-        })
-      }
-    }, 1000)
     this.setPosition()
     window.addEventListener('resize', () => {
       this.setPosition()

@@ -39,6 +39,7 @@
     "quill-mention": "^2.0.2",
     "simplebar": "^2.6.1",
     "sjcl": "^1.0.7",
+    "store": "^2.0.12",
     "uuid-js": "^0.7.5",
     "vue": "^2.5.17",
     "vue-codemirror": "^4.0.5",
