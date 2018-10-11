@@ -1,9 +1,6 @@
 <template>
   <div>
-    <Divider>
-      <Icon type="md-help-buoy" class="side-bar-group-header"/>
-      <label>User Guide</label>
-    </Divider>
+    <sidebar-group-header icon="md-help-buoy" title="User Guide"></sidebar-group-header>
     <CellGroup>
       <Cell title="Getting Started">
         <Icon type="md-document" slot="icon" />
@@ -12,10 +9,7 @@
         <Icon type="md-document" slot="icon" />
       </Cell>
     </CellGroup>
-    <Divider>
-      <Icon type="md-heart-outline" />
-      <label>About</label>
-    </Divider>
+    <sidebar-group-header icon="md-heart-outline" title="About"></sidebar-group-header>
     <CellGroup>
       <Cell title="Version" extra="v0.1.35">
         <Icon type="md-pricetag" slot="icon" />
@@ -25,14 +19,12 @@
 </template>
 
 <script>
+import SideBarGroupHeader from '@/components/SideBar/SideBarBase/SideBarGroupHeader'
+
 export default {
-  name: 'SideBarHelp'
+  name: 'SideBarHelp',
+  components: {
+    'sidebar-group-header': SideBarGroupHeader
+  }
 }
 </script>
-
-<style scope>
-.side-bar-group-header {
-  vertical-align: unset !important;
-}
-</style>
-
