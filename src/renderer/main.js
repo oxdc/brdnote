@@ -7,6 +7,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+// Reset CSS
+import 'normalize.css/normalize.css'
+
 // Load themes
 import '@/assets/Themes/base.css'
 import '@/assets/Themes/default.css'
