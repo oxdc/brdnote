@@ -68,6 +68,7 @@
           </sidebar-item>
         </sidebar-group>
       </sidebar-item>
+      <!--
       <sidebar-item
        title="Import"
        to="/"
@@ -89,6 +90,8 @@
           </sidebar-item>
         </sidebar-group>
       </sidebar-item>
+      -->
+      <!--
       <sidebar-item
        title="Export"
        to="/"
@@ -110,8 +113,13 @@
           </sidebar-item>
         </sidebar-group>
       </sidebar-item>
+      -->
+      <!--
       <sidebar-item title="Sync" icon="md-sync"></sidebar-item>
+      -->
+      <!--
       <sidebar-item title="Share" icon="md-share"></sidebar-item>
+      -->
     </sidebar-group>
   </div>
 </template>

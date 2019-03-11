@@ -73,6 +73,7 @@
          @click="onView(1)">
         </Button>
       </Tooltip>
+      <!--
       <Tooltip
        content="Explorer"
        placement="right">
@@ -84,6 +85,7 @@
          @click="onView(2)">
         </Button>
       </Tooltip>
+      -->
       <Tooltip
        content="Outline"
        placement="right">
@@ -106,6 +108,7 @@
          @click="onView(4)">
         </Button>
       </Tooltip>
+      <!--
       <Tooltip
        content="Searching"
        placement="right">
@@ -117,6 +120,8 @@
          @click="onView(5)">
         </Button>
       </Tooltip>
+      -->
+      <!--
       <Tooltip
        content="Settings"
        placement="right">
@@ -128,6 +133,7 @@
          @click="onView(6)">
         </Button>
       </Tooltip>
+      -->
       <Tooltip
        content="Help"
        placement="right">

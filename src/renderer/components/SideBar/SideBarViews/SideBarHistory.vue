@@ -7,6 +7,7 @@
        v-for="draft in drafts"
        :title="draft.title ? draft.title : 'Untitled draft'"
        :extra="(new Date(draft.time)).toLocaleTimeString()"
+       @click="recover(draft)"
        :key="draft.id">
         <div slot="label">
           <div>{{ 'Path: ' + (draft.path ? draft.path : 'Unsaved') }}</div>
@@ -73,6 +74,37 @@ export default {
       this.drafts = window.storejs.get(docId)
       if (this.drafts) this.drafts = this.drafts.reverse()
     }, 1000)
+  },
+  methods: {
+    recover (draft) {
+      this.saveDraft()
+      window.editor.setContents(draft.delta)
+      this.$store.commit('updateTitle', { title: draft.title })
+      this.$store.commit('initTags', { tags: draft.tags })
+      this.$store.commit('updatePath', { path: draft.path })
+    },
+    saveDraft () {
+      var docId = this.$store.getters.docId
+      var drafts = window.storejs.get(docId)
+      if (!drafts) {
+        window.storejs.set(docId, [])
+        drafts = []
+      }
+      drafts.push({
+        docId: this.$store.getters.docId,
+        title: this.$store.getters.title,
+        path: this.$store.getters.path,
+        tags: this.$store.getters.tags,
+        saved: this.$store.getters.saved,
+        totalTime: this.$store.getters.totalTime,
+        lastSavedTime: this.$store.getters.lastSavedTime,
+        openingTime: this.$store.getters.openingTime,
+        encrypted: this.$store.getters.encrypted,
+        delta: window.editor.getContents(),
+        time: new Date().getTime()
+      })
+      window.storejs.set(docId, drafts)
+    }
   }
 }
 </script>

@@ -12,13 +12,13 @@
           <formula-editor slot="tooltip"></formula-editor>
         </toolbar-plane>
         <Tooltip
-         content="Home"
+         content="Menu"
          placement="right"
          class="sidebar-toggle-btn">
           <Button
            type="primary"
            shape="circle"
-           icon="md-home"
+           icon="md-menu"
            v-show="!sidebarVisibility"
            @click="onClickToggle">
           </Button>
