@@ -2,13 +2,9 @@
 
 A desktop note taking app
 
-## Releases
+## v0.x Releases
 
 [Download](https://github.com/oxdc/brdnote/releases)
-
-## Screenshots
-
-![screen shot 1](https://raw.githubusercontent.com/oxdc/brdnote/master/docs/imgs/Screenshot%201.png)
 
 ## Features
 
