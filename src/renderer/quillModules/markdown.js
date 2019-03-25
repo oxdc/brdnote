@@ -76,7 +76,7 @@ class MarkdownShortcuts {
       },
       {
         name: 'bolditalic',
-        pattern: /(?:\*|_){3}(.+?)(?:\*|_){3}/g,
+        pattern: /(?:\*){3}(.+?)(?:\*){3}/g,
         action: (text, selection, pattern, lineStart) => {
           let match = pattern.exec(text)
 
@@ -95,7 +95,7 @@ class MarkdownShortcuts {
       },
       {
         name: 'bold',
-        pattern: /(?:\*|_){2}(.+?)(?:\*|_){2}/g,
+        pattern: /(?:\*){2}(.+?)(?:\*){2}/g,
         action: (text, selection, pattern, lineStart) => {
           let match = pattern.exec(text)
 
@@ -114,7 +114,7 @@ class MarkdownShortcuts {
       },
       {
         name: 'italic',
-        pattern: /(?:\*|_){1}(.+?)(?:\*|_){1}/g,
+        pattern: /(?:\*){1}(.+?)(?:\*){1}/g,
         action: (text, selection, pattern, lineStart) => {
           let match = pattern.exec(text)
 
