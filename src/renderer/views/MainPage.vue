@@ -124,6 +124,7 @@ export default {
               highlight: text => window.hljs.highlightAuto(text).value
             },
             formulaPlus: true,
+            quillLoc: true,
             toolbar: {
               container: '#toolbar',
               handlers: {'emoji': () => {}}

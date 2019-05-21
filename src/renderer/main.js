@@ -73,6 +73,7 @@ import ShortNameEmoji from '@/quillModules/emoji/module-emoji'
 import ToolbarEmoji from '@/quillModules/emoji/module-toolbar-emoji'
 import TextAreaEmoji from '@/quillModules/emoji/module-textarea-emoji'
 import FormulaPlus from '@/quillModules/formulaplus'
+import QuillLoc from '@/quillModules/loc'
 import 'quill-mention/src/quill.mention'
 // import Focus from '@/quillModules/focus'
 
@@ -106,6 +107,7 @@ window.Quill.register('modules/emojiShortname', ShortNameEmoji)
 window.Quill.register('modules/emojiToolbar', ToolbarEmoji)
 window.Quill.register('modules/emojiTextarea', TextAreaEmoji)
 window.Quill.register('modules/formulaPlus', FormulaPlus)
+window.Quill.register('modules/quillLoc', QuillLoc)
 // window.Quill.register('modules/focus', Focus)
 
 // Config Vue modules
