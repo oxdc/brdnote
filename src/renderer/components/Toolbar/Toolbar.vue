@@ -1,6 +1,6 @@
 <template>
-  <div id="toolbar">
-    <span class="ql-formats">
+  <div id="toolbar" class="no-select">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Bold"
        placement="bottom">
@@ -28,7 +28,7 @@
       </Tooltip>
     </span>
 
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Header"
        placement="bottom">
@@ -59,7 +59,7 @@
       </Tooltip>
     </span>
 
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Subscript"
        placement="bottom">
@@ -72,7 +72,7 @@
       </Tooltip>
     </span>
   
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Blockquote"
        placement="bottom">
@@ -100,7 +100,7 @@
       </Tooltip>
     </span>
 
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Indent"
        placement="bottom">
@@ -118,7 +118,7 @@
       </Tooltip>
     </span>
 
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Color"
        placement="bottom">
@@ -131,7 +131,7 @@
       </Tooltip>
     </span>
     
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Insert formula / LaTeX"
        placement="bottom">
@@ -161,7 +161,7 @@
       </Tooltip>
     </span>
 
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Clear format"
        placement="bottom">
@@ -169,7 +169,7 @@
       </Tooltip>
     </span>
 
-    <span class="ql-formats">
+    <span class="ql-formats no-select">
       <Tooltip
        content="Undo"
        placement="bottom">
@@ -191,12 +191,36 @@
         </button>
       </Tooltip>
     </span>
+
+    <span class="ql-formats no-select">
+      <Tooltip
+       content="Charts"
+       placement="bottom">
+        <button
+         class="ivu-icon ivu-icon-md-stats"
+         style="font-size: 18px;"
+         @click="charts = true"
+        >
+        </button>
+      </Tooltip>
+      <chart-editor v-model="charts"></chart-editor>
+    </span>
   </div>
 </template>
 
 <script>
+import ChartEditor from './ChartEditor'
+
 export default {
   name: 'Toolbar',
+  components: {
+    ChartEditor
+  },
+  data: () => {
+    return {
+      charts: false
+    }
+  },
   methods: {
     onClickUndo (event) {
       if (window.editor && window.editor.history) {
