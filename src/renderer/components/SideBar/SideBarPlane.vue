@@ -73,7 +73,6 @@
          @click="onView(1)">
         </Button>
       </Tooltip>
-      <!--
       <Tooltip
        content="Explorer"
        placement="right">
@@ -85,7 +84,6 @@
          @click="onView(2)">
         </Button>
       </Tooltip>
-      -->
       <Tooltip
        content="Outline"
        placement="right">
@@ -151,10 +149,11 @@
         <div class="sidebar-explorer-head"> {{ titles[view] }} </div>
         <div class="sidebar-explorer-body tiny-scrollbar">
           <sidebar-document v-show="view === 1"></sidebar-document>
+          <sidebar-explorer v-show="view === 2"></sidebar-explorer>
           <sidebar-outline  v-show="view === 3"></sidebar-outline>
           <sidebar-history v-show="view === 4"></sidebar-history>
           <sidebar-help v-show="view === 7"></sidebar-help>
-          <div v-show="view !== 1 && view !== 3 && view !== 4 && view !== 7" style="text-align: center; margin: 15px;">Comming soon ... </div>
+          <div v-show="view !== 1 && view != 2 && view !== 3 && view !== 4 && view !== 7" style="text-align: center; margin: 15px;">Comming soon ... </div>
         </div>
       </div>
     </div>
@@ -168,6 +167,7 @@ import SideBarDocument from '@/components/SideBar/SideBarViews/SideBarDocument'
 import SideBarOutline from '@/components/SideBar/SideBarViews/SideBarOutline'
 import SideBarHelp from '@/components/SideBar/SideBarViews/SideBarHelp'
 import SideBarHistory from '@/components/SideBar/SideBarViews/SideBarHistory'
+import SideBarExplorer from '@/components/SideBar/SideBarViews/SideBarExplorer'
 
 export default {
   name: 'SideBarPlane',
@@ -175,7 +175,8 @@ export default {
     'sidebar-document': SideBarDocument,
     'sidebar-outline': SideBarOutline,
     'sidebar-help': SideBarHelp,
-    'sidebar-history': SideBarHistory
+    'sidebar-history': SideBarHistory,
+    'sidebar-explorer': SideBarExplorer
   },
   data () {
     return {
