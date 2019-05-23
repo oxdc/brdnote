@@ -63,6 +63,17 @@
       </Tooltip>
       <Divider />
       <Tooltip
+       content="User"
+       placement="right">
+        <Button
+         :type="view === 0 ? 'primary' : 'default'"
+         shape="circle"
+         icon="md-person"
+         class="sidebar-btn"
+         @click="onView(0)">
+        </Button>
+      </Tooltip>
+      <Tooltip
        content="Document"
        placement="right">
         <Button
@@ -148,12 +159,13 @@
       <div class="sidebar-explorer" id="sidebar-explorer">
         <div class="sidebar-explorer-head"> {{ titles[view] }} </div>
         <div class="sidebar-explorer-body tiny-scrollbar">
+          <sidebar-user v-show="view === 0"></sidebar-user>
           <sidebar-document v-show="view === 1"></sidebar-document>
           <sidebar-explorer v-show="view === 2"></sidebar-explorer>
           <sidebar-outline  v-show="view === 3"></sidebar-outline>
           <sidebar-history v-show="view === 4"></sidebar-history>
           <sidebar-help v-show="view === 7"></sidebar-help>
-          <div v-show="view !== 1 && view != 2 && view !== 3 && view !== 4 && view !== 7" style="text-align: center; margin: 15px;">Comming soon ... </div>
+          <div v-show="!(view in [0, 1, 2, 3, 4, 7])" style="text-align: center; margin: 15px;">Comming soon ... </div>
         </div>
       </div>
     </div>
@@ -163,6 +175,7 @@
 <script>
 import { getSize } from '@/uitls/miscellaneous'
 import commands from '@/uitls/commands'
+import SideBarUser from '@/components/SideBar/SideBarViews/SideBarUser'
 import SideBarDocument from '@/components/SideBar/SideBarViews/SideBarDocument'
 import SideBarOutline from '@/components/SideBar/SideBarViews/SideBarOutline'
 import SideBarHelp from '@/components/SideBar/SideBarViews/SideBarHelp'
@@ -172,6 +185,7 @@ import SideBarExplorer from '@/components/SideBar/SideBarViews/SideBarExplorer'
 export default {
   name: 'SideBarPlane',
   components: {
+    'sidebar-user': SideBarUser,
     'sidebar-document': SideBarDocument,
     'sidebar-outline': SideBarOutline,
     'sidebar-help': SideBarHelp,
@@ -232,6 +246,7 @@ export default {
     titles: {
       get () {
         return {
+          '0': 'User',
           '1': 'Document',
           '2': 'Explorer',
           '3': 'Outline',

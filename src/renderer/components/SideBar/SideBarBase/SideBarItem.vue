@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-item">
+  <div class="sidebar-item" :primary="primary">
     <Cell
      :title="title"
      :label="label"
@@ -28,6 +28,10 @@
 export default {
   name: 'SideBarItem',
   props: {
+    primary: {
+      type: Boolean,
+      default: false
+    },
     icon: {
       type: String
     },
@@ -75,5 +79,18 @@ export default {
 
 .sidebar-item-children .sidebar-item:hover {
   background: rgb(243, 243, 243);
+}
+
+.sidebar-item[primary] {
+  background: #5cadff !important;
+  cursor: pointer;
+}
+
+.sidebar-item[primary] .ivu-cell:hover {
+  background: #74b9ff !important;
+}
+
+.sidebar-item[primary] .ivu-cell {
+  color: white !important;
 }
 </style>

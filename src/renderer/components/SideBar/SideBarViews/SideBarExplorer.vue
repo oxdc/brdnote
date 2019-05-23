@@ -8,15 +8,14 @@
        @click="onNotebookDirectoryMenu"
       >
         <sidebar-group slot="children" v-show="notebookDirectoryMenu">
-          <sidebar-item fulltitle>
-            <Input
-             v-model="path"
-             placeholder="Notebook Directory"
-             slot="title"/>
+          <sidebar-item
+           :title="path">
           </sidebar-item>
           <sidebar-item
            title="Open Notebook"
            icon="md-bookmarks"
+           primary
+           to="/"
            @click="onOpenNotebook">
           </sidebar-item>
         </sidebar-group>
