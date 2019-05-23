@@ -28,11 +28,11 @@ export function open (vueRoot, callback, path = null) {
       }
 
       openDocument(fileNames[0], vueRoot)
-    })
-  }
 
-  if (typeof callback === 'function') {
-    callback()
+      if (typeof callback === 'function') {
+        callback(fileNames[0])
+      }
+    })
   }
 }
 

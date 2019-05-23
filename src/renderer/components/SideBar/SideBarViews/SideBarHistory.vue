@@ -3,40 +3,27 @@
     <sidebar-group-header icon="md-brush" title="Drafts"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       icon="md-git-commit"
-       v-for="draft in drafts"
-       :title="draft.title ? draft.title : 'Untitled draft'"
-       :extra="(new Date(draft.time)).toLocaleTimeString()"
-       @click="recover(draft)"
-       :key="draft.id">
-        <div slot="label">
-          <div>{{ 'Path: ' + (draft.path ? draft.path : 'Unsaved') }}</div>
-          <div>
-            {{
-              'Tags: ' +
-              draft.tags.map(e => e.tag).slice(0, 5).join(' , ') + 
-              (draft.tags.length > 5 ? ' ...' : '') +
-              (draft.tags.length === 0 ? 'None' : '') 
-            }}
-          </div>
-          <div>
-            {{
-              'Content: ' +
-              draft.delta.ops
-                .slice(0, 20)
-                .map(e => e.insert.toString())
-                .map(e => (e !== '[object Object]' ? e : ' {block} '))
-                .join('')
-                .substring(0, 30)
-              + '...'
-            }}
-          </div>
-        </div>
-      </sidebar-item>
-      <sidebar-item
-       title="No draft here"
-       icon="md-more"
-       v-if="drafts.length === 0">
+       title="Draft List"
+       to="/"
+       :arrow="showDrafts ? 'ios-arrow-down' : 'ios-arrow-forward'"
+       @click="onShowDrafts">
+        <sidebar-group slot="children" v-show="showDrafts">
+          <sidebar-docitem
+           v-for="draft in drafts"
+           :title="draft.title ? draft.title : 'Untitled draft'"
+           :date="(new Date(draft.time)).toLocaleTimeString()"
+           :path="draft.path"
+           :tags="draft.tags"
+           :delta="draft.delta.ops"
+           @click="recover(draft)"
+           :key="draft.id">
+          </sidebar-docitem>
+          <sidebar-item
+           title="No draft here"
+           icon="md-more"
+           v-if="!drafts">
+          </sidebar-item>
+        </sidebar-group>
       </sidebar-item>
     </sidebar-group>
     <sidebar-group-header icon="md-time" title="Saved Versions"></sidebar-group-header>
@@ -54,18 +41,21 @@
 import SideBarGroupHeader from '@/components/SideBar/SideBarBase/SideBarGroupHeader'
 import SideBarGroup from '@/components/SideBar/SideBarBase/SideBarGroup'
 import SideBarItem from '@/components/SideBar/SideBarBase/SideBarItem'
+import SideBarDocItem from '@/components/SideBar/SideBarBase/SideBarDocItem'
 
 export default {
   name: 'SideBarHistory',
   components: {
     'sidebar-group-header': SideBarGroupHeader,
     'sidebar-group': SideBarGroup,
-    'sidebar-item': SideBarItem
+    'sidebar-item': SideBarItem,
+    'sidebar-docitem': SideBarDocItem
   },
   data () {
     return {
       drafts: [],
-      versions: []
+      versions: [],
+      showDrafts: true
     }
   },
   mounted () {
@@ -104,6 +94,9 @@ export default {
         time: new Date().getTime()
       })
       window.storejs.set(docId, drafts)
+    },
+    onShowDrafts (event) {
+      this.showDrafts = !this.showDrafts
     }
   }
 }
