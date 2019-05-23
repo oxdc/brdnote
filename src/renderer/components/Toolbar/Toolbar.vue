@@ -23,7 +23,7 @@
       </Tooltip>
       <Tooltip
        content="Align"
-       placement="bottom">
+       placement="right">
         <select class="ql-align"></select>
       </Tooltip>
     </span>
@@ -31,7 +31,7 @@
     <span class="ql-formats no-select">
       <Tooltip
        content="Header"
-       placement="bottom">
+       placement="right">
         <select class="ql-header">
           <option selected></option>
           <option value="1"></option>
@@ -44,7 +44,7 @@
       </Tooltip>
       <Tooltip
        content="Size"
-       placement="bottom">
+       placement="right">
         <select class="ql-size">
           <option value="small"></option>
           <option selected></option>
@@ -54,7 +54,7 @@
       </Tooltip>
       <Tooltip
        content="Font"
-       placement="bottom">
+       placement="right">
         <select class="ql-font"></select>
       </Tooltip>
     </span>
