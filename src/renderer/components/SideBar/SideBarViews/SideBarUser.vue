@@ -3,7 +3,7 @@
     <sidebar-group>
       <sidebar-item
        title="Login"
-       icon="md-contact"
+       icon="md-log-in"
        v-show="task === 'none'"
        @click="onLogin"
        to="/">
@@ -33,6 +33,20 @@
               </FormItem>
             </Form>
           </sidebar-item>
+          <!-- <sidebar-item
+           title=""
+           icon="md-lock"
+           class="login-form-item"
+           :class="'login-form-item-ok'"
+           v-show="task === 'change password'">
+            <Form slot="extra">
+              <FormItem>
+                <Input
+                 type="password"
+                 placeholder="Current Password"/>
+              </FormItem>
+            </Form>
+          </sidebar-item> -->
           <sidebar-item
            title=""
            icon="md-lock"
@@ -62,6 +76,7 @@
           </sidebar-item>
           <sidebar-item
            title="Submit"
+           icon="md-checkmark"
            @click="onSubmit"
            primary
            to="/">
@@ -74,6 +89,29 @@
         </sidebar-group>
       </sidebar-item>
     </sidebar-group>
+    <sidebar-group>
+      <sidebar-item
+       title="Welcome back!">
+      </sidebar-item>
+      <sidebar-item fulltitle>
+        <div slot="title">
+          <Avatar style="background-color: #87d068" icon="ios-person" size="large"/>
+          <span class="user">{{ user }}</span>
+        </div>
+      </sidebar-item>
+      <sidebar-item
+       title="Logout"
+       icon="md-log-out"
+       to="/">
+      </sidebar-item>
+    </sidebar-group>
+    <sidebar-group-header icon="md-bookmarks" title="My Notebooks"></sidebar-group-header>
+    <sidebar-group>
+      <sidebar-notebook id="1"></sidebar-notebook>
+    </sidebar-group>
+    <sidebar-group-header icon="md-bookmarks" title="Shared Notebooks"></sidebar-group-header>
+    <sidebar-group>
+    </sidebar-group>
   </div>
 </template>
 
@@ -81,18 +119,21 @@
 import SideBarGroupHeader from '@/components/SideBar/SideBarBase/SideBarGroupHeader'
 import SideBarGroup from '@/components/SideBar/SideBarBase/SideBarGroup'
 import SideBarItem from '@/components/SideBar/SideBarBase/SideBarItem'
+import SideBarNotebook from '@/components/SideBar/SideBarBase/SideBarNotebook'
 
 export default {
   name: 'SideBarHelp',
   data: () => {
     return {
-      task: 'none'
+      task: 'none',
+      user: 'User'
     }
   },
   components: {
     'sidebar-group-header': SideBarGroupHeader,
     'sidebar-group': SideBarGroup,
-    'sidebar-item': SideBarItem
+    'sidebar-item': SideBarItem,
+    'sidebar-notebook': SideBarNotebook
   },
   methods: {
     onLogin (event) {
@@ -127,5 +168,11 @@ export default {
 
 .login-form-item-ok .ivu-form-item {
   margin-bottom: 0 !important;
+}
+</style>
+
+<style scoped>
+.user {
+  margin: 0 10px;
 }
 </style>
