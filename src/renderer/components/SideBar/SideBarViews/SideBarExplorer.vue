@@ -293,11 +293,7 @@ export default {
     },
     onOpenNote (path) {
       commands.close(this.$root, () => {
-        if (path.startsWith('brdweb://')) {
-          // TODO
-        } else {
-          commands.open(this.$root, null, path)
-        }
+        commands.open(this.$root, null, path)
       }, true)
     },
     validRegex (regex) {

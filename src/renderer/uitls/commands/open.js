@@ -6,6 +6,7 @@ import {
   decryptContent,
   atou
 } from '@/uitls/miscellaneous'
+import request from 'request'
 
 export function open (vueRoot, callback, path = null) {
   if (!vueRoot) {
@@ -37,73 +38,85 @@ export function open (vueRoot, callback, path = null) {
 }
 
 function openDocument (path, vueRoot) {
-  fs.readFile(path, 'utf-8', (err, content) => {
-    if (err) {
-      vueRoot.$Notice.error({
-        title: 'Error',
-        desc: 'An error ocurred while reading the file :' + err.message
-      })
-      closeDocument(vueRoot)
-      return
-    }
+  if (path.startsWith('brdweb://')) {
+    var token = vueRoot.$store.getters.token
+    var matches = path.match(/^brdweb:\/\/notes\/(.+)$/)
+    var noteid = matches[1]
+    request.get('http://123.206.107.58:8000/download/' + noteid + '?token=' + token, (err, res, body) => {
+      if (err) return
+      var r = JSON.parse(body)
+      if (r.status !== 'ok') return
+      readContent(null, null, r.content, vueRoot)
+    })
+  } else {
+    fs.readFile(path, 'utf-8', (err, content) => readContent(err, path, content, vueRoot))
+  }
+}
 
-    if (content.startsWith('ENCRYPTED')) {
-      vueRoot.$store.commit('updateEncryptionStatus', true)
-    } else {
-      vueRoot.$store.commit('updateEncryptionStatus', false)
-    }
-
-    if (content.startsWith('ENCRYPTED')) {
-      content = content.substring(9)
-      var password = ''
-      vueRoot.$Modal.confirm({
-        title: 'This document has been encrypted !',
-        render: (h) => {
-          return h('Input', {
-            props: {
-              value: password,
-              autofocus: true,
-              type: 'password',
-              placeholder: 'Please enter your password ...'
-            },
-            on: {
-              input: (value) => {
-                password = value
-              }
+function readContent (err, path, content, vueRoot) {
+  if (err) {
+    vueRoot.$Notice.error({
+      title: 'Error',
+      desc: 'An error ocurred while reading the file :' + err.message
+    })
+    closeDocument(vueRoot)
+    return
+  }
+  if (content.startsWith('ENCRYPTED')) {
+    vueRoot.$store.commit('updateEncryptionStatus', true)
+  } else {
+    vueRoot.$store.commit('updateEncryptionStatus', false)
+  }
+  if (content.startsWith('ENCRYPTED')) {
+    content = content.substring(9)
+    var password = ''
+    vueRoot.$Modal.confirm({
+      title: 'This document has been encrypted !',
+      render: (h) => {
+        return h('Input', {
+          props: {
+            value: password,
+            autofocus: true,
+            type: 'password',
+            placeholder: 'Please enter your password ...'
+          },
+          on: {
+            input: (value) => {
+              password = value
             }
-          })
-        },
-        onOk: () => {
-          try {
-            content = decryptContent(JSON.parse(atou(content)), password)
-            extractContent(content, vueRoot)
-            vueRoot.$store.commit('updatePassword', {
-              password: password
-            })
-            vueRoot.$Notice.success({
-              title: 'Success',
-              desc: ''
-            })
-            vueRoot.$store.commit('updatePath', {
-              path: path
-            })
-          } catch (err) {
-            vueRoot.$Notice.error({
-              title: 'Error',
-              desc: 'Password error. ' + err.message
-            })
-            closeDocument(vueRoot)
           }
-        },
-        onCancel: () => {}
-      })
-    } else {
-      extractContent(content, vueRoot)
-      vueRoot.$store.commit('updatePath', {
-        path: path
-      })
-    }
-  })
+        })
+      },
+      onOk: () => {
+        try {
+          content = decryptContent(JSON.parse(atou(content)), password)
+          extractContent(content, vueRoot)
+          vueRoot.$store.commit('updatePassword', {
+            password: password
+          })
+          vueRoot.$Notice.success({
+            title: 'Success',
+            desc: ''
+          })
+          vueRoot.$store.commit('updatePath', {
+            path: path
+          })
+        } catch (err) {
+          vueRoot.$Notice.error({
+            title: 'Error',
+            desc: 'Password error. ' + err.message
+          })
+          closeDocument(vueRoot)
+        }
+      },
+      onCancel: () => {}
+    })
+  } else {
+    extractContent(content, vueRoot)
+    vueRoot.$store.commit('updatePath', {
+      path: path
+    })
+  }
 }
 
 function extractContent (content, vueRoot) {
