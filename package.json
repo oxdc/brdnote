@@ -41,6 +41,7 @@
     "quill-blot-formatter": "^1.0.5",
     "quill-emoji": "0.0.9",
     "quill-mention": "^2.0.2",
+    "request": "^2.88.0",
     "simplebar": "^2.6.1",
     "sjcl": "^1.0.7",
     "store": "^2.0.12",

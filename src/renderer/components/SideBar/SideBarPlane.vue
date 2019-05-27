@@ -50,6 +50,17 @@
         </Button>
       </Tooltip>
       <Tooltip
+       content="Upload"
+       placement="right">
+        <Button
+         type="primary"
+         shape="circle"
+         icon="md-cloud-upload"
+         class="sidebar-btn"
+         ghost>
+        </Button>
+      </Tooltip>
+      <Tooltip
        content="Print"
        placement="right">
         <Button

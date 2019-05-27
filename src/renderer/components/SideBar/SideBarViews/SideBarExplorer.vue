@@ -9,7 +9,7 @@
       >
         <sidebar-group slot="children" v-show="notebookDirectoryMenu">
           <sidebar-item
-           :title="path">
+           :title="path ? path : 'Please Open a Notebook'">
           </sidebar-item>
           <sidebar-item
            title="Open Notebook"
