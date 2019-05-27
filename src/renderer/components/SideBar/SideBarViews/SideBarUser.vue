@@ -163,7 +163,9 @@
        :id="notebook.id.toString()"
        :key="notebook.id"
        @on-error="onError"
-       @to-refresh="onRefreshMyNotebookList">
+       @to-refresh="onRefreshMyNotebookList"
+       @open-notebook="onOpenNotebook"
+       @upload-to-notebook="onUpload">
       </sidebar-notebook>
     </sidebar-group>
     <sidebar-group-header icon="md-bookmarks" title="Shared Notebooks" v-show="isLoggedIn"></sidebar-group-header>
@@ -186,7 +188,9 @@
        :id="notebook.id.toString()"
        :key="notebook.id"
        @on-error="onError"
-       @to-refresh="onRefreshSharedNotebookList">
+       @to-refresh="onRefreshSharedNotebookList"
+       @open-notebook="onOpenNotebook"
+       @upload-to-notebook="onUpload">
       </sidebar-notebook>
     </sidebar-group>
   </div>
@@ -199,6 +203,10 @@ import SideBarItem from '@/components/SideBar/SideBarBase/SideBarItem'
 import SideBarNotebook from '@/components/SideBar/SideBarBase/SideBarNotebook'
 import request from 'request'
 import crypto from 'crypto'
+import {
+  encryptContent,
+  utoa
+} from '@/uitls/miscellaneous'
 
 export default {
   name: 'SideBarHelp',
@@ -276,11 +284,7 @@ export default {
       if (this.task === 'Login') {
         request.post('http://123.206.107.58:8000/users/login/' + this.username + ':' + hash, (err, res, body) => {
           if (err) {
-            this.$Notice.error({
-              title: 'Error',
-              desc: err.toString()
-            })
-            this.error = err.toString()
+            this.onError(err)
             return
           }
           var r = JSON.parse(body)
@@ -303,11 +307,7 @@ export default {
       } else if (this.task === 'Sign Up') {
         request.post('http://123.206.107.58:8000/users/signup/' + this.username + ':' + hash, (err, res, body) => {
           if (err) {
-            this.$Notice.error({
-              title: 'Error',
-              desc: err.toString()
-            })
-            this.error = err.toString()
+            this.onError(err)
             return
           }
           var r = JSON.parse(body)
@@ -337,11 +337,7 @@ export default {
       var token = this.$store.getters.token
       request.post('http://123.206.107.58:8000/users/logout?token=' + token, (err, res, body) => {
         if (err) {
-          this.$Notice.error({
-            title: 'Error',
-            desc: err.toString()
-          })
-          this.error = err.toString()
+          this.onError(err)
           return
         }
         var r = JSON.parse(body)
@@ -357,11 +353,7 @@ export default {
       var token = this.$store.getters.token
       request.get('http://123.206.107.58:8000/notebooks?token=' + token, (err, res, body) => {
         if (err) {
-          this.$Notice.error({
-            title: 'Error',
-            desc: err.toString()
-          })
-          this.error = err.toString()
+          this.onError(err)
           return
         }
         var r = JSON.parse(body)
@@ -395,11 +387,7 @@ export default {
       }
       request.post('http://123.206.107.58:8000/notebooks/' + notebook + '?token=' + token + params, (err, res, body) => {
         if (err) {
-          this.$Notice.error({
-            title: 'Error',
-            desc: err.toString()
-          })
-          this.error = err.toString()
+          this.onError(err)
           return
         }
         var r = JSON.parse(body)
@@ -425,11 +413,7 @@ export default {
       var token = this.$store.getters.token
       request.get('http://123.206.107.58:8000/notebooks/shared?token=' + token, (err, res, body) => {
         if (err) {
-          this.$Notice.error({
-            title: 'Error',
-            desc: err.toString()
-          })
-          this.error = err.toString()
+          this.onError(err)
           return
         }
         var r = JSON.parse(body)
@@ -451,6 +435,68 @@ export default {
         desc: err.toString()
       })
       this.error = err.toString()
+    },
+    onOpenNotebook (params) {
+      this.$emit('open-web', params)
+    },
+    onUpload (params) {
+      var token = this.$store.getters.token
+      var _this = this
+      var content = null
+      if (window.editor) {
+        content = JSON.stringify(window.editor.getContents())
+      }
+
+      var data = {
+        docId: this.$store.getters.docId,
+        title: this.$store.getters.title,
+        tags: this.$store.getters.tags,
+        totalTime: this.$store.getters.totalTime,
+        content: content
+      }
+
+      var password = this.$store.getters.password
+
+      var fileContent = password
+        ? 'ENCRYPTED' + utoa(JSON.stringify(encryptContent(JSON.stringify(data), password)))
+        : JSON.stringify(data)
+
+      request.post('http://123.206.107.58:8000/upload/' + data.docId + '?token=' + token + '&content=' + fileContent, (err, res, body) => {
+        if (err) {
+          _this.onError(err)
+          return
+        }
+        var r = JSON.parse(body)
+        if (r.status !== 'ok') {
+          _this.onError(r.message)
+        } else {
+          var param = '&'
+          if (params.access_key !== '---' && params.access_key !== '') {
+            param += 'access_key=' + params.access_key
+          }
+          console.log('http://123.206.107.58:8000/notebooks/' + params.notebook + '/' + data.docId + '?token=' + token + param)
+          request.post('http://123.206.107.58:8000/notebooks/' + params.notebook + '/' + data.docId + '?token=' + token + param, (err, res, body) => {
+            if (err) {
+              _this.onError(err)
+              return
+            }
+            var r = JSON.parse(body)
+            if (r.status === 'ok') {
+              this.$Notice.success({
+                title: 'Uploaded!',
+                desc: 'Your note has already been uploaded.'
+              })
+              this.error = null
+            } else {
+              this.$Notice.error({
+                title: 'Error happened while uploading',
+                desc: r.message
+              })
+              this.error = r.message
+            }
+          })
+        }
+      })
     }
   },
   mounted (event) {

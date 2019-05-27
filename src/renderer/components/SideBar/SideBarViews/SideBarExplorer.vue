@@ -120,6 +120,7 @@ import SideBarGroup from '@/components/SideBar/SideBarBase/SideBarGroup'
 import SideBarItem from '@/components/SideBar/SideBarBase/SideBarItem'
 import SideBarDocItem from '@/components/SideBar/SideBarBase/SideBarDocItem'
 import { extname } from 'path'
+import request from 'request'
 
 export default {
   name: 'SideBarHelp',
@@ -231,20 +232,52 @@ export default {
     },
     fetchResults (path) {
       var _this = this
-
-      commands.listdir(path, (err, files) => {
-        if (err) {
-          console.error(err)
+      if (path.startsWith('brdweb://')) {
+        var matches = path.match(/^brdweb:\/\/(.+)\?access_key=(.+|)$/)
+        if (matches.length > 2) {
+          var notebook = matches[1]
+          var accesskey = matches[2]
+          var token = this.$store.getters.token
+          var param = '&'
+          if (accesskey !== '---' && accesskey !== '') {
+            param += 'access_key=' + accesskey
+          }
+          request.get('http://123.206.107.58:8000/notebooks/' + notebook + '?token=' + token + param, (err, res, body) => {
+            if (err) {
+              this.$Notice.error({
+                title: 'Error',
+                desc: err.toString()
+              })
+              return
+            }
+            var r = JSON.parse(body)
+            if (r.status !== 'ok') {
+              this.$Notice.error({
+                title: 'Error',
+                desc: r.message
+              })
+            } else {
+              _this.$set(_this, 'results', [])
+              commands.readremote(token, r.records, metas => _this.$set(_this, 'results', metas))
+            }
+            this.loading = false
+          })
         }
+      } else {
+        commands.listdir(path, (err, files) => {
+          if (err) {
+            console.error(err)
+          }
 
-        var notes = files.filter(result => extname(result) === '.brdnote')
+          var notes = files.filter(result => extname(result) === '.brdnote')
 
-        for (var note of notes) {
-          commands.readdoc(note, (meta) => _this.results.push(meta))
-        }
+          for (var note of notes) {
+            commands.readdoc(note, (meta) => _this.results.push(meta))
+          }
 
-        this.loading = false
-      })
+          this.loading = false
+        })
+      }
     },
     onOpenNotebook (event) {
       this.loading = true
@@ -255,10 +288,16 @@ export default {
         this.path = path
         _this.fetchResults(path)
       })
+
+      this.loading = false
     },
     onOpenNote (path) {
       commands.close(this.$root, () => {
-        commands.open(this.$root, null, path)
+        if (path.startsWith('brdweb://')) {
+          // TODO
+        } else {
+          commands.open(this.$root, null, path)
+        }
       }, true)
     },
     validRegex (regex) {
@@ -273,6 +312,37 @@ export default {
     },
     onShowResults (event) {
       this.showResults = !this.showResults
+    },
+    setPathAndRefresh (path, params) {
+      if (params.owner !== this.$store.getters.username) {
+        var accesskey = ''
+        this.$Modal.confirm({
+          title: 'Please enter your access secret',
+          render: (h) => {
+            return h('Input', {
+              props: {
+                value: accesskey,
+                autofocus: true,
+                type: 'password',
+                placeholder: 'Please enter your access secret ...'
+              },
+              on: {
+                input: (value) => {
+                  accesskey = value
+                }
+              }
+            })
+          },
+          onOk: () => {
+            this.path = path + accesskey
+            this.onRefresh()
+          },
+          onCancel: () => {}
+        })
+      } else {
+        this.path = path
+        this.onRefresh()
+      }
     }
   }
 }

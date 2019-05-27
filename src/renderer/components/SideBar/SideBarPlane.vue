@@ -170,9 +170,9 @@
       <div class="sidebar-explorer" id="sidebar-explorer">
         <div class="sidebar-explorer-head"> {{ titles[view] }} </div>
         <div class="sidebar-explorer-body tiny-scrollbar">
-          <sidebar-user v-show="view === 0"></sidebar-user>
+          <sidebar-user v-show="view === 0" @open-web="onOpenWeb"></sidebar-user>
           <sidebar-document v-show="view === 1"></sidebar-document>
-          <sidebar-explorer v-show="view === 2"></sidebar-explorer>
+          <sidebar-explorer v-show="view === 2" ref="explorer"></sidebar-explorer>
           <sidebar-outline  v-show="view === 3"></sidebar-outline>
           <sidebar-history v-show="view === 4"></sidebar-history>
           <sidebar-help v-show="view === 7"></sidebar-help>
@@ -241,6 +241,16 @@ export default {
           documentBody.style.height = getSize().height - 25 - toolbar.clientHeight + 'px'
         }
       }, 1)
+    },
+    onOpenWeb (params) {
+      this.view = 2
+      var path = null
+      if (params.owner !== this.$store.getters.username) {
+        path = 'brdweb://' + params.notebook + '?access_key='
+      } else {
+        path = 'brdweb://' + params.notebook + '?access_key=' + params.access_key
+      }
+      this.$refs.explorer.setPathAndRefresh(path, params)
     }
   },
   computed: {

@@ -94,7 +94,8 @@ function openDocument (path, vueRoot) {
             })
             closeDocument(vueRoot)
           }
-        }
+        },
+        onCancel: () => {}
       })
     } else {
       extractContent(content, vueRoot)
