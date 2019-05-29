@@ -1,7 +1,7 @@
 {
   "name": "brdnote",
   "productName": "brdnote",
-  "version": "0.1.40",
+  "version": "0.2.15",
   "author": "oxdc <frnet2016@gmail.com>",
   "description": "A desktop note taking app",
   "license": "MIT",
@@ -70,7 +70,7 @@
     "del": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "^3.0.3",
-    "electron-builder": "^20.28.4",
+    "electron-builder": "^20.41.0",
     "electron-debug": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
     "electron-packager": "^8.5.0",
