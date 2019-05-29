@@ -440,6 +440,7 @@ export default {
       this.$emit('open-web', params)
     },
     onUpload (params) {
+      this.$store.commit('initDocId', { docId: null })
       var token = this.$store.getters.token
       var _this = this
       var content = null

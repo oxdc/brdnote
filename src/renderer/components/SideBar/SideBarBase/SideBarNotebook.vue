@@ -206,10 +206,7 @@ export default {
     onChangeTitle (event) {
       var token = this.$store.getters.token
       var username = this.$store.getters.username
-      var param = '&new_name=' + username + ':' + this.newName + '&'
-      if (this.accesskey !== '---' && this.accesskey !== '') {
-        param += 'access_key=' + this.accesskey
-      }
+      var param = '&new_name=' + username + ':' + this.newName
       request.put('http://123.206.107.58:8000/notebooks/' + this.notebook + '?token=' + token + param, (err, res, body) => {
         if (err) this.$emit('on-error', err)
         var r = JSON.parse(body)
@@ -219,10 +216,7 @@ export default {
     },
     onChangeSecret (event) {
       var token = this.$store.getters.token
-      var param = '&new_name=' + this.newSecret + '&'
-      if (this.accesskey !== '---' && this.accesskey !== '') {
-        param += 'access_key=' + this.accesskey
-      }
+      var param = '&access_key=' + this.newSecret
       request.put('http://123.206.107.58:8000/notebooks/' + this.notebook + '?token=' + token + param, (err, res, body) => {
         if (err) this.$emit('on-error', err)
         var r = JSON.parse(body)

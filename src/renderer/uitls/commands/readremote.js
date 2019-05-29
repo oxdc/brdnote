@@ -3,7 +3,7 @@ import request from 'request'
 export function readremote (token, records, callback) {
   var metas = []
 
-  for (var record of records) {
+  records.forEach(record => {
     request.get('http://123.206.107.58:8000/download/' + record.key + '?token=' + token, (err, res, body) => {
       console.log(body)
       if (err) {
@@ -45,7 +45,7 @@ export function readremote (token, records, callback) {
 
       metas.push(meta)
     })
-  }
+  })
 
   if (typeof callback === 'function') {
     callback(metas)
