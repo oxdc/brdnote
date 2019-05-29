@@ -29,6 +29,7 @@ import 'iview/dist/styles/iview.css'
 
 // Load Katex
 import katex from 'katex'
+import 'katex/contrib/mhchem/mhchem'
 import 'katex/dist/katex.min.css'
 
 // Load MathQuill editor

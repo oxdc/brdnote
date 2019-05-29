@@ -15,7 +15,7 @@
     <sidebar-group>
       <sidebar-item
        title="Version"
-       extra="v0.2.15"
+       extra="v0.3.5"
        icon="md-pricetag">
       </sidebar-item>
       <sidebar-item
