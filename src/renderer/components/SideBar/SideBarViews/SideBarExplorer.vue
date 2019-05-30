@@ -2,17 +2,17 @@
   <div>
     <sidebar-group>
       <sidebar-item
-       title="Notebook Directory"
+       title="笔记本列表"
        to="/"
        :arrow="notebookDirectoryMenu ? 'ios-arrow-down' : 'ios-arrow-forward'"
        @click="onNotebookDirectoryMenu"
       >
         <sidebar-group slot="children" v-show="notebookDirectoryMenu">
           <sidebar-item
-           :title="path ? path : 'Please Open a Notebook'">
+           :title="path ? path : '请打开笔记本'">
           </sidebar-item>
           <sidebar-item
-           title="Open Notebook"
+           title="打开笔记本"
            icon="md-bookmarks"
            primary
            to="/"
@@ -21,56 +21,56 @@
         </sidebar-group>
       </sidebar-item>
       <sidebar-item
-       title="Filter"
+       title="过滤"
        icon="ios-funnel">
         <i-switch v-model="showFilter" slot="extra" />
         <sidebar-group v-show="showFilter" slot="children" class="filters">
           <sidebar-item
-           title="Name"
+           title="文件名"
            icon="md-locate"
            class="filter"
            :class="isNameFilterValid ? 'filter-ok' : 'filter-error'">
             <Form slot="extra">
-              <FormItem :error="isNameFilterValid ? '' : 'Invalid regular expression.'">
+              <FormItem :error="isNameFilterValid ? '' : '非法正则表达式'">
                 <Input
                  v-model="filters.name"
-                 placeholder="None"
+                 placeholder="无"
                  />
               </FormItem>
             </Form>
           </sidebar-item>
           <sidebar-item
-           title="Path"
+           title="路径"
            icon="md-locate"
            class="filter"
            :class="isPathFilterValid ? 'filter-ok' : 'filter-error'">
             <Form slot="extra">
-              <FormItem :error="isPathFilterValid ? '' : 'Invalid regular expression.'">
+              <FormItem :error="isPathFilterValid ? '' : '非法正则表达式'">
                 <Input
                  v-model="filters.path"
-                 placeholder="None"/>
+                 placeholder="无"/>
               </FormItem>
             </Form>
           </sidebar-item>
           <sidebar-item
-           title="Tags"
+           title="标签"
            icon="md-locate"
            class="filter"
            :class="isTagFilterValid ? 'filter-ok' : 'filter-error'">
             <Form slot="extra">
-              <FormItem :error="isTagFilterValid ? '' : 'Invalid regular expression.'">
+              <FormItem :error="isTagFilterValid ? '' : '非法正则表达式'">
                 <Input
                  v-model="filters.tags"
-                 placeholder="None"/>
+                 placeholder="无"/>
               </FormItem>
             </Form>
           </sidebar-item>
           <sidebar-item
-           title="Date"
+           title="修改日期"
            icon="md-locate">
             <DatePicker
              type="datetimerange"
-             placeholder="Select date"
+             placeholder="选择日期"
              slot="extra"
              :transfer="true"
              @on-change="(d, t) => { filters.date = d; filters.datetype = t }">
@@ -81,12 +81,12 @@
     </sidebar-group>
     <sidebar-group>
       <sidebar-item
-       title="Refresh List"
+       title="刷新列表"
        icon="md-refresh"
        @click="onRefresh">
       </sidebar-item>
       <sidebar-item
-       :title="'Results  (' + filtered.length +' item' + (filtered.length > 1 ? 's' : '') +')'"
+       :title="'找到  (' + filtered.length +' 个项目' +')'"
        to="/"
        :arrow="showResults ? 'ios-arrow-down' : 'ios-arrow-forward'"
        @click="onShowResults">
@@ -102,7 +102,7 @@
             @click.native="onOpenNote(result.path)">
           </sidebar-docitem>
           <sidebar-item
-           title="No match result."
+           title="未找到项目"
            v-show="filtered.length === 0"
            icon="md-more">
           </sidebar-item>
@@ -245,7 +245,7 @@ export default {
           request.get('http://123.206.107.58:8000/notebooks/' + notebook + '?token=' + token + param, (err, res, body) => {
             if (err) {
               this.$Notice.error({
-                title: 'Error',
+                title: '错误',
                 desc: err.toString()
               })
               return
@@ -253,7 +253,7 @@ export default {
             var r = JSON.parse(body)
             if (r.status !== 'ok') {
               this.$Notice.error({
-                title: 'Error',
+                title: '错误',
                 desc: r.message
               })
             } else {
@@ -313,14 +313,14 @@ export default {
       if (params.owner !== this.$store.getters.username) {
         var accesskey = ''
         this.$Modal.confirm({
-          title: 'Please enter your access secret',
+          title: '请输入密码',
           render: (h) => {
             return h('Input', {
               props: {
                 value: accesskey,
                 autofocus: true,
                 type: 'password',
-                placeholder: 'Please enter your access secret ...'
+                placeholder: '请输入密码 ...'
               },
               on: {
                 input: (value) => {

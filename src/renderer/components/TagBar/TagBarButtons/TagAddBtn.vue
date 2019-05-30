@@ -62,8 +62,8 @@ export default {
     onAdd (event) {
       if (!this.value) {
         this.$Notice.error({
-          title: 'Error',
-          desc: 'Tags must not be empty'
+          title: '出错啦',
+          desc: '标签不能为空'
         })
         return
       }
@@ -76,8 +76,8 @@ export default {
         this.value = ''
       } else {
         this.$Notice.error({
-          title: 'Error',
-          desc: 'The tag is duplicated.'
+          title: '出错啦',
+          desc: '标签不能重复'
         })
       }
     }

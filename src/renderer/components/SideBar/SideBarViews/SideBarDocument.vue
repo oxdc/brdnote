@@ -1,42 +1,42 @@
 <template>
   <div>
-    <sidebar-group-header icon="md-document" title="Details"></sidebar-group-header>
+    <sidebar-group-header icon="md-document" title="详情"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       title="Name"
+       title="文档名称"
        :label="title"
        @click="onCopy(title)">
       </sidebar-item>
       <sidebar-item
-       title="Size"
+       title="文档大小"
        :label="fileSize"
        @click="onCopy(fileSize)">
       </sidebar-item>
       <sidebar-item
-       title="Words"
+       title="词数"
        :label="words"
        @click="onCopy(words)">
       </sidebar-item>
       <sidebar-item
-       title="Symbols"
+       title="字符数"
        :label="symbols"
        @click="onCopy(symbols)">
       </sidebar-item>
       <sidebar-item
-       title="Total editing time"
+       title="编辑时长统计"
        :label="totalTime"
        @click="onCopy(totalTime)">
       </sidebar-item>
       <sidebar-item
-       title="File path"
+       title="文件路径"
        :label="path"
        @click="onCopy(path)">
       </sidebar-item>
     </sidebar-group>
-    <sidebar-group-header icon="md-hammer" title="Tools"></sidebar-group-header>
+    <sidebar-group-header icon="md-hammer" title="工具"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       title="Encryption"
+       title="加密"
        icon="md-lock">
         <i-switch v-model="encrypted" slot="extra" />
         <sidebar-group v-show="encrypted" slot="children">
@@ -51,17 +51,17 @@
           <sidebar-item fulltitle>
             <Input
              v-model="password"
-             placeholder="Password"
+             placeholder="密码"
              type="password"
              slot="title"/>
           </sidebar-item>
           <sidebar-item
-           :title="hasEncrypted ? 'Change Password' : 'Encrypt'"
+           :title="hasEncrypted ? '更改密码' : '加密'"
            :icon="hasEncrypted ? 'md-key' : 'md-checkmark'"
            @click="onEncryption">
           </sidebar-item>
           <sidebar-item
-           title="Clear Password"
+           title="清除密码"
            icon="md-unlock"
            v-show="hasEncrypted"
            @click="onClearPassword">
@@ -169,8 +169,8 @@ export default {
         password: this.password
       })
       this.$Notice.success({
-        title: 'Success',
-        desc: 'Password updated'
+        title: '成功',
+        desc: '密码更改成功'
       })
     },
     onClearPassword (e) {
@@ -178,8 +178,8 @@ export default {
         password: null
       })
       this.$Notice.success({
-        title: 'Success',
-        desc: 'Password cleared'
+        title: '成功',
+        desc: '密码清楚成功'
       })
       this.encrypted = false
       this.password = ''
@@ -197,7 +197,7 @@ export default {
         if (path) {
           return path
         } else {
-          return 'Unsaved file'
+          return '文件为保存'
         }
       }
     },
@@ -207,7 +207,7 @@ export default {
         if (t) {
           return t
         } else {
-          return 'Untitled'
+          return '未命名'
         }
       }
     },
@@ -223,11 +223,11 @@ export default {
         var minutes = Math.floor((tTime % (1000 * 60 * 60)) / (1000 * 60))
         var seconds = Math.floor((tTime % (1000 * 60)) / 1000)
         return hours +
-          (hours <= 1 ? ' hour ' : ' hours ') +
+          (hours <= 1 ? ' 时 ' : ' 时 ') +
           minutes +
-          (minutes <= 1 ? ' minute ' : ' minutes ') +
+          (minutes <= 1 ? ' 分 ' : ' 分 ') +
           seconds +
-          (seconds <= 1 ? ' second ' : ' seconds ')
+          (seconds <= 1 ? ' 秒 ' : ' 秒 ')
       }
     }
   },
@@ -237,13 +237,13 @@ export default {
       if (wordCounter) {
         this.words = wordCounter.innerHTML
       } else {
-        this.words = '0 word'
+        this.words = '0 词'
       }
       var symbolCounter = document.getElementById('symbol-counter')
       if (symbolCounter) {
         this.symbols = symbolCounter.innerHTML
       } else {
-        this.symbols = '0 symbol'
+        this.symbols = '0 字符'
       }
     }, 1000)
   },

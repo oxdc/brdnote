@@ -15,7 +15,7 @@
     Object.defineProperty(Object, 'assign', {
       value (target, varArgs) {
         if (target == null) {
-          throw new TypeError('Cannot convert undefined or null to object')
+          throw new TypeError('无法转换未定义对象或空对象。')
         }
         const to = Object(target)
         for (let index = 1; index < arguments.length; index++) {
