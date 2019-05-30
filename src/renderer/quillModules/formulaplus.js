@@ -96,7 +96,7 @@ class FormulaPlus {
     if (window.vueStore) {
       window.vueStore.commit('setTooltip', {
         editor: 'richText',
-        tooltip: 'formula'
+        tooltip: '插入公式'
       })
     }
   }
