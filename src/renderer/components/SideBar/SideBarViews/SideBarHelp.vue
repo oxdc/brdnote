@@ -14,8 +14,8 @@
     <sidebar-group-header icon="md-heart-outline" title="关于"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
+       extra="v0.3.5"
        title="版本"
-       extra="v0.2.15"
        icon="md-pricetag">
       </sidebar-item>
       <sidebar-item
