@@ -9,10 +9,10 @@ export function close (vueRoot, callback, keep = false) {
   } else {
     vueRoot.$Modal.confirm({
       title: 'Notice',
-      content: 'Do you want to save the changes?',
+      content: '是否保存文件？',
       closable: true,
-      okText: 'Save',
-      cancelText: 'Discard',
+      okText: '保存',
+      cancelText: '忽略',
       onOk: () => {
         save(vueRoot, () => {
           exeCallback(vueRoot, callback, keep)

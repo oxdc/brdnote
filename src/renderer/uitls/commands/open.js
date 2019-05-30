@@ -56,8 +56,8 @@ function openDocument (path, vueRoot) {
 function readContent (err, path, content, vueRoot) {
   if (err) {
     vueRoot.$Notice.error({
-      title: 'Error',
-      desc: 'An error ocurred while reading the file :' + err.message
+      title: '出错啦',
+      desc: '读取文件时出错，以下信息可能有所帮助:' + err.message
     })
     closeDocument(vueRoot)
     return
@@ -71,14 +71,14 @@ function readContent (err, path, content, vueRoot) {
     content = content.substring(9)
     var password = ''
     vueRoot.$Modal.confirm({
-      title: 'This document has been encrypted !',
+      title: '该文档无法加密！',
       render: (h) => {
         return h('Input', {
           props: {
             value: password,
             autofocus: true,
             type: 'password',
-            placeholder: 'Please enter your password ...'
+            placeholder: '请键入密码 ...'
           },
           on: {
             input: (value) => {
@@ -95,7 +95,7 @@ function readContent (err, path, content, vueRoot) {
             password: password
           })
           vueRoot.$Notice.success({
-            title: 'Success',
+            title: '成功',
             desc: ''
           })
           vueRoot.$store.commit('updatePath', {
@@ -103,8 +103,8 @@ function readContent (err, path, content, vueRoot) {
           })
         } catch (err) {
           vueRoot.$Notice.error({
-            title: 'Error',
-            desc: 'Password error. ' + err.message
+            title: '出错啦',
+            desc: '密码错误。以下内容可能有所帮助：' + err.message
           })
           closeDocument(vueRoot)
         }
@@ -127,8 +127,8 @@ function extractContent (content, vueRoot) {
     updateMeta(vueRoot, data)
   } catch (err) {
     vueRoot.$Notice.error({
-      title: 'Error',
-      desc: 'Broken files. ' + err.message
+      title: '出错啦',
+      desc: '文件已损坏。以下内容可能有所帮助：' + err.message
     })
   }
 }
@@ -161,8 +161,8 @@ function updateMeta (vueRoot, data) {
     vueRoot.$store.commit('updateSavingStatus', true)
   } catch (error) {
     vueRoot.$Notice.error({
-      title: 'Error',
-      desc: 'The file is not consistent with brdnote. Exception: ' + error
+      title: '出错啦',
+      desc: '文件不兼容。以下内容可能有所帮助：' + error
     })
   }
 }

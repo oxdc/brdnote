@@ -197,7 +197,7 @@ export default {
         if (path) {
           return path
         } else {
-          return '未保存文档'
+          return '文件未保存'
         }
       }
     },

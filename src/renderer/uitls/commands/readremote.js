@@ -22,11 +22,11 @@ export function readremote (token, records, callback) {
         meta = {
           path: 'brdweb://notes/' + record.key,
           date: r.date,
-          title: 'ENCRYPTED NOTE',
+          title: '文档已加密',
           tags: [],
           delta: {
             ops: [
-              { insert: 'ENCRYPTED NOTE' }
+              { insert: '文档已加密' }
             ]
           }
         }
