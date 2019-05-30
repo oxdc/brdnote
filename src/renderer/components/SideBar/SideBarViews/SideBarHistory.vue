@@ -15,7 +15,7 @@
            :path="draft.path"
            :tags="draft.tags"
            :delta="draft.delta.ops"
-           @click="recover(draft)"
+           @click.native="recover(draft)"
            :key="draft.id">
           </sidebar-docitem>
           <sidebar-item

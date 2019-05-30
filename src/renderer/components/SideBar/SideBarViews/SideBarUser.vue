@@ -298,7 +298,7 @@ export default {
           } else {
             this.isPasswordError = this.isUsernameError = true
             this.$Notice.error({
-              title: '登陆失败',
+              title: '登录失败',
               desc: r.message
             })
             this.error = r.message

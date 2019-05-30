@@ -25,7 +25,7 @@
        @click="onFork">
       </sidebar-item>
       <sidebar-item
-       title="项目基于 AIAS"
+       title="项目由 AIAS 提供支持"
        icon="md-jet"></sidebar-item>
     </sidebar-group>
   </div>
