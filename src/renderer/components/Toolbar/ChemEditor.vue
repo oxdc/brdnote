@@ -61,7 +61,7 @@ export default {
           errorColor: '#f00'
         })
       }
-      var { status, msg, indexes } = chemCalc(val)
+      var { status, msg, indexes } = chemCalc(this.formula)
       this.status = status
       this.errors = msg
       this.indexes = indexes
