@@ -205,20 +205,37 @@
       </Tooltip>
       <chart-editor v-model="charts"></chart-editor>
     </span>
+
+    <span class="ql-formats no-select">
+      <Tooltip
+       content="化学方程式"
+       placement="bottom">
+        <button
+         class="ivu-icon ivu-icon-ios-flask"
+         style="font-size: 18px;"
+         @click="chem = true"
+        >
+        </button>
+      </Tooltip>
+      <chem-editor v-model="chem"></chem-editor>
+    </span>
   </div>
 </template>
 
 <script>
 import ChartEditor from './ChartEditor'
+import ChemEditor from './ChemEditor'
 
 export default {
   name: 'Toolbar',
   components: {
-    ChartEditor
+    ChartEditor,
+    ChemEditor
   },
   data: () => {
     return {
-      charts: false
+      charts: false,
+      chem: false
     }
   },
   methods: {

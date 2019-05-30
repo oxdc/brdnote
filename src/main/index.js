@@ -20,9 +20,14 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+let loading
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
+
+const staticPath = process.env.NODE_ENV === 'development'
+  ? path.resolve(__dirname, '../../static/')
+  : `file://${__dirname}/static/`
 
 global.vuexState = null
 app.filepath = null
@@ -35,6 +40,28 @@ function createWindow () {
   /**
    * Initial window options
    */
+  const loadingHeight = 400
+  const loadingWidth = 550
+
+  loading = new BrowserWindow({
+    height: loadingHeight,
+    width: loadingWidth,
+    maxHeight: loadingHeight,
+    maxWidth: loadingWidth,
+    minHeight: loadingHeight,
+    minWidth: loadingWidth,
+    transparent: true,
+    frame: false,
+    center: true,
+    useContentSize: true,
+    webPreferences: {
+      webSecurity: process.env.NODE_ENV !== 'development'
+    }
+  })
+
+  loading.loadURL(`file:/${staticPath}/loading.html`)
+  loading.show()
+
   mainWindow = new BrowserWindow({
     height: 742,
     width: 1200,
@@ -46,12 +73,16 @@ function createWindow () {
       : path.join(__dirname, '/icon.png')
   })
 
+  mainWindow.hide()
+
   mainWindow.loadURL(winURL)
 
   mainWindow.webContents.on('did-finish-load', (e) => {
     if (app.filepath) {
       mainWindow.webContents.send('command', 'cmdopen', app.filepath)
     }
+    mainWindow.show()
+    loading.destroy()
   })
 
   var handleRedirect = (e, url) => {
@@ -72,6 +103,7 @@ function createWindow () {
 
   mainWindow.on('closed', () => {
     mainWindow = null
+    loading = null
   })
 
   ipcMain.on('vuex-state', (e, state) => {
