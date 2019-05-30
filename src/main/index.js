@@ -27,7 +27,7 @@ const winURL = process.env.NODE_ENV === 'development'
 
 const staticPath = process.env.NODE_ENV === 'development'
   ? path.resolve(__dirname, '../../static/')
-  : `file://${__dirname}/static/`
+  : `file://${__dirname}/static`
 
 global.vuexState = null
 app.filepath = null
@@ -59,7 +59,7 @@ function createWindow () {
     }
   })
 
-  loading.loadURL(`file:/${staticPath}/loading.html`)
+  loading.loadURL(`${staticPath}/loading.html`)
   loading.show()
 
   mainWindow = new BrowserWindow({
