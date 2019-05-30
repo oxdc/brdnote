@@ -9,7 +9,7 @@
     <div id="formula-editor" class="formula-editor">
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
-          <span class="formula-editor-title">Formula Editor</span>
+          <span class="formula-editor-title">公式编辑</span>
         </div>
         <div class="formula-editor-flex-column align-right">
           <Button type="text" shape="circle" size="small" icon="md-close" @click="onClickCancle"></Button>
@@ -19,23 +19,23 @@
         <codemirror v-model="code" :options="cmOptions" @ready="onReady"></codemirror>
       </div>
       <div class="formula-editor-row" v-show="professionalMode">
-        <div class="formula-label noselect"> Formula Preview </div>
+        <div class="formula-label noselect"> 公式预览 </div>
         <div class="formula-preview" id="formula"></div>
       </div>
       <div class="formula-editor-row" id="math-field" style="box-shadow: none;" @keydown.tab="onPressTab" v-show="!professionalMode">
       </div>
       <div class="formula-editor-row latex-preview-container tiny-scrollbar" v-show="!professionalMode">
-        <span class="formula-label noselect"> LaTeX Preview </span>
+        <span class="formula-label noselect"> LaTeX 预览 </span>
         <span class="latex-preview" id="latex"></span>
       </div>
       <div class="formula-editor-row formula-editor-flex-row">
         <div class="formula-editor-flex-column">
-          <Button type="default" icon="md-copy" @click="onClickCopy"> Copy LaTeX </Button>
-          <Button type="default" icon="md-options" @click="onClickProMode"> {{ professionalMode ? 'Easy mode' : 'Professional Mode' }} </Button>
+          <Button type="default" icon="md-copy" @click="onClickCopy"> 复制 LaTeX 代码 </Button>
+          <Button type="default" icon="md-options" @click="onClickProMode"> {{ professionalMode ? '简单模式' : '专业模式' }} </Button>
         </div>
         <div class="formula-editor-flex-column align-right">
-          <Button type="text" @click="onClickCancle"> Cancle </Button>
-          <Button type="primary" icon="md-checkmark" @click="onClickOk"> Ok </Button>
+          <Button type="text" @click="onClickCancle"> 取消 </Button>
+          <Button type="primary" icon="md-checkmark" @click="onClickOk"> 插入 </Button>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default {
           lineNumbers: true,
           line: true,
           styleActiveLine: true,
-          placeholder: 'Write your code here\n'
+          placeholder: '输入 LaTeX 代码 ...\n'
         }
       }
     },
@@ -127,8 +127,8 @@ export default {
     onClickCopy () {
       this.$electron.clipboard.writeText(this.professionalMode ? this.code : window.mathField.latex())
       this.$Notice.success({
-        title: 'Success',
-        desc: 'Copying to clipboard was successful!'
+        title: '成功',
+        desc: '成功复制到剪贴板!'
       })
     },
     onClickCancle () {

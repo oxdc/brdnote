@@ -1,6 +1,6 @@
 <template>
   <Poptip
-   title="Add a new tag:"
+   title="新建一个标签:"
    placement="bottom"
    v-model="visible"
   >
@@ -9,7 +9,7 @@
      type="dashed"
      size="small"
     >
-      New
+      新建
     </Button>
     <div slot="content">
       <div class="add-tag-tool-line">
@@ -29,7 +29,7 @@
          class="add-tag-tool-btn"
          @click="onCancle"
         >
-          Cancel
+          取消
         </Button>
         <Button
          type="primary"
@@ -38,7 +38,7 @@
          class="add-tag-tool-btn"
          @click="onAdd"
         >
-          Add
+          添加
         </Button>
       </div>
     </div>

@@ -2,13 +2,13 @@
   <div class="editor-bar no-select">
     <span class="chart-editor-title">{{name}}(x) = </span>
     <div :id="name + '-chart'" style="box-shadow: none;"></div>
-    <span class="chart-editor-title">from x = </span>
+    <span class="chart-editor-title">从 x = </span>
     <div :id="name + '-start-point'" style="box-shadow: none;"></div>
-    <span class="chart-editor-title">to x = </span>
+    <span class="chart-editor-title">到 x = </span>
     <div :id="name + '-end-point'" style="box-shadow: none;"></div>
-    <span class="chart-editor-title"> with </span>
+    <span class="chart-editor-title"> 包含 </span>
     <InputNumber :min="10" v-model="sample"></InputNumber>
-    <span class="chart-editor-title"> points as sample. </span>
+    <span class="chart-editor-title"> 个点作为样本. </span>
     <Button
      type="primary"
      shape="circle"

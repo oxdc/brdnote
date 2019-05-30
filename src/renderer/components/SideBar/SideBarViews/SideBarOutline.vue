@@ -3,7 +3,7 @@
     <div v-if="headers.length === 0" class="label-empty">
       <Icon type="md-time" :size="40" />
       <div>
-        Waiting for you to write something amazing ...
+        期待您的键入 ...
       </div>
     </div>
     <CellGroup>

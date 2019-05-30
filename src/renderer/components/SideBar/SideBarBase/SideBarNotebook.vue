@@ -16,25 +16,25 @@
     </div>
     <sidebar-group v-show="showMenu" slot="children">
       <sidebar-item
-       title="Open"
+       title="打开笔记本"
        icon="md-book"
        primary
        to="/"
        @click="onOpen">
       </sidebar-item>
       <sidebar-item
-       title="Upload This Document"
+       title="上传当前文档"
        icon="md-cloud-upload"
        @click="onUpload">
       </sidebar-item>
       <sidebar-item
-       title="Share"
+       title="分享"
        icon="md-share"
        v-show="!shared"
        @click="onShare">
       </sidebar-item>
       <sidebar-item
-       title="More Option"
+       title="更多选项"
        to="/"
        :arrow="showMore ? 'ios-arrow-down' : 'ios-arrow-forward'"
        @click="onShowMore"
@@ -43,34 +43,34 @@
           <sidebar-item
            icon="md-create">
             <div slot="title">
-              <span>Change Title</span>
+              <span>更改标题</span>
               <Input
-               placeholder="New title"
+               placeholder="新标题"
                v-model="newName">
-                <Button slot="append" @click="onChangeTitle">OK</Button>
+                <Button slot="append" @click="onChangeTitle">确定</Button>
               </Input>
             </div>
           </sidebar-item>
           <sidebar-item
            icon="md-create">
             <div slot="title">
-              <span>Change Access Secret</span>
+              <span>更改访问密码</span>
               <Input
-               placeholder="New access secret"
+               placeholder="新的访问密码"
                type="password"
                v-model="newSecret">
-                <Button slot="append" @click="onChangeSecret">OK</Button>
+                <Button slot="append" @click="onChangeSecret">确定</Button>
               </Input>
             </div>
           </sidebar-item>
           <sidebar-item
-           title="Cancle Sharing"
+           title="取消分享"
            icon="md-close-circle"
            v-show="shared"
            @click="onCancleShare">
           </sidebar-item>
           <sidebar-item
-           title="Delete"
+           title="删除"
            icon="md-trash"
            @click="onDelete">
           </sidebar-item>

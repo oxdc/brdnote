@@ -176,7 +176,7 @@
           <sidebar-outline  v-show="view === 3"></sidebar-outline>
           <sidebar-history v-show="view === 4"></sidebar-history>
           <sidebar-help v-show="view === 7"></sidebar-help>
-          <div v-show="!([0, 1, 2, 3, 4, 7].includes(view))" style="text-align: center; margin: 15px;">Comming soon ... </div>
+          <div v-show="!([0, 1, 2, 3, 4, 7].includes(view))" style="text-align: center; margin: 15px;">即将推出 ... </div>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@
           <formula-editor slot="tooltip"></formula-editor>
         </toolbar-plane>
         <Tooltip
-         content="Menu"
+         content="菜单"
          placement="right"
          class="sidebar-toggle-btn">
           <Button
@@ -39,11 +39,11 @@
          :type="status ? 'md-checkmark-circle' : 'md-information-circle'"
          :style="{'color': status ? '#19be6b' : '#fcbb58'}">
         </Icon>
-        {{ status ? 'Saved !' : 'Press `Ctrl + S` to save.' }}
+        {{ status ? '已保存 !' : '按 `Ctrl + S` 保存.' }}
       </div>
       <div id="word-counter" style="float: right;"></div>
       <div id="symbol-counter" style="float: right;"></div>
-      <div style="float: right;"> {{ this.$store.getters.timer.h + 'h ' + this.$store.getters.timer.m + 'm ' + this.$store.getters.timer.s + 's' }} </div>
+      <div style="float: right;"> {{ this.$store.getters.timer.h + '时 ' + this.$store.getters.timer.m + '分 ' + this.$store.getters.timer.s + '秒' }} </div>
     </status-bar-plane>
   </div>
 </template>
@@ -118,6 +118,7 @@ export default {
         var tags = this.$store.getters.tags
         return {
           theme: 'snow',
+          placeholder: '在此键入内容 ...',
           scrollingContainer: '#document-body',
           modules: {
             syntax: {

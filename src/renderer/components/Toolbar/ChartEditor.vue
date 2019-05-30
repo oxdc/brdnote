@@ -1,6 +1,6 @@
 <template>
   <Modal
-    title="Chart Editor"
+    title="图标编辑"
     v-model="visible"
     closable
     width="732"
@@ -14,10 +14,10 @@
      @calculated="onCalculated"
      @delete="onDelete">
     </func-editor>
-    <Button ghost type="warning" @click="onClearAll">Clear All</Button>
+    <Button ghost type="warning" @click="onClearAll">删除所有</Button>
     <div class="add-func">
-      <span class="chart-editor-title">Add a new function: </span>
-      <Input placeholder="function name" v-model="newFuncName">
+      <span class="chart-editor-title">添加新函数: </span>
+      <Input placeholder="函数名" v-model="newFuncName">
         <Button slot="append" icon="ios-add" @click="onAdd"></Button>
       </Input>
     </div>

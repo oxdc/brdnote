@@ -1,6 +1,6 @@
 <template>
   <Modal
-   title="化学方程式"
+   title="化学方程式编辑"
    v-model="visible"
    closable
    width="732"

@@ -31,14 +31,18 @@
          size="small"
          class="edit-tag-tool-btn"
          @click="onCancle"
-        >取消</Button>
+        >
+         取消
+        </Button>
         <Button
          type="primary"
          shape="circle"
          size="small"
          class="edit-tag-tool-btn"
          @click="onOK"
-        >确定</Button>
+        >
+         确定
+        </Button>
       </div>
     </div>
   </Poptip>

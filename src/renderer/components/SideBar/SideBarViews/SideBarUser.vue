@@ -55,7 +55,7 @@
               <FormItem :error="isPasswordError ? ' ' : ''">
                 <Input
                  type="password"
-                 placeholder="Password"
+                 placeholder="密码"
                  v-model="password"/>
               </FormItem>
             </Form>

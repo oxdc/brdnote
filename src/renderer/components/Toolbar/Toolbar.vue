@@ -2,27 +2,27 @@
   <div id="toolbar" class="no-select">
     <span class="ql-formats no-select">
       <Tooltip
-       content="Bold"
+       content="加粗"
        placement="bottom">
         <button class="ql-bold"></button>
       </Tooltip>
       <Tooltip
-       content="Italic"
+       content="斜体"
        placement="bottom">
         <button class="ql-italic"></button>
       </Tooltip>
       <Tooltip
-       content="Underline"
+       content="下划线"
        placement="bottom">
         <button class="ql-underline"></button>
       </Tooltip>
       <Tooltip
-       content="Strike"
+       content="删除线"
        placement="bottom">
         <button class="ql-strike"></button>
       </Tooltip>
       <Tooltip
-       content="Align"
+       content="对齐"
        placement="right">
         <select class="ql-align"></select>
       </Tooltip>
@@ -30,7 +30,7 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Header"
+       content="标题"
        placement="right">
         <select class="ql-header">
           <option selected></option>
@@ -43,7 +43,7 @@
         </select>
       </Tooltip>
       <Tooltip
-       content="Size"
+       content="字体大小"
        placement="right">
         <select class="ql-size">
           <option value="small"></option>
@@ -53,7 +53,7 @@
         </select>
       </Tooltip>
       <Tooltip
-       content="Font"
+       content="字体"
        placement="right">
         <select class="ql-font"></select>
       </Tooltip>
@@ -61,12 +61,12 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Subscript"
+       content="下标"
        placement="bottom">
         <button class="ql-script" value="sub"></button>
       </Tooltip>
       <Tooltip
-       content="Superscript"
+       content="上标"
        placement="bottom">
         <button class="ql-script" value="super"></button>
       </Tooltip>
@@ -74,27 +74,27 @@
   
     <span class="ql-formats no-select">
       <Tooltip
-       content="Blockquote"
+       content="段落引用"
        placement="bottom">
         <button class="ql-blockquote"></button>
       </Tooltip>
       <Tooltip
-       content="Code block"
+       content="代码块"
        placement="bottom">
         <button class="ql-code-block"></button>
       </Tooltip>
       <Tooltip
-       content="Ordered list"
+       content="有序列表"
        placement="bottom">
         <button class="ql-list" value="ordered"></button>
       </Tooltip>
       <Tooltip
-       content="Bullet list"
+       content="无序列表"
        placement="bottom">
         <button class="ql-list" value="bullet"></button>
       </Tooltip>
       <Tooltip
-       content="Todo list"
+       content="任务列表"
        placement="bottom">
         <button class="ql-list" value="check"></button>
       </Tooltip>
@@ -102,17 +102,17 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Indent"
+       content="缩进"
        placement="bottom">
         <button class="ql-indent" value="+1"></button>
       </Tooltip>
       <Tooltip
-       content="Delete indent"
+       content="删除缩进"
        placement="bottom">
         <button class="ql-indent" value="-1"></button>
       </Tooltip>
       <Tooltip
-       content="RTL"
+       content="右对齐"
        placement="bottom">
         <button class="ql-direction" value="rtl"></button>
       </Tooltip>
@@ -120,12 +120,12 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Color"
+       content="字体颜色"
        placement="bottom">
         <select class="ql-color"></select>
       </Tooltip>
       <Tooltip
-       content="Background"
+       content="背景颜色"
        placement="bottom">
         <select class="ql-background"></select>
       </Tooltip>
@@ -133,29 +133,29 @@
     
     <span class="ql-formats no-select">
       <Tooltip
-       content="Insert formula / LaTeX"
+       content="插入公式 / LaTeX"
        placement="bottom">
         <button class="formula-plus" @click="onClickFormula">
           <svg viewBox="0 0 18 18"> <path class="ql-fill" d="M11.759,2.482a2.561,2.561,0,0,0-3.53.607A7.656,7.656,0,0,0,6.8,6.2C6.109,9.188,5.275,14.677,4.15,14.927a1.545,1.545,0,0,0-1.3-.933A0.922,0.922,0,0,0,2,15.036S1.954,16,4.119,16s3.091-2.691,3.7-5.553c0.177-.826.36-1.726,0.554-2.6L8.775,6.2c0.381-1.421.807-2.521,1.306-2.676a1.014,1.014,0,0,0,1.02.56A0.966,0.966,0,0,0,11.759,2.482Z"></path> <rect class="ql-fill" height="1.6" rx="0.8" ry="0.8" width="5" x="5.15" y="6.2"></rect> <path class="ql-fill" d="M13.663,12.027a1.662,1.662,0,0,1,.266-0.276q0.193,0.069.456,0.138a2.1,2.1,0,0,0,.535.069,1.075,1.075,0,0,0,.767-0.3,1.044,1.044,0,0,0,.314-0.8,0.84,0.84,0,0,0-.238-0.619,0.8,0.8,0,0,0-.594-0.239,1.154,1.154,0,0,0-.781.3,4.607,4.607,0,0,0-.781,1q-0.091.15-.218,0.346l-0.246.38c-0.068-.288-0.137-0.582-0.212-0.885-0.459-1.847-2.494-.984-2.941-0.8-0.482.2-.353,0.647-0.094,0.529a0.869,0.869,0,0,1,1.281.585c0.217,0.751.377,1.436,0.527,2.038a5.688,5.688,0,0,1-.362.467,2.69,2.69,0,0,1-.264.271q-0.221-.08-0.471-0.147a2.029,2.029,0,0,0-.522-0.066,1.079,1.079,0,0,0-.768.3A1.058,1.058,0,0,0,9,15.131a0.82,0.82,0,0,0,.832.852,1.134,1.134,0,0,0,.787-0.3,5.11,5.11,0,0,0,.776-0.993q0.141-.219.215-0.34c0.046-.076.122-0.194,0.223-0.346a2.786,2.786,0,0,0,.918,1.726,2.582,2.582,0,0,0,2.376-.185c0.317-.181.212-0.565,0-0.494A0.807,0.807,0,0,1,14.176,15a5.159,5.159,0,0,1-.913-2.446l0,0Q13.487,12.24,13.663,12.027Z"></path> </svg>
         </button>
       </Tooltip>
       <Tooltip
-       content="Insert links"
+       content="插入链接"
        placement="bottom">
         <button class="ql-link"></button>
       </Tooltip>
       <Tooltip
-       content="Insert images"
+       content="插入图片"
        placement="bottom">
         <button class="ql-image"></button>
       </Tooltip>
       <Tooltip
-       content="Insert videos"
+       content="插入视频"
        placement="bottom">
         <button class="ql-video"></button>
       </Tooltip>
       <Tooltip
-       content="Emoji"
+       content="插入表情"
        placement="bottom">
         <button class="ql-emoji"></button>
       </Tooltip>
@@ -163,7 +163,7 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Clear format"
+       content="清除格式"
        placement="bottom">
         <button class="ql-clean"></button>
       </Tooltip>
@@ -171,7 +171,7 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Undo"
+       content="撤销"
        placement="bottom">
         <button
          class="ivu-icon ivu-icon-ios-undo"
@@ -181,7 +181,7 @@
         </button>
       </Tooltip>
       <Tooltip
-       content="Redo"
+       content="重做"
        placement="bottom">
         <button
          class="ivu-icon ivu-icon-ios-redo"
@@ -194,7 +194,7 @@
 
     <span class="ql-formats no-select">
       <Tooltip
-       content="Charts"
+       content="插入图表"
        placement="bottom">
         <button
          class="ivu-icon ivu-icon-md-stats"
