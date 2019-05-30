@@ -1,6 +1,6 @@
 <template>
   <div class="title-container">
-    <input class="title" placeholder="Untitled" v-model="title" @change="onChange">
+    <input class="title" placeholder="未命名" v-model="title" @change="onChange">
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
         if (value) {
           this.$store.commit('updateTitle', { title: value })
         } else {
-          this.$store.commit('updateTitle', { title: 'untitled' })
+          this.$store.commit('updateTitle', { title: '未命名' })
         }
       }
     }

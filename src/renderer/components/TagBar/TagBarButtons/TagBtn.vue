@@ -1,6 +1,6 @@
 <template>
   <Poptip
-   title="Edit:"
+   title="编辑标签"
    placement="bottom"
    v-model="visible"
   >
@@ -31,18 +31,14 @@
          size="small"
          class="edit-tag-tool-btn"
          @click="onCancle"
-        >
-          Cancel
-        </Button>
+        >取消</Button>
         <Button
          type="primary"
          shape="circle"
          size="small"
          class="edit-tag-tool-btn"
          @click="onOK"
-        >
-          Ok
-        </Button>
+        >确定</Button>
       </div>
     </div>
   </Poptip>
@@ -87,8 +83,8 @@ export default {
     onOK (event) {
       if (!this.value) {
         this.$Notice.error({
-          title: 'Error',
-          desc: 'Tags must not be empty'
+          title: '出错啦',
+          desc: '标签不能为空'
         })
         return
       }
@@ -102,8 +98,8 @@ export default {
         this.value = ''
       } else {
         this.$Notice.error({
-          title: 'Error',
-          desc: 'The tag is duplicated.'
+          title: '出错啦',
+          desc: '标签不能重复'
         })
       }
     }

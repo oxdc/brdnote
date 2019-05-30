@@ -161,11 +161,11 @@ export default {
     onDelete (event) {
       var _this = this
       this.$Modal.confirm({
-        title: 'Warning',
-        content: 'Do you want to delete this notebook?',
+        title: '注意',
+        content: '确定删除笔记本？',
         closable: true,
-        okText: 'Delete Anyway',
-        cancelText: 'Cancel',
+        okText: '确定删除',
+        cancelText: '取消',
         onOk: () => {
           var token = _this.$store.getters.token
           var param = '&'
