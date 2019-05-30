@@ -179,7 +179,7 @@ export default {
       })
       this.$Notice.success({
         title: '成功',
-        desc: '密码清楚成功'
+        desc: '密码清除成功'
       })
       this.encrypted = false
       this.password = ''
@@ -197,7 +197,7 @@ export default {
         if (path) {
           return path
         } else {
-          return '文件为保存'
+          return '文件未保存'
         }
       }
     },

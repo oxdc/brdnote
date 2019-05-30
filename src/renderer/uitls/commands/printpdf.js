@@ -26,20 +26,20 @@ export function printpdf (vueRoot, callback) {
     }, (error, data) => {
       if (error) {
         vueRoot.$Notice.error({
-          title: 'Error',
-          desc: 'An error ocurred while printing ' + error
+          title: '出错啦',
+          desc: '打印出错。以下内容可能有所帮助：' + error
         })
       }
       fs.writeFile(fileName, data, (error) => {
         if (error) {
           vueRoot.$Notice.error({
-            title: 'Error',
-            desc: 'An error ocurred while printing ' + error
+            title: '出错啦',
+            desc: '打印出错。以下内容可能有所帮助：' + error
           })
         }
         vueRoot.$Notice.success({
-          title: 'Success',
-          desc: 'Export to PDF successfully!'
+          title: '成功',
+          desc: '文件已成功导出为pdf'
         })
       })
 

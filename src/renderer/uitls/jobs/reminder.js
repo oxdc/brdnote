@@ -19,7 +19,7 @@ export default function reminder (duration, remindingTime) {
     var timer = hours + 'h ' + minutes + 'm ' + seconds + 's'
     if (distance % remindingTime === 0) {
       window.vueRoot.$Message.info({
-        content: 'You have been working for ' + timer + ', you\'d better take a break.',
+        content: '你已连续工作' + timer + '，建议休息片刻。',
         duration: 15
       })
     }

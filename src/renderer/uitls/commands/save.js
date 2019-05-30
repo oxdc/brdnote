@@ -38,8 +38,8 @@ export function save (vueRoot, callback) {
       (err) => {
         if (err) {
           vueRoot.$Notice.error({
-            title: 'Error',
-            desc: 'An error ocurred while creating the file ' + err.message
+            title: '出错啦',
+            desc: '创建文件时出错。以下内容可能有所帮助：' + err.message
           })
           return
         }
@@ -76,8 +76,8 @@ export function save (vueRoot, callback) {
         (err) => {
           if (err) {
             vueRoot.$Notice.error({
-              title: 'Error',
-              desc: 'An error ocurred while creating the file ' + err.message
+              title: '出错啦',
+              desc: '创建文件时出错。以下内容可能有所帮助：' + err.message
             })
             return
           }
