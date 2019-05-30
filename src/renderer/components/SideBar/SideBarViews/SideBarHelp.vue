@@ -1,31 +1,31 @@
 <template>
   <div>
-    <sidebar-group-header icon="md-help-buoy" title="User Guide"></sidebar-group-header>
+    <sidebar-group-header icon="md-help-buoy" title="用户指南"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       title="Getting Started"
+       title="快速开始"
        icon="md-paper">
       </sidebar-item>
       <sidebar-item
-       title="LaTeX commands"
+       title="LaTeX 命令"
        icon="md-paper">
       </sidebar-item>
     </sidebar-group>
-    <sidebar-group-header icon="md-heart-outline" title="About"></sidebar-group-header>
+    <sidebar-group-header icon="md-heart-outline" title="关于"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       title="Version"
        extra="v0.3.5"
+       title="版本"
        icon="md-pricetag">
       </sidebar-item>
       <sidebar-item
-       title="Fork me on GitHub"
+       title="访问 GitHub 项目"
        icon="logo-github"
        to="/"
        @click="onFork">
       </sidebar-item>
       <sidebar-item
-       title="Powered by Project AIAS"
+       title="项目由 AIAS 提供支持"
        icon="md-jet"></sidebar-item>
     </sidebar-group>
   </div>

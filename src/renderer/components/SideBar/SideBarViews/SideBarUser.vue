@@ -3,14 +3,14 @@
     <Alert banner show-icon type="error" v-show="error">{{ error }}</Alert>
     <sidebar-group v-show="!isLoggedIn">
       <sidebar-item
-       title="Login"
+       title="登录"
        icon="md-log-in"
        v-show="task === 'none'"
        @click="onLogin"
        to="/">
       </sidebar-item>
       <sidebar-item
-       title="Sign Up"
+       title="注册"
        icon="md-person-add"
        v-show="task === 'none'"
        @click="onSignUp"
@@ -29,7 +29,7 @@
             <Form slot="extra">
               <FormItem :error="isUsernameError ? ' ' : ''">
                 <Input
-                 placeholder="Username" v-model="username"/>
+                 placeholder="用户名" v-model="username"/>
               </FormItem>
             </Form>
           </sidebar-item>
@@ -54,7 +54,7 @@
             <Form slot="extra">
               <FormItem :error="isPasswordError ? ' ' : ''">
                 <Input
-                 type="password"
+                 type="密码"
                  placeholder="Password"
                  v-model="password"/>
               </FormItem>
@@ -64,25 +64,25 @@
            title=""
            icon="md-lock"
            class="login-form-item login-form-item-ok"
-           v-show="task === 'Sign Up'">
+           v-show="task === '注册'">
             <Form slot="extra">
               <FormItem :error="isPasswordAgainError ? ' ' : ''">
                 <Input
                  type="password"
-                 placeholder="Comfirm password"
+                 placeholder="确认密码"
                  v-model="passwordAgain"/>
               </FormItem>
             </Form>
           </sidebar-item>
           <sidebar-item
-           title="Submit"
+           title="提交"
            icon="md-checkmark"
            @click="onSubmit"
            primary
            to="/">
           </sidebar-item>
           <sidebar-item
-           title="Back"
+           title="后退"
            @click="onBack"
            to="/">
           </sidebar-item>
@@ -97,61 +97,61 @@
         </div>
       </sidebar-item>
       <sidebar-item
-       title="Logout"
+       title="注销"
        icon="md-log-out"
        to="/"
        @click="onLogout">
       </sidebar-item>
     </sidebar-group>
-    <sidebar-group-header icon="md-bookmarks" title="My Notebooks" v-show="isLoggedIn"></sidebar-group-header>
+    <sidebar-group-header icon="md-bookmarks" title="我的笔记本" v-show="isLoggedIn"></sidebar-group-header>
     <sidebar-group v-show="isLoggedIn">
       <sidebar-item
        icon="md-refresh"
-       title="Refresh List"
+       title="刷新列表"
        @click="onRefreshMyNotebookList">
       </sidebar-item>
       <sidebar-item
        icon="md-add"
-       title="New Notebook"
+       title="新建笔记本"
        @click="onNewNotebook">
         <sidebar-group v-show="isAddingNewNotebook" slot="children">
           <sidebar-item
            title="Title"
            icon="md-bookmarks"
            class="editor-item">
-            <Input slot="extra" v-model="newNotebook.title" placeholder="Untitled"/>
+            <Input slot="extra" v-model="newNotebook.title" placeholder="未命名"/>
           </sidebar-item>
           <sidebar-item
-           title="Secret"
+           title="加密"
            icon="md-key"
            class="editor-item">
             <Input
              type="password"
              slot="extra"
              v-model="newNotebook.accessKey"
-             placeholder="Access with secret."/>
+             placeholder="键入密码"/>
           </sidebar-item>
           <sidebar-item
-           title="Share This Notebook"
+           title="共享此笔记本"
            icon="md-share">
             <i-switch slot="extra" v-model="newNotebook.sharing"/>
           </sidebar-item>
           <sidebar-item
-           title="Comfirm"
+           title="确认"
            icon="md-checkmark"
            primary
            to="/"
            @click="onComfirm"
           ></sidebar-item>
           <sidebar-item
-           title="Cancel"
+           title="取消"
            icon="md-close"
            @click="onCancle"
           ></sidebar-item>
         </sidebar-group>
       </sidebar-item>
       <sidebar-item fulltitle>
-        <Input search slot="title" placeholder="type your keyword ..." v-model="searchMyNotebook"/>
+        <Input search slot="title" placeholder="键入关键词 ..." v-model="searchMyNotebook"/>
       </sidebar-item>
       <sidebar-notebook
        v-for="notebook in myNotebooksFiltered"
@@ -168,15 +168,15 @@
        @upload-to-notebook="onUpload">
       </sidebar-notebook>
     </sidebar-group>
-    <sidebar-group-header icon="md-bookmarks" title="Shared Notebooks" v-show="isLoggedIn"></sidebar-group-header>
+    <sidebar-group-header icon="md-bookmarks" title="共享笔记本" v-show="isLoggedIn"></sidebar-group-header>
     <sidebar-group v-show="isLoggedIn">
       <sidebar-item
        icon="md-refresh"
-       title="Refresh List"
+       title="刷新列表"
        @click="onRefreshSharedNotebookList">
       </sidebar-item>
       <sidebar-item fulltitle>
-        <Input search slot="title" placeholder="type your keyword ..." v-model="searchSharedNotebook"/>
+        <Input search slot="title" placeholder="输入关键字 ..." v-model="searchSharedNotebook"/>
       </sidebar-item>
       <sidebar-notebook
        v-for="notebook in sharedNotebooksFiltered"
@@ -234,7 +234,7 @@ export default {
   computed: {
     isPasswordAgainError: {
       get () {
-        return (this.task === 'Sign Up' && this.password !== this.passwordAgain) ||
+        return (this.task === '注册' && this.password !== this.passwordAgain) ||
           this.password === '' || this.passwordAgain === ''
       }
     },
@@ -272,16 +272,16 @@ export default {
   },
   methods: {
     onLogin (event) {
-      this.task = 'Login'
+      this.task = '登录'
     },
     onSignUp (event) {
-      this.task = 'Sign Up'
+      this.task = '注册'
     },
     onSubmit (event) {
       this.isPasswordError = this.password === ''
       this.isUsernameError = this.username === ''
       const hash = crypto.createHmac('sha512', this.password).update(this.password).digest('hex')
-      if (this.task === 'Login') {
+      if (this.task === '登录') {
         request.post('http://123.206.107.58:8000/users/login/' + this.username + ':' + hash, (err, res, body) => {
           if (err) {
             this.onError(err)
@@ -298,13 +298,13 @@ export default {
           } else {
             this.isPasswordError = this.isUsernameError = true
             this.$Notice.error({
-              title: 'Failed to login',
+              title: '登录失败',
               desc: r.message
             })
             this.error = r.message
           }
         })
-      } else if (this.task === 'Sign Up') {
+      } else if (this.task === '注册') {
         request.post('http://123.206.107.58:8000/users/signup/' + this.username + ':' + hash, (err, res, body) => {
           if (err) {
             this.onError(err)
@@ -314,15 +314,15 @@ export default {
           if (r.status === 'ok') {
             this.isPasswordError = this.isUsernameError = false
             this.$Notice.success({
-              title: 'Welcome! ' + this.username,
-              desc: 'You have just signed up. Please login.'
+              title: '欢迎！' + this.username,
+              desc: '注册成功！请登录'
             })
-            this.task = 'Login'
+            this.task = '登录'
             this.error = null
           } else {
             this.isPasswordError = this.isUsernameError = true
             this.$Notice.error({
-              title: 'Failed to signup',
+              title: '注册失败',
               desc: r.message
             })
             this.error = r.message
@@ -362,7 +362,7 @@ export default {
           this.error = null
         } else {
           this.$Notice.error({
-            title: 'Error happened while refreshing notebook list',
+            title: '刷新笔记本列表出错',
             desc: r.message
           })
           this.error = r.message
@@ -374,7 +374,7 @@ export default {
     },
     onComfirm (event) {
       var token = this.$store.getters.token
-      var title = this.newNotebook.title ? this.newNotebook.title : 'Untitled'
+      var title = this.newNotebook.title ? this.newNotebook.title : '未命名'
       var notebook = this.username + ':' + title
       var params = '&'
       if (this.newNotebook.sharing) {
@@ -399,7 +399,7 @@ export default {
           this.onRefreshMyNotebookList()
         } else {
           this.$Notice.error({
-            title: 'Error happened while refreshing notebook list',
+            title: '刷新笔记本列表出错',
             desc: r.message
           })
           this.error = r.message
@@ -422,7 +422,7 @@ export default {
           this.error = null
         } else {
           this.$Notice.error({
-            title: 'Error happened while refreshing shared notebook list',
+            title: '刷新笔记本列表出错',
             desc: r.message
           })
           this.error = r.message
@@ -484,13 +484,13 @@ export default {
             var r = JSON.parse(body)
             if (r.status === 'ok') {
               this.$Notice.success({
-                title: 'Uploaded!',
-                desc: 'Your note has already been uploaded.'
+                title: '上传成功',
+                desc: '笔记已上传'
               })
               this.error = null
             } else {
               this.$Notice.error({
-                title: 'Error happened while uploading',
+                title: '上传出错',
                 desc: r.message
               })
               this.error = r.message

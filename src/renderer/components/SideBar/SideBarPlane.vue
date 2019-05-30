@@ -4,7 +4,7 @@
    ref="sidebar-plane">
     <div class="sidebar-left">
       <Tooltip
-       content="Hide"
+       content="隐藏"
        placement="right">
         <Button
          type="text"
@@ -15,7 +15,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       :content="expanded ? 'Minilize' : 'Expand'"
+       :content="expanded ? '收起' : '展开'"
        placement="right">
         <Button
          type="text"
@@ -26,7 +26,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Open"
+       content="打开"
        placement="right">
         <Button
          type="primary"
@@ -38,7 +38,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Save"
+       content="保存"
        placement="right">
         <Button
          type="primary"
@@ -50,7 +50,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Upload"
+       content="上传"
        placement="right">
         <Button
          type="primary"
@@ -61,7 +61,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Print"
+       content="打印"
        placement="right">
         <Button
          type="primary"
@@ -74,7 +74,7 @@
       </Tooltip>
       <Divider />
       <Tooltip
-       content="User"
+       content="账户"
        placement="right">
         <Button
          :type="view === 0 ? 'primary' : 'default'"
@@ -85,7 +85,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Document"
+       content="文档"
        placement="right">
         <Button
          :type="view === 1 ? 'primary' : 'default'"
@@ -96,7 +96,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Explorer"
+       content="浏览"
        placement="right">
         <Button
          :type="view === 2 ? 'primary' : 'default'"
@@ -107,7 +107,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="Outline"
+       content="大纲"
        placement="right">
         <Button
          :type="view === 3 ? 'primary' : 'default'"
@@ -118,7 +118,7 @@
         </Button>
       </Tooltip>
       <Tooltip
-       content="History"
+       content="历史草稿"
        placement="right">
         <Button
          :type="view === 4 ? 'primary' : 'default'"
@@ -155,7 +155,7 @@
       </Tooltip>
       -->
       <Tooltip
-       content="Help"
+       content="帮助"
        placement="right">
         <Button
          :type="view === 7 ? 'primary' : 'default'"
@@ -267,14 +267,14 @@ export default {
     titles: {
       get () {
         return {
-          '0': 'User',
-          '1': 'Document',
-          '2': 'Explorer',
-          '3': 'Outline',
-          '4': 'History',
-          '5': 'Searching',
-          '6': 'Settings',
-          '7': 'Help'
+          '0': '账户',
+          '1': '文档',
+          '2': '浏览',
+          '3': '大纲',
+          '4': '历史草稿',
+          '5': '搜索',
+          '6': '设置',
+          '7': '帮助'
         }
       }
     }

@@ -1,16 +1,16 @@
 <template>
   <div>
-    <sidebar-group-header icon="md-brush" title="Drafts"></sidebar-group-header>
+    <sidebar-group-header icon="md-brush" title="草稿"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       title="Draft List"
+       title="草稿列表"
        to="/"
        :arrow="showDrafts ? 'ios-arrow-down' : 'ios-arrow-forward'"
        @click="onShowDrafts">
         <sidebar-group slot="children" v-show="showDrafts">
           <sidebar-docitem
            v-for="draft in drafts"
-           :title="draft.title ? draft.title : 'Untitled draft'"
+           :title="draft.title ? draft.title : '未命名草稿'"
            :date="(new Date(draft.time)).toLocaleTimeString()"
            :path="draft.path"
            :tags="draft.tags"
@@ -19,17 +19,17 @@
            :key="draft.id">
           </sidebar-docitem>
           <sidebar-item
-           title="No draft here"
+           title="暂无草稿"
            icon="md-more"
            v-if="!drafts">
           </sidebar-item>
         </sidebar-group>
       </sidebar-item>
     </sidebar-group>
-    <sidebar-group-header icon="md-time" title="Saved Versions"></sidebar-group-header>
+    <sidebar-group-header icon="md-time" title="已保存的版本"></sidebar-group-header>
     <sidebar-group>
       <sidebar-item
-       title="No saved version here"
+       title="暂无已保存的文档"
        icon="md-more"
        v-if="versions.length === 0">
       </sidebar-item>
