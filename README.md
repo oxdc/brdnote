@@ -33,10 +33,6 @@ npm run build
 npm run lint
 ```
 
-## Brdnote V1.0 Preview
+## Brdnote V1.0 
 
-![brdnote_v1_preview_1.PNG](./imgs/brdnote_v1_preview_1.PNG)
-
-![brdnote_v1_preview_2.PNG](./imgs/brdnote_v1_preview_2.PNG)
-
-![brdnote_v1_preview_3.PNG](./imgs/brdnote_v1_preview_3.PNG)
+We are working on Brdnote V1 :)
